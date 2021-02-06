@@ -17,10 +17,22 @@ namespace TaskIt.Controllers
         }
 
 
-     
 
 
-       
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+
+            var task = _taskRepo.GetById(id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
 
     }
 }

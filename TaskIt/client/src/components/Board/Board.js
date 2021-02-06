@@ -10,7 +10,7 @@ import TaskList from "../Task/TaskList";
 
 const Board = (props) => {
     const { getToken } = useContext(UserProfileContext);
-    const { id } = useParams();
+    const { boardId } = useParams();
     const history = useHistory();
     //setting the state of board and then updating the state of board
     const [board, setBoard] = useState([]);
@@ -23,7 +23,7 @@ const Board = (props) => {
         getToken()
             .then((token) =>
 
-                fetch(`/api/board/${id}`, {
+                fetch(`/api/board/${boardId}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -38,18 +38,20 @@ const Board = (props) => {
 
     //taking user to the edit form   
     const goToBoardEditForm = () => {
-        history.push(`/BoardEditForm/${id}`);
+        history.push(`/BoardEditForm/${boardId}`);
     }
 
 
     //getting the all the tasks for the board the user is on 
+    //1. get the list of tasks
     useEffect(() => {
         getToken()
             .then((token) =>
-                fetch(`/api/board/${board.id}/task`, {
+                fetch(`/api/board/${boardId}/task`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
                     },
                 })
             )
@@ -59,9 +61,12 @@ const Board = (props) => {
                 setTasks(tasks));
 
     }, []);
+    if (!tasks) {
+        return null;
+    }
 
 
-
+    //2. mounting the taskList component then passing task into that component next  go to taskList 
     return (
         <div>
             <h3 className="BoardName">{board.name} Board</h3>

@@ -15,7 +15,7 @@ import {
 
 const BoardEditForm = () => {
     const { getToken } = useContext(UserProfileContext)
-    const { id } = useParams();
+    const { boardId } = useParams();
     const history = useHistory();
     //this is a empty string but when the page initially gets loaded then the string will be updated with the current name of the board
     const [boardToEdit, setBoardToEdit] = useState("")
@@ -26,7 +26,7 @@ const BoardEditForm = () => {
     useEffect(() => {
         getToken()
             .then((token) =>
-                fetch(`/api/board/${id}`, {
+                fetch(`/api/board/${boardId}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ const BoardEditForm = () => {
     const updateBoard = (board) => {
         getToken()
             .then((token) =>
-                fetch(`/api/board/${id}`, {
+                fetch(`/api/board/${boardId}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",

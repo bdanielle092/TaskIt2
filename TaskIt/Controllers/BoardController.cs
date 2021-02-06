@@ -13,7 +13,7 @@ namespace TaskIt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class BoardController : ControllerBase
     {
         private readonly IBoardRepository _boardRepo;
