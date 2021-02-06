@@ -3,6 +3,7 @@ import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col } from 'reactstrap';
 import "./Board.css";
+import TaskList from "../Task/TaskList";
 
 
 
@@ -13,6 +14,7 @@ const Board = (props) => {
     const history = useHistory();
     //setting the state of board and then updating the state of board
     const [board, setBoard] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
 
 
@@ -21,15 +23,15 @@ const Board = (props) => {
         getToken()
             .then((token) =>
 
-                (fetch(`/api/board/${id}`, {
+                fetch(`/api/board/${id}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 })
-                )
-                    .then((res) => res.json())
-                    .then((board) => { setBoard(board) }));
+            )
+            .then((res) => res.json())
+            .then((board) => { setBoard(board) });
 
     });
 
@@ -38,6 +40,25 @@ const Board = (props) => {
     const goToBoardEditForm = () => {
         history.push(`/BoardEditForm/${id}`);
     }
+
+
+    //getting the all the tasks for the board the user is on 
+    useEffect(() => {
+        getToken()
+            .then((token) =>
+                fetch(`/api/board/${board.id}/task`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            )
+            .then((res) => res.json())
+            .then((tasks) =>
+
+                setTasks(tasks));
+
+    }, []);
 
 
 
@@ -56,6 +77,9 @@ const Board = (props) => {
                 </DropdownMenu>
             </UncontrolledDropdown>
 
+            <Col className="listOfTasks">
+                <TaskList tasks={tasks} />
+            </Col>
 
 
         </div>
