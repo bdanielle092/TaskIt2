@@ -43,7 +43,7 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <TaskForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/Board/:boardId/Task/:taskId/subTask" exact>
+            <Route path="/subTask/:subTaskId" exact>
                 {isLoggedIn ? <SubTask /> : <Redirect to="/login" />}
             </Route>
 

@@ -6,8 +6,8 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, 
 
 const SubTaskList = ({ subTasks }) => {
     const history = useHistory();
-    const [task, setTask] = useState();
-    const [subTask, setSubTask] = useState();
+
+
 
 
 
@@ -19,7 +19,7 @@ const SubTaskList = ({ subTasks }) => {
                 <div key={subTask.id} >
                     <Row>
                         <Col>
-                            <Link to={`/board/${task.boardId}/task/${subtask.taskId}/subtask`}>
+                            <Link to={`/subTask/${subTask.id}`}>
                                 <strong>{subTask.name}</strong>
                             </Link>
                         </Col>

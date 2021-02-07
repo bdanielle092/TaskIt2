@@ -21,8 +21,8 @@ namespace TaskIt.Controllers
 
 
         //https:localhost:5001/api/subTask/taskId = api/subTask/1
-        [HttpGet("{taskId}")]
-        public IActionResult GetByTaskId(int taskId)
+        [HttpGet("task/{taskId}")]
+        public IActionResult GetSubTaskForTask(int taskId)
         {
             var subTasks = _subTaskRepo.GetByTaskId(taskId);
             if (subTasks == null)

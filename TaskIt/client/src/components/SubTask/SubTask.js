@@ -8,7 +8,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, 
 const SubTask = (props) => {
     const { getToken } = useContext(UserProfileContext);
     const { subTaskId } = useParams();
-    const [subTasks, setSubTasks] = useState([]);
+    const [subTask, setSubTask] = useState("")
 
     //5.getting the subTask by id and returning the info in the return section 
     useEffect(() => {
@@ -31,37 +31,13 @@ const SubTask = (props) => {
     }, []);
 
 
-    //1. get the list of subTasks
-    useEffect(() => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/subTask/${subTask}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                })
-            )
-            .then((res) => res.json())
-            .then((subTasks) =>
 
-                setSubTasks(subTasks));
-
-    }, []);
-    if (!subTasks) {
-        return null;
-    }
 
     //2. mounting the subTaskList component then passing subTask into that component next go to subTaskList 
     return (
         <div>
             <h3>{subTask.name}</h3>
 
-
-            <Col className="listOfSubTasks">
-                <SubTaskList subTasks={subTasks} />
-            </Col>
         </div>
     )
 

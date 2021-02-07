@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { useParams, useHistory } from "react-router-dom";
 import { Button, Col, ButtonGroup, Form, Input } from 'reactstrap';
+import SubTask from "../SubTask/SubTask";
+import SubTaskList from "../SubTask/SubTaskList";
 
 const Task = (props) => {
     const { getToken } = useContext(UserProfileContext)
@@ -15,7 +17,10 @@ const Task = (props) => {
     const [showInputBox, setShowInputBox] = useState(false);
     //this is setting the notes to an empty string which will be changed in useEffected 
     const [notes, setNotes] = useState("");
+    const [name, setName] = useState("");
     const history = useHistory();
+    const [subTasks, setSubTasks] = useState();
+    const { subTask, setSubTask } = useState();
 
     //Priority
     const onCheckboxBtnClick = (selected) => {
@@ -44,6 +49,7 @@ const Task = (props) => {
             .then((task) => {
                 setTask(task)
                 setNotes(task.notes)
+                setName(task.name)
                 setRSelected(task.priorityId)
             });
 
@@ -58,8 +64,13 @@ const Task = (props) => {
 
     //updating notes value. Updates the notes value on every key stroke for the input field
     const handleSubmit = (evt) => {
-        const newNotes = evt.target.value;
-        setNotes(newNotes);
+        if (evt.target.name === "notes") {
+            const newNotes = evt.target.value;
+            setNotes(newNotes);
+        } else if (evt.target.name === "name") {
+            const newName = evt.target.value;
+            setName(newName)
+        }
     };
 
     //updating task with the changes for notes 
@@ -67,6 +78,8 @@ const Task = (props) => {
         const newTask = task
         newTask["boardId"] = boardId
         newTask["notes"] = notes
+        //  I want you to update the name to the new name I just changed it too.
+        newTask["name"] = name
         console.log(newTask)
         getToken()
             .then((token) =>
@@ -84,14 +97,54 @@ const Task = (props) => {
             .then((evt) => handelInputDisplay());
     };
 
-    //taking the user to the board the board they are on 
+    //taking the user back to the board they are on 
     const goBackToBoard = () => {
         history.push(`/board/${boardId}`);
     }
 
+
+    //1. get the list of subTasks
+    useEffect(() => {
+        getToken()
+            .then((token) =>
+                fetch(`/api/subTask/task/${taskId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                })
+            )
+            .then((res) => res.json())
+            .then((subTasks) =>
+
+                setSubTasks(subTasks));
+
+    }, []);
+    if (!subTasks) {
+        return null;
+    }
+
+
     return (
         <div>
-            <h3>{task.name}</h3>
+
+            {
+                showInputBox ?
+
+                    <Input
+                        id="name"
+                        type="text"
+                        name="name"
+                        value={name}
+                        onChange={(evt) => {
+                            evt.preventDefault()
+                            handleSubmit(evt)
+                        }} />
+                    : <h3>{task.name}</h3>
+
+
+            }
 
             <Button outline color="info" onClick={goBackToBoard}>
                 Go Back
@@ -100,9 +153,9 @@ const Task = (props) => {
             { showInputBox ?
                 <>
                     <Input
-                        id="name"
+                        id="notes"
                         type="text"
-                        name="name"
+                        name="notes"
                         value={notes}
                         onChange={(evt) => {
                             evt.preventDefault()
@@ -111,11 +164,14 @@ const Task = (props) => {
 
                     <Button color="warning" size="sm" onClick={(evt) => { evt.preventDefault(); updateTask() }}> save </Button>
                 </>
-                : <div> <p>{task.notes}</p>  <Button color="warning" size="sm" onClick={handelInputDisplay}>Change notes</Button></div>}
+                : <div> <p>{task.notes}</p>  <Button color="warning" size="sm" onClick={handelInputDisplay}>Edit</Button></div>}
 
 
 
             <h4>Subtask</h4>
+            <Col className="listOfSubTasks">
+                <SubTaskList subTasks={subTasks} boardId={task.boardId} />
+            </Col>
 
             <h5>Priority</h5>
 
