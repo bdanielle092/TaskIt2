@@ -27,6 +27,7 @@ export function UserProfileProvider(props) {
                 localStorage.setItem("userProfile", JSON.stringify(userProfile));
                 setIsLoggedIn(true);
                 return userProfile;
+
             });
     };
 

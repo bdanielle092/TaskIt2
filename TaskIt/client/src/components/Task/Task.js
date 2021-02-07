@@ -44,18 +44,16 @@ const Task = (props) => {
             .then((task) => {
                 setTask(task)
                 setNotes(task.notes)
+                setRSelected(task.priorityId)
             });
 
     }, []);
 
 
-    //is toggling between showing the input box and not showing it when you change the notes
+    //is toggling between showing the input box and not showing it when you change the notes, the !showInputBox does the opposite of the setShowInputBox
     const handelInputDisplay = () => {
-        if (showInputBox === true) {
-            setShowInputBox(false);
-        } else {
-            setShowInputBox(true);
-        }
+        setShowInputBox(!showInputBox);
+
     }
 
     //updating notes value. Updates the notes value on every key stroke for the input field

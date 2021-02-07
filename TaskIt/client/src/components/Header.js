@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
@@ -17,6 +17,7 @@ const Header = () => {
     const { logout } = useContext(UserProfileContext);
     const user = JSON.parse(localStorage.getItem("userProfile"));
     const history = useHistory();
+    const [newButton, setNewButton] = useState("")
 
 
 
@@ -33,6 +34,22 @@ const Header = () => {
     const goToBoardForm = () => {
         history.push("/BoardForm");
     }
+
+    const showNewButton = () => {
+        const pathName = window.location.pathname
+        const taskPage = pathName.includes("board/")
+
+        if (taskPage) {
+            setNewButton("task")
+        } else {
+            setNewButton("board")
+        }
+
+    }
+
+    useEffect(() => {
+        showNewButton()
+    }, [])
 
 
 
@@ -57,7 +74,7 @@ const Header = () => {
 
 
                             <NavItem >
-                                <Button color="warning" onClick={goToBoardForm} >New Board</Button>{' '}
+                                <Button color="warning" onClick={goToBoardForm} >New {newButton == "task" ? "Task" : "Board"}</Button>{' '}
                             </NavItem>
 
                             <NavItem className="logoutButton">

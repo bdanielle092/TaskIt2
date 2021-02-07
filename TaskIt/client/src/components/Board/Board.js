@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { useParams, useHistory } from "react-router-dom";
-import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, Button } from 'reactstrap';
 import "./Board.css";
 import TaskList from "../Task/TaskList";
+
 
 
 
@@ -36,10 +37,7 @@ const Board = (props) => {
     });
 
 
-    //taking user to the edit form   
-    const goToBoardEditForm = () => {
-        history.push(`/BoardEditForm/${boardId}`);
-    }
+
 
 
     //getting the all the tasks for the board the user is on 
@@ -65,22 +63,18 @@ const Board = (props) => {
         return null;
     }
 
+    //taking the user to the board form 
+    const goToTaskForm = () => {
+        history.push(`/board/${boardId}/TaskForm`);
+    }
+
 
     //2. mounting the taskList component then passing task into that component next  go to taskList 
     return (
         <div>
             <h3 className="BoardName">{board.name} Board</h3>
 
-            <UncontrolledDropdown>
-                <DropdownToggle caret>
-                    Actions
-                </DropdownToggle>
-                <DropdownMenu>
-                    <DropdownItem onClick={goToBoardEditForm}>Edit {board.name} Board</DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>Delete {board.name} Board</DropdownItem>
-                </DropdownMenu>
-            </UncontrolledDropdown>
+            <Button onClick={goToTaskForm}>New Task</Button>
 
             <Col className="listOfTasks">
                 <TaskList tasks={tasks} />

@@ -72,4 +72,4 @@ const BoardForm = () => {
         </div>
     );
 };
-export default BoardForm 
+export default BoardForm; 

@@ -8,6 +8,7 @@ import BoardForm from "./Board/BoardForm";
 import Board from "./Board/Board";
 import BoardEditForm from "./Board/BoardEditForm";
 import Task from "./Task/Task";
+import TaskForm from "./Task/TaskForm";
 
 
 
@@ -29,13 +30,19 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <BoardForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/BoardEditForm/:id" exact>
+            <Route path="/BoardEditForm/:boardId" exact>
                 {isLoggedIn ? <BoardEditForm /> : <Redirect to="/login" />}
             </Route>
 
             <Route path="/Board/:boardId/Task/:taskId" exact>
                 {isLoggedIn ? <Task /> : <Redirect to="/login" />}
             </Route>
+
+            <Route path="/board/:boardId/TaskForm" exact>
+                {isLoggedIn ? <TaskForm /> : <Redirect to="/login" />}
+            </Route>
+
+
 
 
 

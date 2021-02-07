@@ -33,16 +33,21 @@ const Home = () => {
 
     return (
 
-        <div>
-            <div>
 
-                <h1 className="home">Welcome {user.name.split(" ")[0]}!</h1>
-                <p className="home2">Click on a  <strong className="tag">Board</strong> to view tasks</p>
-                <Col className="listOfBoards">
-                    <BoardList boards={boards} />
-                </Col>
-            </div>
-        </div>
+
+
+        <div>
+
+            < h1 className="home" > Welcome {user.name.split(" ")[0]} !</h1 >
+            <p className="home2">Click on a {" "}<strong className="tag">Board</strong>{" "}to view tasks</p>
+            <Col className="listOfBoards">
+                <BoardList boards={boards} />
+            </Col>
+        </div >
+
+
+
+
 
     );
 }
