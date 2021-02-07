@@ -97,6 +97,20 @@ const Task = (props) => {
             .then((evt) => handelInputDisplay());
     };
 
+    //Delete a Task
+    // const deleteTask = () => {
+    //     getToken()
+    //     .then((token) =>
+    //     fetch(`api/board/${task.boardId}/task/${taskId}`, {
+    //       method: "DELETE",
+    //       headers: {
+    //               Authorization: `Bearer ${token}`
+    //       }
+    //     }))
+    //     //get all the task or go back to the board they were on 
+    //     .then();
+    // }
+
     //taking the user back to the board they are on 
     const goBackToBoard = () => {
         history.push(`/board/${boardId}`);
