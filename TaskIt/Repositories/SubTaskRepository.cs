@@ -19,18 +19,18 @@ namespace TaskIt.Repositories
         }
 
 
-        public List<SubTask> GetByTaskId(int taskId)
+        public List<SubTask> GetByTaskId(int id)
         {
-            return _context.SubTask
-                      
-                .Where(st => st.TaskId == taskId)
-                .Where(st => st.Active == true)
+            return _context.SubTask    
+                .Where(st => st.TaskId == id)
+                .Where(st => st.Active)
                 .ToList();
         }
 
         public SubTask GetById(int id)
         {
             return _context.SubTask
+                .Where(st => st.Active)
                 .FirstOrDefault(st => st.Id == id);
         }
 

@@ -11,9 +11,11 @@ namespace TaskIt.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskRepository _taskRepo;
-        public TaskController(ITaskRepository taskRepo)
+    
+        public TaskController(ITaskRepository taskRepo )
         {
             _taskRepo = taskRepo;
+          
         }
 
 
@@ -32,6 +34,9 @@ namespace TaskIt.Controllers
 
             return Ok(task);
         }
+
+
+       
 
 
     }

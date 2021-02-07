@@ -13,7 +13,7 @@ namespace TaskIt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class BoardController : ControllerBase
     {
         private readonly IBoardRepository _boardRepo;
@@ -37,9 +37,11 @@ namespace TaskIt.Controllers
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
-        { 
-           
-            //if ()
+        {
+            //var currentUser = GetCurrentUserProfile();
+            
+
+            //if (currentUser !=  )
             //{
             //    return Unauthorized();
             //}

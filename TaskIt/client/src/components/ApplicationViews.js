@@ -9,6 +9,7 @@ import Board from "./Board/Board";
 import BoardEditForm from "./Board/BoardEditForm";
 import Task from "./Task/Task";
 import TaskForm from "./Task/TaskForm";
+import SubTask from "./SubTask/SubTaskList";
 
 
 
@@ -40,6 +41,10 @@ const ApplicationViews = () => {
 
             <Route path="/board/:boardId/TaskForm" exact>
                 {isLoggedIn ? <TaskForm /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/Board/:boardId/Task/:taskId/subTask" exact>
+                {isLoggedIn ? <SubTask /> : <Redirect to="/login" />}
             </Route>
 
 
