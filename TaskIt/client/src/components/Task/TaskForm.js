@@ -66,6 +66,11 @@ const TaskForm = () => {
         setTask(updateTask)
     }
 
+    //taking the user back to the board they are on 
+    const goBackToBoard = () => {
+        history.push(`/board/${boardId}`);
+    }
+
     return (
         <div>
             <Card>
@@ -109,6 +114,9 @@ const TaskForm = () => {
                     >
                         SUBMIT
                     </Button>
+                    <Button outline color="info" onClick={goBackToBoard}>
+                        Cancel
+              </Button>
                 </CardBody>
             </Card>
         </div>

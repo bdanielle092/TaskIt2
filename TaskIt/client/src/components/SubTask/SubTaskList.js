@@ -19,7 +19,7 @@ const SubTaskList = ({ subTasks }) => {
                 <div key={subTask.id} >
                     <Row>
                         <Col>
-                            <Link to={`/subTask/${subTask.id}`}>
+                            <Link to={`/board/:boardId/task/:taskId /SubTask/:subTaskId`}>
                                 <strong>{subTask.name}</strong>
                             </Link>
                         </Col>

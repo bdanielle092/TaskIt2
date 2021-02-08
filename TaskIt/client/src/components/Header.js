@@ -35,23 +35,6 @@ const Header = () => {
         history.push("/BoardForm");
     }
 
-    const showNewButton = () => {
-        const pathName = window.location.pathname
-        const taskPage = pathName.includes("board/")
-
-        if (taskPage) {
-            setNewButton("task")
-        } else {
-            setNewButton("board")
-        }
-
-    }
-
-    useEffect(() => {
-        showNewButton()
-    }, [])
-
-
 
 
     return (
@@ -69,19 +52,19 @@ const Header = () => {
 
 
                 <Nav className="mr-auto logout" navbar>
-                    {user ? (
-                        <>
+
+                    <>
 
 
-                            <NavItem >
-                                <Button color="warning" onClick={goToBoardForm} >New {newButton == "task" ? "Task" : "Board"}</Button>{' '}
-                            </NavItem>
+                        <NavItem >
+                            <Button color="warning" onClick={goToBoardForm} >New Board</Button>{' '}
+                        </NavItem>
 
-                            <NavItem className="logoutButton">
-                                <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
-                            </NavItem>
-                        </>
-                    ) : null}
+                        <NavItem className="logoutButton">
+                            <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}
+                        </NavItem>
+                    </>
+
                 </Nav>
 
             </Navbar>

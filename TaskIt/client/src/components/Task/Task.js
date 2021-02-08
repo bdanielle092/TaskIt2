@@ -144,7 +144,7 @@ const Task = (props) => {
 
     //taking the user to the subTask form 
     const goToSubTaskForm = () => {
-        history.push(`board/boardId/task/:taskId /SubTaskForm`);
+        history.push(`/board/${boardId}/task/${taskId}/SubTaskForm`);
     }
     return (
         <div>

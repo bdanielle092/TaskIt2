@@ -70,6 +70,12 @@ const BoardEditForm = () => {
             .then((evt) => history.push("/"));
     };
 
+
+    //taking the user back to the home page
+    const goBackHome = () => {
+        history.push(`/`);
+    }
+
     return (
         <div>
             <Card>
@@ -99,6 +105,9 @@ const BoardEditForm = () => {
                     >
                         SUBMIT
                     </Button>
+                    <Button outline color="info" onClick={goBackHome}>
+                        Cancel
+              </Button>
                 </CardBody>
             </Card>
         </div>

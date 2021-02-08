@@ -62,8 +62,11 @@ const Board = (props) => {
     if (!tasks) {
         return null;
     }
-
-    //taking the user to the board form 
+    //taking the user back to the home page
+    const goBackHome = () => {
+        history.push(`/`);
+    }
+    //taking the user to the task form 
     const goToTaskForm = () => {
         history.push(`/board/${boardId}/TaskForm`);
     }
@@ -73,6 +76,9 @@ const Board = (props) => {
     return (
         <div>
             <h3 className="BoardName">{board.name} Board</h3>
+            <Button outline color="info" onClick={goBackHome}>
+                Go Back
+              </Button>
 
             <Button onClick={goToTaskForm}>New Task</Button>
 

@@ -7,8 +7,9 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, 
 
 const SubTask = (props) => {
     const { getToken } = useContext(UserProfileContext);
-    const { subTaskId } = useParams();
+    const { subTaskId, taskId, boardId } = useParams();
     const [subTask, setSubTask] = useState("")
+    const history = useHistory();
 
     //5.getting the subTask by id and returning the info in the return section 
     useEffect(() => {
@@ -30,15 +31,21 @@ const SubTask = (props) => {
 
     }, []);
 
-
+    //taking the user back to the task they are on 
+    const goBackToTask = () => {
+        history.push(`/board/${boardId}/task/${taskId}`);
+    }
 
 
     //2. mounting the subTaskList component then passing subTask into that component next go to subTaskList 
     return (
         <div>
             <h3>{subTask.name}</h3>
-
+            <Button outline color="info" onClick={goBackToTask}>
+                Cancel
+              </Button>
         </div>
+
     )
 
 }

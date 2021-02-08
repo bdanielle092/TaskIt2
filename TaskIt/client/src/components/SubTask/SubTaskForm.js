@@ -23,6 +23,7 @@ const SubTaskForm = () => {
     const createTaskId = () => {
         const newSubTask = subTask
         newSubTask["taskId"] = taskId
+        newSubTask["boardId"] = boardId
         setSubTask(newSubTask);
 
     }
@@ -56,6 +57,13 @@ const SubTaskForm = () => {
 
     };
 
+
+    //taking the user back to the task they are on 
+    const goBackToTask = () => {
+        history.push(`/board/${boardId}/task/${taskId}`);
+    }
+
+
     return (
         <div>
             <Card>
@@ -82,6 +90,9 @@ const SubTaskForm = () => {
                     >
                         SUBMIT
                 </Button>
+                    <Button outline color="info" onClick={goBackToTask}>
+                        Cancel
+              </Button>
                 </CardBody>
             </Card>
         </div>
