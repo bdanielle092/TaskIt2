@@ -20,7 +20,7 @@ namespace TaskIt.Controllers
         }
 
 
-        //https:localhost:5001/api/subTask/taskId = api/subTask/1
+        //https:localhost:5001/api/subTask/task/24 = taskId
         [HttpGet("task/{taskId}")]
         public IActionResult GetSubTaskForTask(int taskId)
         {
@@ -45,14 +45,14 @@ namespace TaskIt.Controllers
             return Ok(subTask);
         }
 
-        //https:localhost:5001/api/subTask (make sure to add the // after https://)
+        //https:localhost:5001/api/subTask/task/24 = taskId (make sure to add the // after https://)
         [HttpPost("task/{taskId}")]
         public IActionResult Post(SubTask subTask)
         {
             _subTaskRepo.Add(subTask);
             return CreatedAtAction("Get", new { id = subTask.Id }, subTask);
         }
-
+       
         // https:localhost:5001/api/subTask/id  = api/subTask/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, SubTask subTask)
