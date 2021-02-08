@@ -99,16 +99,19 @@ const Task = (props) => {
 
     //Delete a Task
     // const deleteTask = () => {
+    //     const deletingTask = {id: task.id}
     //     getToken()
     //     .then((token) =>
     //     fetch(`api/board/${task.boardId}/task/${taskId}`, {
     //       method: "DELETE",
     //       headers: {
-    //               Authorization: `Bearer ${token}`
-    //       }
+    //               "Context-Type": "application/json",
+    //               Authorization: `Bearer ${token}`,
+    //       },
+    //       body: JSON.stringify(deletingTask)
     //     }))
     //     //get all the task or go back to the board they were on 
-    //     .then();
+
     // }
 
     //taking the user back to the board they are on 
@@ -139,7 +142,10 @@ const Task = (props) => {
         return null;
     }
 
-
+    //taking the user to the subTask form 
+    const goToSubTaskForm = () => {
+        history.push(`/task/:taskId /SubTaskForm`);
+    }
     return (
         <div>
 
@@ -183,6 +189,7 @@ const Task = (props) => {
 
 
             <h4>Subtask</h4>
+            <Button onClick={goToSubTaskForm}>New SubTask</Button>
             <Col className="listOfSubTasks">
                 <SubTaskList subTasks={subTasks} boardId={task.boardId} />
             </Col>

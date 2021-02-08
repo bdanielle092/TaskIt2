@@ -9,7 +9,8 @@ import Board from "./Board/Board";
 import BoardEditForm from "./Board/BoardEditForm";
 import Task from "./Task/Task";
 import TaskForm from "./Task/TaskForm";
-import SubTask from "./SubTask/SubTaskList";
+import SubTask from "./SubTask/SubTask";
+import SubTaskForm from "./SubTask/SubTaskForm";
 
 
 
@@ -46,6 +47,14 @@ const ApplicationViews = () => {
             <Route path="/subTask/:subTaskId" exact>
                 {isLoggedIn ? <SubTask /> : <Redirect to="/login" />}
             </Route>
+
+
+            <Route path="task/:taskId /SubTaskForm" exact>
+                {isLoggedIn ? <SubTaskForm /> : <Redirect to="/login" />}
+            </Route>
+
+
+
 
 
 
