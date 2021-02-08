@@ -4,6 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, Button } from 'reactstrap';
 import "./Board.css";
 import TaskList from "../Task/TaskList";
+import { TaskContext, TaskProvider } from "../../providers/TaskProvider";
 
 
 
@@ -11,11 +12,12 @@ import TaskList from "../Task/TaskList";
 
 const Board = (props) => {
     const { getToken } = useContext(UserProfileContext);
+    const { getTasks, tasks } = useContext(TaskContext)
     const { boardId } = useParams();
     const history = useHistory();
     //setting the state of board and then updating the state of board
     const [board, setBoard] = useState([]);
-    const [tasks, setTasks] = useState([]);
+
 
 
 
@@ -37,31 +39,14 @@ const Board = (props) => {
     }, []);
 
 
-
-
-
     //getting the all the tasks for the board the user is on 
     //1. get the list of tasks
     useEffect(() => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/board/${boardId}/task`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    },
-                })
-            )
-            .then((res) => res.json())
-            .then((tasks) =>
-
-                setTasks(tasks));
-
+        getTasks(boardId);
     }, []);
-    if (!tasks) {
-        return null;
-    }
+
+
+
     //taking the user back to the home page
     const goBackHome = () => {
         history.push(`/`);
