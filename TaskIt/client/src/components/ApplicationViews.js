@@ -44,14 +44,16 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <TaskForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/subTask/:subTaskId" exact>
+            <Route path="/board/:boardId/task/:taskId /SubTask/:subTaskId" exact>
                 {isLoggedIn ? <SubTask /> : <Redirect to="/login" />}
             </Route>
 
-
-            <Route path="task/:taskId /SubTaskForm" exact>
+            <Route path="/board/:boardId/task/:taskId/SubTaskForm" exact>
                 {isLoggedIn ? <SubTaskForm /> : <Redirect to="/login" />}
             </Route>
+
+
+
 
 
 

@@ -46,7 +46,7 @@ namespace TaskIt.Controllers
         }
 
         //https:localhost:5001/api/subTask (make sure to add the // after https://)
-        [HttpPost]
+        [HttpPost("task/{taskId}")]
         public IActionResult Post(SubTask subTask)
         {
             _subTaskRepo.Add(subTask);

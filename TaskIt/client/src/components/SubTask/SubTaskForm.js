@@ -43,7 +43,7 @@ const SubTaskForm = () => {
     const createNewSubTask = () => {
         getToken()
             .then((token) =>
-                fetch(`/api/subTask`, {
+                fetch(`/api/subTask/task/${taskId}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/JSON",
@@ -52,7 +52,7 @@ const SubTaskForm = () => {
                     body: JSON.stringify(subTask),
                 })
             )
-            .then(() => history.push(`/board/${boardId}/task`));
+            .then(() => history.push(`/board/${boardId}/task/${taskId}`));
 
     };
 

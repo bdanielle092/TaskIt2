@@ -98,21 +98,21 @@ const Task = (props) => {
     };
 
     //Delete a Task
-    // const deleteTask = () => {
-    //     const deletingTask = {id: task.id}
-    //     getToken()
-    //     .then((token) =>
-    //     fetch(`api/board/${task.boardId}/task/${taskId}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //               "Context-Type": "application/json",
-    //               Authorization: `Bearer ${token}`,
-    //       },
-    //       body: JSON.stringify(deletingTask)
-    //     }))
-    //     //get all the task or go back to the board they were on 
+    const deleteTask = () => {
+        const deletingTask = { id: task.id }
+        getToken()
+            .then((token) =>
+                fetch(`api/board/${task.boardId}/task/${taskId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Context-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(deletingTask)
+                }))
+            .then(() => history.push(`/board/${boardId}`));
 
-    // }
+    };
 
     //taking the user back to the board they are on 
     const goBackToBoard = () => {
@@ -144,7 +144,7 @@ const Task = (props) => {
 
     //taking the user to the subTask form 
     const goToSubTaskForm = () => {
-        history.push(`/task/:taskId /SubTaskForm`);
+        history.push(`board/boardId/task/:taskId /SubTaskForm`);
     }
     return (
         <div>
