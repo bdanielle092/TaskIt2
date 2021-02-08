@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, Row } from 'reactstrap';
 
 const BoardList = ({ boards }) => {
+
     const history = useHistory();
 
     //taking user to the edit form   

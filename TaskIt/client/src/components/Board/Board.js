@@ -34,7 +34,7 @@ const Board = (props) => {
             .then((res) => res.json())
             .then((board) => { setBoard(board) });
 
-    });
+    }, []);
 
 
 
