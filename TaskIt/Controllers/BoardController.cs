@@ -138,22 +138,24 @@ namespace TaskIt.Controllers
 
 
 
-        //[HttpDelete("{boardId}/task/{id}")]
-        //public IActionResult Delete(int boardId, Task task, int id)
-        //{
 
-        //    if (task.BoardId != boardId)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    if (id != task.Id)
-        //    {
-        //        return BadRequest();
-        //    }
 
-        //    _taskRepo.Delete(id);
-        //    return NoContent();
-        //}
+        [HttpDelete("{boardId}/task/{id}")]
+        public IActionResult Delete(int boardId, Task task, int id)
+        {
+
+            if (task.BoardId != boardId)
+            {
+                return BadRequest();
+            }
+            if (id != task.Id)
+            {
+                return BadRequest();
+            }
+
+            _taskRepo.Delete(id);
+            return NoContent();
+        }
 
     }
 }

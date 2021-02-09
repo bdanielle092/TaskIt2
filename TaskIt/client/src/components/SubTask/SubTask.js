@@ -10,7 +10,7 @@ const SubTask = (props) => {
     const { getToken } = useContext(UserProfileContext);
     const { getSubTasks } = useContext(SubTaskContext)
     const { subTaskId, taskId, boardId } = useParams();
-    const [subTask, setSubTask] = useState({})
+    const [subTask, setSubTask] = useState([])
     const history = useHistory();
     const [pendingDelete, setPendingDelete] = useState(false);
 
@@ -46,21 +46,21 @@ const SubTask = (props) => {
         getSubTasks(taskId);
     }, []);
 
-    const savePendingDelete = (subTaskId) => {
+    const savePendingDelete = () => {
 
         getToken().then((token) =>
             fetch(`/api/subTask/${subTaskId}`, {
                 method: "Delete",
                 headers: {
-                    "Content-Type": "application/json",
+
                     Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(),
+                }
+
             }).then(() => {
                 setPendingDelete(false);
 
             }).then(() => {
-                getSubTasks(taskId);
+                goBackToTask();
 
             })
         );

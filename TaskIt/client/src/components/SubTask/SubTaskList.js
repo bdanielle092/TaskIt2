@@ -5,7 +5,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, 
 
 
 const SubTaskList = ({ subTasks }) => {
-    const { boardId, taskId, subTaskId } = useParams();
+    const { boardId, taskId } = useParams();
 
 
 
@@ -20,7 +20,7 @@ const SubTaskList = ({ subTasks }) => {
                 <div key={subTask.id} >
                     {/* <Row> */}
                     <Col>
-                        <Link to={`/board/${boardId}/task/${taskId}/SubTask/${subTaskId}`}>
+                        <Link to={`/board/${boardId}/task/${taskId}/SubTask/${subTask.id}`}>
                             <strong>{subTask.name}</strong>
                         </Link>
                     </Col>

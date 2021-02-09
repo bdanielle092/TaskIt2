@@ -1,10 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Redirect } from "react-router-dom";
 import { Button, Col, ButtonGroup, Form, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import SubTask from "../SubTask/SubTask";
 import SubTaskList from "../SubTask/SubTaskList";
 import { TaskContext } from "../../providers/TaskProvider";
+import BoardForm from "../Board/BoardForm";
 
 const Task = (props) => {
     const { getToken } = useContext(UserProfileContext);
@@ -127,7 +128,7 @@ const Task = (props) => {
 
 
     //delete a task
-    const savePendingDelete = (taskId) => {
+    const savePendingDelete = () => {
         getToken().then((token) =>
             fetch(`/api/task/${taskId}`, {
                 method: "Delete",
@@ -140,7 +141,7 @@ const Task = (props) => {
                 setPendingDelete(false);
 
             }).then(() => {
-                getTasks(boardId);
+                goBackToBoard();
 
             })
         );
