@@ -4,6 +4,7 @@ import ApplicationViews from "./components/ApplicationViews";
 import { UserProfileProvider } from "./providers/UserProfileProvider";
 import Header from "./components/Header";
 import { TaskProvider } from './providers/TaskProvider';
+import { SubTaskProvider } from './providers/SubTaskProvider';
 
 
 function App() {
@@ -11,11 +12,13 @@ function App() {
     <div className="App">
       <UserProfileProvider>
         <TaskProvider>
-          <Router>
-            <Header />
-            <ApplicationViews />
+          <SubTaskProvider>
+            <Router>
+              <Header />
+              <ApplicationViews />
 
-          </Router>
+            </Router>
+          </SubTaskProvider>
         </TaskProvider>
       </UserProfileProvider>
     </div>

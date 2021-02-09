@@ -1,6 +1,6 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
-import { useParams } from "react-router-dom";
+
 
 //context stores data to use in the application therefore you need to create a context
 export const TaskContext = createContext();

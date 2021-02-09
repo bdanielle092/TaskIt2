@@ -182,7 +182,7 @@ const Task = (props) => {
             }
 
             <Button outline color="info" onClick={goBackToBoard}>
-                Go Back
+                Go Back To Boards
               </Button>
             <h4>Notes</h4>
             { showInputBox ?

@@ -62,7 +62,7 @@ const Board = (props) => {
         <div>
             <h3 className="BoardName">{board.name} Board</h3>
             <Button outline color="info" onClick={goBackHome}>
-                Go Back
+                Go Home
               </Button>
 
             <Button onClick={goToTaskForm}>New Task</Button>
