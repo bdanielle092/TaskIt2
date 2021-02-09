@@ -27,6 +27,7 @@ const Task = (props) => {
     const { subTask, setSubTask } = useState();
     const [pendingDelete, setPendingDelete] = useState(false);
     const [isComplete, setIsComplete] = useState();
+    const [taskItem, setTaskItem] = useState({})
 
 
 
@@ -107,12 +108,34 @@ const Task = (props) => {
 
 
     //checkBox
-    const setTaskAsComplete = (evt) => {
-        const newTask = task
-        newTask["isComplete"] = isComplete
-        newTask[evt.target.name] = task.IsComplete ? false : true;
-        setTask(newTask)
+    const SetTaskAsComplete = (evt) => {
+        const newTask = { ...taskItem }
+        // newTask["isComplete"] = isComplete
+        newTask[evt.target.name] = taskItem.complete ? false : true;
+        setTaskItem(newTask)
         updateTask(newTask)
+
+        useEffect(() => {
+            getToken()
+                .then((token) =>
+
+                    fetch(`/api/task/${taskId}`, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                )
+                .then((res) => res.json())
+                .then((task) => {
+                    setTask(task)
+                    setNotes(task.notes)
+                    setName(task.name)
+                    setRSelected(task.priorityId)
+                });
+
+        }, []);
+
     }
 
 
@@ -202,11 +225,12 @@ const Task = (props) => {
 
             <input
                 type="checkbox"
-                id={task.IsComplete}
+                id={`check--${task.id}`}
                 name="complete"
-                value={task.IsComplete}
+                value={`task.complete`}
+                checked={task.complete}
                 onChange={(evt) => {
-                    setTaskAsComplete(evt);
+                    SetTaskAsComplete(evt);
                 }} />
 
             <h4>Task:</h4>
