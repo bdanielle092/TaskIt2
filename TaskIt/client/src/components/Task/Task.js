@@ -12,7 +12,7 @@ const Task = (props) => {
     const { taskId } = useParams();
     const { boardId } = useParams();
     const [board, setBoard] = useState();
-    const [task, setTask] = useState([]);
+    const [task, setTask] = useState({});
     // const [tasks, setTasks] = useState();
     const [cSelected, setCSelected] = useState([]);
     const [rSelected, setRSelected] = useState(null);
@@ -86,7 +86,7 @@ const Task = (props) => {
         newTask["notes"] = notes
         //  I want you to update the name to the new name I just changed it too.
         newTask["name"] = name
-        console.log(newTask)
+
         getToken()
             .then((token) =>
                 fetch(`/api/Board/${boardId}/task/${taskId}`, {
@@ -103,20 +103,40 @@ const Task = (props) => {
             .then((evt) => handelInputDisplay());
     };
 
+    //getting task 
     useEffect(() => {
         getTasks(boardId);
     }, []);
 
-    const savePendingDelete = (taskId) => {
+    //get by Id for delete
+    useEffect(() => {
+        getToken()
+            .then((token) =>
 
+                fetch(`/api/task/${taskId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            )
+            .then((res) => res.json())
+            .then(setTask)
+
+    }, []);
+    console.log("taskId", taskId)
+    console.log("task", task.id)
+
+    //delete a task
+    const savePendingDelete = (taskId) => {
         getToken().then((token) =>
-            fetch(`/api/board/${boardId}/task/${taskId}`, {
+            fetch(`/api/task/${taskId}`, {
                 method: "Delete",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(),
+                }
+
             }).then(() => {
                 setPendingDelete(false);
 
@@ -163,7 +183,13 @@ const Task = (props) => {
     }
     return (
         <div>
+            <Button outline color="info" onClick={goBackToBoard}>
+                Go Back To Boards
+              </Button>
 
+
+
+            <h4>Task:</h4>
             {
                 showInputBox ?
 
@@ -181,10 +207,8 @@ const Task = (props) => {
 
             }
 
-            <Button outline color="info" onClick={goBackToBoard}>
-                Go Back To Boards
-              </Button>
-            <h4>Notes</h4>
+
+            <h4>Notes:</h4>
             { showInputBox ?
                 <>
                     <Input
@@ -203,13 +227,13 @@ const Task = (props) => {
 
 
 
-            <h4>Subtask</h4>
+            <h4>Subtask:</h4>
             <Button onClick={goToSubTaskForm}>New SubTask</Button>
             <Col className="listOfSubTasks">
                 <SubTaskList subTasks={subTasks} boardId={task.boardId} />
             </Col>
 
-            <h5>Priority</h5>
+            <h5>Priority:</h5>
 
             <ButtonGroup>
                 <Button color="primary" onClick={() => setRSelected(1)} active={rSelected === 1}>none</Button>

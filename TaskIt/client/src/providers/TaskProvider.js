@@ -33,6 +33,20 @@ export function TaskProvider(props) {
         );
     };
 
+    // const getTaskById = (taskId) => {
+    //     getToken().then(() =>
+    //         fetch(`/api/task/${taskId}`, {
+    //             Method: "GET",
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 setTasks(task);
+    //             })
+    //     );
+    // };
+
 
 
 

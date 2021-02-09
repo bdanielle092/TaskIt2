@@ -17,13 +17,13 @@ const SubTaskList = ({ subTasks }) => {
         <div>
             {subTasks.map((subTask) => (
                 <div key={subTask.id} >
-                    <Row>
-                        <Col>
-                            <Link to={`/board/:boardId/task/:taskId /SubTask/:subTaskId`}>
-                                <strong>{subTask.name}</strong>
-                            </Link>
-                        </Col>
-                        <Col></Col>
+                    {/* <Row> */}
+                    <Col>
+                        <Link to={`/board/:boardId/task/:taskId/SubTask/:subTaskId`}>
+                            <strong>{subTask.name}</strong>
+                        </Link>
+                    </Col>
+                    {/* <Col></Col>
                         <Col></Col>
                         <Col>
                             <UncontrolledDropdown>
@@ -38,7 +38,7 @@ const SubTaskList = ({ subTasks }) => {
                             </UncontrolledDropdown>
                         </Col>
                     </Row>
-                    <Row><br></br></Row>
+                    <Row><br></br></Row> */}
                 </div>
             ))
             }

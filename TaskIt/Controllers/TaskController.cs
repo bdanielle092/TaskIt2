@@ -36,7 +36,16 @@ namespace TaskIt.Controllers
         }
 
 
-       
+        [HttpDelete("{id}")]
+        public IActionResult Delete( int id)
+        { 
+            _taskRepo.Delete(id);
+            return NoContent();
+        }
+
+
+
+
 
 
     }
