@@ -26,6 +26,7 @@ const Task = (props) => {
     const [subTasks, setSubTasks] = useState([]);
     const { subTask, setSubTask } = useState();
     const [pendingDelete, setPendingDelete] = useState(false);
+    const [isComplete, setIsComplete] = useState();
 
 
 
@@ -103,6 +104,17 @@ const Task = (props) => {
             )
             .then((evt) => handelInputDisplay());
     };
+
+
+    //checkBox
+    const setTaskAsComplete = (evt) => {
+        const newTask = task
+        newTask["isComplete"] = isComplete
+        newTask[evt.target.name] = task.IsComplete ? false : true;
+        setTask(newTask)
+        updateTask(newTask)
+    }
+
 
     //getting task 
     useEffect(() => {
@@ -188,6 +200,14 @@ const Task = (props) => {
               </Button>
 
 
+            <input
+                type="checkbox"
+                id={task.IsComplete}
+                name="complete"
+                value={task.IsComplete}
+                onChange={(evt) => {
+                    setTaskAsComplete(evt);
+                }} />
 
             <h4>Task:</h4>
             {

@@ -139,7 +139,6 @@ namespace TaskIt.Controllers
 
 
 
-
         [HttpDelete("{boardId}/task/{id}")]
         public IActionResult Delete(int boardId, Task task, int id)
         {

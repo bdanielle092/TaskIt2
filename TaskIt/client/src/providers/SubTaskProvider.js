@@ -7,6 +7,7 @@ export function SubTaskProvider(props) {
 
     const { getToken } = useContext(UserProfileContext);
     const [subTasks, setSubTasks] = useState([]);
+    const [subTask, setSubTask] = useState({});
 
 
 
@@ -28,10 +29,26 @@ export function SubTaskProvider(props) {
 
 
 
+    const editSubTask = (subTaskId) => {
+        getToken().then((token) => {
+            fetch(`/api/subTask/${subTaskId}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(setSubTask)
+            })
+        })
+    }
+
+
+
+
 
 
     return (
-        <SubTaskContext.Provider value={{ subTasks, getSubTasks }}>
+        <SubTaskContext.Provider value={{ subTasks, getSubTasks, editSubTask }}>
             {props.children}
         </SubTaskContext.Provider>
     );
