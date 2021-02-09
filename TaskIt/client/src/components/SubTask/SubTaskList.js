@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, Row } from 'reactstrap';
 
 
 
 const SubTaskList = ({ subTasks }) => {
-    const history = useHistory();
+    const { boardId, taskId, subTaskId } = useParams();
+
 
 
 
@@ -19,7 +20,7 @@ const SubTaskList = ({ subTasks }) => {
                 <div key={subTask.id} >
                     {/* <Row> */}
                     <Col>
-                        <Link to={`/board/:boardId/task/:taskId/SubTask/:subTaskId`}>
+                        <Link to={`/board/${boardId}/task/${taskId}/SubTask/${subTaskId}`}>
                             <strong>{subTask.name}</strong>
                         </Link>
                     </Col>

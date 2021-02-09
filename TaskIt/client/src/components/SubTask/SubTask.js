@@ -10,7 +10,7 @@ const SubTask = (props) => {
     const { getToken } = useContext(UserProfileContext);
     const { getSubTasks } = useContext(SubTaskContext)
     const { subTaskId, taskId, boardId } = useParams();
-    const [subTask, setSubTask] = useState("")
+    const [subTask, setSubTask] = useState({})
     const history = useHistory();
     const [pendingDelete, setPendingDelete] = useState(false);
 

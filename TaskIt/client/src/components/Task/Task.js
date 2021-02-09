@@ -22,7 +22,7 @@ const Task = (props) => {
     const [notes, setNotes] = useState("");
     const [name, setName] = useState("");
     const history = useHistory();
-    const [subTasks, setSubTasks] = useState();
+    const [subTasks, setSubTasks] = useState([]);
     const { subTask, setSubTask } = useState();
     const [pendingDelete, setPendingDelete] = useState(false);
 
@@ -124,8 +124,7 @@ const Task = (props) => {
             .then(setTask)
 
     }, []);
-    console.log("taskId", taskId)
-    console.log("task", task.id)
+
 
     //delete a task
     const savePendingDelete = (taskId) => {
