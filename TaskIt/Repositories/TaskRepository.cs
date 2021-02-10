@@ -53,6 +53,16 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
+     
+
+        public void Toggle(int id, bool IsComplete)
+        {
+            var task = GetById(id);
+            task.IsComplete = IsComplete;
+            _context.Entry(task).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
 
 
 

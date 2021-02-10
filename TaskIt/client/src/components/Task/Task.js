@@ -117,7 +117,6 @@ const Task = (props) => {
 
 
 
-
     //delete a task
     const savePendingDelete = () => {
         getToken().then((token) =>

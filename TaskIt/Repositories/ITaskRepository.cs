@@ -12,7 +12,9 @@ namespace TaskIt.Repositories
         void Add(Task task);
         void Update(Task task);
         void Delete(int id);
-       
+        void Toggle(int id, bool IsComplete);
+
+
 
 
     }

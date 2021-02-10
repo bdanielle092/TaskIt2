@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
 
+
 //context stores data to use in the application therefore you need to create a context
 export const TaskContext = createContext();
 
@@ -9,11 +10,10 @@ export const TaskContext = createContext();
 export function TaskProvider(props) {
 
     const { getToken } = useContext(UserProfileContext);
-
-
     //holds the state of the component task, and a function that updates it
-
     const [tasks, setTasks] = useState([]);
+    const [updatedTask, setUpdatedTask] = useState(false);
+    const [task, setTask] = useState({})
 
 
 
@@ -33,26 +33,41 @@ export function TaskProvider(props) {
         );
     };
 
-    // const getTaskById = (taskId) => {
-    //     getToken().then(() =>
-    //         fetch(`/api/task/${taskId}`, {
-    //             Method: "GET",
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         })
-    //             .then((res) => {
-    //                 setTasks(task);
-    //             })
-    //     );
-    // };
+    const Toggle = (taskId, IsComplete) => {
+        console.log(taskId)
+        return getToken().then((token) =>
+            fetch(`/api/task/toggle/${taskId}?IsComplete=${IsComplete}`, {
+                Method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "Application/json"
+
+                },
+
+            }))
+            .then(setUpdatedTask(!updatedTask))
+    }
+
+    const getTaskById = (taskId) => {
+        getToken().then((token) =>
+            fetch(`/api/task/${taskId}`, {
+                Method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => {
+                    setTasks(task);
+                })
+        );
+    };
 
 
 
 
     //in the return these lines define what component will be expose to other components. These are the variables in the value attribute
     return (
-        <TaskContext.Provider value={{ tasks, getTasks }}>
+        <TaskContext.Provider value={{ tasks, getTasks, getTaskById, Toggle, updatedTask, setUpdatedTask }}>
             {props.children}
         </TaskContext.Provider>
     );
