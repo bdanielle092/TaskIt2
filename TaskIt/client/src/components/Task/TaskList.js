@@ -10,6 +10,8 @@ const TaskList = ({ tasks }) => {
     const { getToken } = useContext(UserProfileContext)
     const { taskId, boardId } = useParams();
     const [task, setTask] = useState({});
+    const [isComplete, setIsComplete] = useState()
+
 
 
 
@@ -27,9 +29,12 @@ const TaskList = ({ tasks }) => {
 
     //checkbox
     const setTaskAsComplete = (evt, taskId) => {
-
+        if (evt.target.name === "isComplete") {
+            const newIsComplete = evt.target.value;
+            setIsComplete(newIsComplete)
+        }
         const newTask = { ...task }
-        newTask.isComplete = task.isComplete
+        newTask["isComplete"] = isComplete
         getToken()
             .then((token) =>
                 fetch(`/api/Board/${boardId}/task/${taskId}`, {
@@ -60,11 +65,11 @@ const TaskList = ({ tasks }) => {
                             type="checkbox"
                             id={`check--${task.id}`}
                             name="complete"
-
                             checked={task.complete}
                             onChange={(evt) => {
                                 setTaskAsComplete(evt, task.id);
                             }} />
+
 
                         <Link to={`/board/${task.boardId}/task/${task.id}`}>
                             <strong>{task.name}</strong>

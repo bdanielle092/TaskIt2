@@ -6,10 +6,6 @@ import "./Board.css";
 import TaskList from "../Task/TaskList";
 import { TaskContext, TaskProvider } from "../../providers/TaskProvider";
 
-
-
-
-
 const Board = (props) => {
     const { getToken } = useContext(UserProfileContext);
     const { getTasks, tasks } = useContext(TaskContext)

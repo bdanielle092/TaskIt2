@@ -39,9 +39,9 @@ namespace TaskIt.Controllers
         public IActionResult Get(int id)
         {
             //var currentUser = GetCurrentUserProfile();
-            
+            //var currentBoardUser = _boardRepo.GetByUserProfileId(currentUser.Id);
 
-            //if (currentUser !=  )
+            //if (currentUser != currentBoardUser)
             //{
             //    return Unauthorized();
             //}

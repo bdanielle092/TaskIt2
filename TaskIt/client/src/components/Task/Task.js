@@ -82,7 +82,7 @@ const Task = (props) => {
         }
     };
 
-    //updating task with the changes for notes 
+    //updating task with the changes for notes and name 
     const updateTask = () => {
         const newTask = task
         newTask["boardId"] = boardId
@@ -107,36 +107,7 @@ const Task = (props) => {
     };
 
 
-    //checkBox
-    const SetTaskAsComplete = (evt) => {
-        const newTask = { ...taskItem }
-        // newTask["isComplete"] = isComplete
-        newTask[evt.target.name] = taskItem.complete ? false : true;
-        setTaskItem(newTask)
-        updateTask(newTask)
 
-        useEffect(() => {
-            getToken()
-                .then((token) =>
-
-                    fetch(`/api/task/${taskId}`, {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    })
-                )
-                .then((res) => res.json())
-                .then((task) => {
-                    setTask(task)
-                    setNotes(task.notes)
-                    setName(task.name)
-                    setRSelected(task.priorityId)
-                });
-
-        }, []);
-
-    }
 
 
     //getting task 
@@ -144,22 +115,7 @@ const Task = (props) => {
         getTasks(boardId);
     }, []);
 
-    //get by Id for delete
-    useEffect(() => {
-        getToken()
-            .then((token) =>
 
-                fetch(`/api/task/${taskId}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-            )
-            .then((res) => res.json())
-            .then(setTask)
-
-    }, []);
 
 
     //delete a task
@@ -223,15 +179,6 @@ const Task = (props) => {
               </Button>
 
 
-            <input
-                type="checkbox"
-                id={`check--${task.id}`}
-                name="complete"
-                value={`task.complete`}
-                checked={task.complete}
-                onChange={(evt) => {
-                    SetTaskAsComplete(evt);
-                }} />
 
             <h4>Task:</h4>
             {
