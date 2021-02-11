@@ -15,17 +15,12 @@ const TaskList = ({ tasks }) => {
     const [check, setCheck] = useState(task.isComplete);
     const history = useHistory();
 
-    // //taking user to the edit form   
-    // const goToTaskEditForm = (taskId, boardId) => {
-    //     //change path for edit 
-    //     history.push(`/board/${boardId}/task/${taskId}`);
-    // }
 
 
 
 
+    //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
     const Checked = (evt) => {
-        // console.log(evt.target.id)
         Toggle(boardId, evt.target.id, !check)
         setCheck(!check)
     }
@@ -39,7 +34,7 @@ const TaskList = ({ tasks }) => {
         <div>
             {tasks.map((task) => (
                 <div key={task.id} >
-                    {/* <Row> */}
+
                     <Col>
 
                         <input
@@ -55,22 +50,7 @@ const TaskList = ({ tasks }) => {
                         </Link>
 
                     </Col>
-                    {/* <Col></Col>
-                        <Col></Col>
-                        <Col>
-                            <UncontrolledDropdown>
-                                <DropdownToggle caret>
-                                    {task.name} Actions
-                </DropdownToggle>
-                                <DropdownMenu >
-                                    <DropdownItem onClick={() => goToTaskEditForm(task.id, task.boardId)} >Edit {task.name} Task</DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>Delete {task.name} Task</DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
-                        </Col>
-                    </Row>
-                    <Row><br></br></Row> */}
+
                 </div>
             ))
             }

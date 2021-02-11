@@ -13,6 +13,7 @@ const SubTaskList = ({ subTasks }) => {
     const [subTask, setSubTask] = useState({});
     const [check, setCheck] = useState(subTask.isComplete);
 
+    //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
     const Checked = (evt) => {
         Toggle(taskId, evt.target.id, !check)
         setCheck(!check)
@@ -38,7 +39,7 @@ const SubTaskList = ({ subTasks }) => {
                             checked={check}
                             onChange={Checked} />
 
-                        <Link to={`/board/${boardId}/task/${taskId}/SubTask/${subTask.id}`}>
+                        <Link to={`/board/${boardId}/task/${subTask.taskId}/SubTask/${subTask.id}`}>
                             <strong>{subTask.name}</strong>
                         </Link>
 

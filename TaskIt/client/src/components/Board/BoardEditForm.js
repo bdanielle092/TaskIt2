@@ -22,6 +22,7 @@ const BoardEditForm = () => {
     //this the existing board object that is gets loads ar initial load too.
     const [existingBoard, setExistingBoard] = useState({})
 
+    // you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
     //this is getting the current state of the board base off the id passed in the uri and setting existingBoard and boardToEdit
     useEffect(() => {
         getToken()

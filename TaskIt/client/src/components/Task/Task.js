@@ -14,7 +14,6 @@ const Task = (props) => {
     const { boardId } = useParams();
     const [board, setBoard] = useState();
     const [task, setTask] = useState({});
-    // const [tasks, setTasks] = useState();
     const [cSelected, setCSelected] = useState([]);
     const [rSelected, setRSelected] = useState(null);
     //this is setting the inputBox to false so you won't see any box to edit or delete the notes
@@ -31,7 +30,7 @@ const Task = (props) => {
 
 
 
-    //Priority
+    //Priority stretch goal 
     const onCheckboxBtnClick = (selected) => {
         const index = cSelected.indexOf(selected);
         if (index < 0) {
@@ -71,7 +70,7 @@ const Task = (props) => {
 
     }
 
-    //updating notes value. Updates the notes value on every key stroke for the input field
+    //updating notes and name value. Updates the notes and name value on every key stroke for the input field
     const handleSubmit = (evt) => {
         if (evt.target.name === "notes") {
             const newNotes = evt.target.value;

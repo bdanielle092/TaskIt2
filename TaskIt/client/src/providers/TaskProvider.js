@@ -36,7 +36,7 @@ export function TaskProvider(props) {
     const Toggle = (boardId, taskId, IsComplete) => {
         return getToken().then((token) =>
             fetch(`/api/task/toggle/${taskId}?IsComplete=${IsComplete}`, {
-                Method: "PUT",
+                method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "Application/json"

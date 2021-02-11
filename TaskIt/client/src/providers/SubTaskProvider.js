@@ -46,7 +46,7 @@ export function SubTaskProvider(props) {
     const Toggle = (taskId, subTaskId, IsComplete) => {
         return getToken().then((token) =>
             fetch(`/api/task/toggle/${subTaskId}?IsComplete=${IsComplete}`, {
-                Method: "PUT",
+                method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "Application/json"

@@ -8,8 +8,8 @@ import { TaskContext, TaskProvider } from "../../providers/TaskProvider";
 
 const Board = (props) => {
     const { getToken } = useContext(UserProfileContext);
-    const { getTasks, tasks, getTaskById } = useContext(TaskContext)
-    const { boardId, taskId } = useParams();
+    const { getTasks, tasks } = useContext(TaskContext)
+    const { boardId } = useParams();
     const history = useHistory();
     //setting the state of board and then updating the state of board
     const [board, setBoard] = useState([]);
