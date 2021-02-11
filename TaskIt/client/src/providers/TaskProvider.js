@@ -33,8 +33,7 @@ export function TaskProvider(props) {
         );
     };
 
-    const Toggle = (taskId, IsComplete) => {
-        console.log(taskId)
+    const Toggle = (boardId, taskId, IsComplete) => {
         return getToken().then((token) =>
             fetch(`/api/task/toggle/${taskId}?IsComplete=${IsComplete}`, {
                 Method: "PUT",
@@ -45,7 +44,8 @@ export function TaskProvider(props) {
                 },
 
             }))
-            .then(setUpdatedTask(!updatedTask))
+            .then(getTasks(boardId))
+
     }
 
     const getTaskById = (taskId) => {

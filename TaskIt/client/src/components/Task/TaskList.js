@@ -9,8 +9,8 @@ import Task from "../Task/Task";
 
 const TaskList = ({ tasks }) => {
     const { getToken } = useContext(UserProfileContext)
-    const { Toggle, updatedTask, setUpdatedTask } = useContext(TaskContext)
-    const { taskId, boardId } = useParams();
+    const { Toggle } = useContext(TaskContext)
+    const { boardId } = useParams();
     const [task, setTask] = useState({});
     const [check, setCheck] = useState(task.isComplete);
     const history = useHistory();
@@ -22,36 +22,16 @@ const TaskList = ({ tasks }) => {
     // }
 
 
+
+
     const Checked = (evt) => {
-        Toggle(task.id, !check)
+        // console.log(evt.target.id)
+        Toggle(boardId, evt.target.id, !check)
         setCheck(!check)
     }
 
 
-    //checkbox
-    // const setTaskAsComplete = (evt, taskId) => {
-    //     if (evt.target.name === "isComplete") {
-    //         const newIsComplete = evt.target.value;
-    //         setIsComplete(newIsComplete)
-    //     }
-    //     const newTask = { ...task }
-    //     newTask["isComplete"] = isComplete
-    //     getToken()
-    //         .then((token) =>
-    //             fetch(`/api/Board/${boardId}/task/${taskId}`, {
-    //                 method: "PUT",
-    //                 headers: {
-    //                     "Content-Type": "application/json",
-    //                     Authorization: `Bearer ${token}`,
-    //                 },
-    //                 body: JSON.stringify(
-    //                     newTask
-    //                 ),
-    //             })
-    //         )
-    //     newTask[evt.target.name] = task.complete ? false : true;
-    //     setTask(newTask)
-    // }
+
 
     //3.mapping through the list of tasks which will be displayed on the board
     //4. link goes task.js to get the task by id which display one task info
@@ -64,6 +44,7 @@ const TaskList = ({ tasks }) => {
 
                         <input
                             type="checkbox"
+                            id={task.id}
                             name="IsComplete"
                             checked={check}
                             onChange={Checked} />
