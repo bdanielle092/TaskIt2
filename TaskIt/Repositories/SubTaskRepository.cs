@@ -48,7 +48,13 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
-
+        public void Toggle(int id, bool IsComplete)
+        {
+            var subTask = GetById(id);
+            subTask.IsComplete = IsComplete;
+            _context.Entry(subTask).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
 
         public void Delete(int id)
         {

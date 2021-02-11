@@ -74,5 +74,13 @@ namespace TaskIt.Controllers
             _subTaskRepo.Delete(id);
             return NoContent();
         }
+
+        [HttpPut("toggle/{id}")]
+        public IActionResult Toggle(int id, bool IsComplete)
+        {
+
+            _subTaskRepo.Toggle(id, IsComplete);
+            return NoContent();
+        }
     }
 }
