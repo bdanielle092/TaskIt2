@@ -8,8 +8,10 @@ namespace TaskIt.Models
 {
     public class Board
     {
+        //these are all properties of board
         public int Id { get; set; }
 
+        //adaptation 
         [Required]
         public string Name { get; set; }
         public int UserProfileId { get; set; }
