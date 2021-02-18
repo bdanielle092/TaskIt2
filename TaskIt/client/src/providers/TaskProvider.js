@@ -57,7 +57,7 @@ export function TaskProvider(props) {
                 },
             })
                 .then((res) => {
-                    setTasks(task);
+                    setTask(task);
                 })
         );
     };
@@ -67,7 +67,7 @@ export function TaskProvider(props) {
 
     //in the return these lines define what component will be expose to other components. These are the variables in the value attribute
     return (
-        <TaskContext.Provider value={{ tasks, getTasks, getTaskById, Toggle, updatedTask, setUpdatedTask }}>
+        <TaskContext.Provider value={{ task, tasks, getTasks, getTaskById, Toggle, updatedTask, setUpdatedTask }}>
             {props.children}
         </TaskContext.Provider>
     );

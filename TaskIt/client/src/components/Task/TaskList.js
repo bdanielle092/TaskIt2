@@ -4,26 +4,37 @@ import { DropdownItem, DropdownMenu, DropdownToggle, UncontrolledDropdown, Col, 
 import { TaskContext } from "../../providers/TaskProvider";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import Task from "../Task/Task";
+import TaskSingle from "./TaskSingle";
 
 
 
-const TaskList = ({ tasks }) => {
+const TaskList = () => {
     const { getToken } = useContext(UserProfileContext)
-    const { Toggle } = useContext(TaskContext)
+    const { tasks, Toggle } = useContext(TaskContext)
+    console.log(tasks)
     const { boardId } = useParams();
-    const [task, setTask] = useState({});
-    const [check, setCheck] = useState(task.isComplete);
+    // const [task, setTask] = useState({});
     const history = useHistory();
 
 
 
 
 
-    //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
-    const Checked = (evt) => {
-        Toggle(boardId, evt.target.id, !check)
-        setCheck(!check)
-    }
+    // //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
+    // const isChecked = (evt) => {
+    //     if (checked === false) {
+    //         Toggle(boardId, evt.target.id, true)
+    //         setChecked(true)
+    //         console.log(task)
+
+    //     } else {
+    //         Toggle(boardId, evt.target.id, false)
+    //         setChecked(false)
+    //     }
+    //     console.log(evt)
+    //     // Toggle(boardId, evt.target.id, !check)
+    //     // setChecked(!checked)
+    // }
 
 
 
@@ -33,21 +44,24 @@ const TaskList = ({ tasks }) => {
     return (
         <div>
             {tasks.map((task) => (
-                <div key={task.id} >
+                <div>
+
 
                     <Col>
-
+                        <TaskSingle key={task.id} task={task} />
+                        {/* 
                         <input
                             type="checkbox"
                             id={task.id}
                             name="IsComplete"
-                            checked={check}
-                            onChange={Checked} />
+                            checked={checked}
+                            onChange={isChecked} /> */}
 
-
+                        {/* 
                         <Link to={`/board/${task.boardId}/task/${task.id}`}>
                             <strong>{task.name}</strong>
-                        </Link>
+                        </Link> */}
+
 
                     </Col>
 
@@ -57,4 +71,4 @@ const TaskList = ({ tasks }) => {
         </div >
     )
 }
-export default TaskList 
+export default TaskList

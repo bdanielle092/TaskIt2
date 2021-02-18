@@ -15,7 +15,7 @@ const Board = (props) => {
     const [board, setBoard] = useState([]);
     const [task, setTask] = useState();
 
-
+    console.log(tasks)
 
 
     //getting the board by id 
