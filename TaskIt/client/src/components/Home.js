@@ -7,15 +7,14 @@ import "./Home.css";
 
 const Home = () => {
     const user = JSON.parse(localStorage.getItem("userProfile"));
-    const { userProfile } = useContext(UserProfileContext);
-    const { getAllBoards } = useContext(BoardContext);
-    const [boards, setBoards] = useState([])
+    // const { userProfile } = useContext(UserProfileContext);
+    const { getAllBoards, boards } = useContext(BoardContext);
 
-    console.log(userProfile)
-    console.log(userProfile.id)
+
+    //useEffect is automatically invoked and since the dependency array is empty, it only runs the first time the component renders.You can include dependencies in the array to cause the useEffect to run additional times.
     useEffect(() => {
 
-        getAllBoards(JSON.parse(userProfile).id);
+        getAllBoards();
 
     }, [])
 

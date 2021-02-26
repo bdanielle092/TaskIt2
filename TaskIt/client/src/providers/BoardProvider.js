@@ -14,7 +14,7 @@ export const BoardProvider = (props) => {
     //setBoard and setBoards define the function to be use to modify/update that state
     const [board, setBoard] = useState({});
     const [boards, setBoards] = useState([]);
-    // const [userProfile, setUserProfile] = useState({});
+
 
 
 
@@ -30,24 +30,19 @@ export const BoardProvider = (props) => {
             }).then(res => res.json())
 
                 .then(setBoards));
-        // .then((boards) => {
 
-        //     console.log(userProfile)
-        //     console.log(userProfile.id)
-        //     setBoards(boards)
-        // }))
     };
 
 
-    const getBoardById = (boardId) => {
+    const getBoardById = (id) => {
         getToken().then((token) =>
-            fetch(`/api/board/${boardId}`, {
+            fetch(`/api/board/${id}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer 4{token}`
+                    Authorization: `Bearer ${token}`
                 }
             })).then((resp) => resp.json())
-            .then(setBoard)
+            .then((board) => { setBoard(board) });
     };
 
 

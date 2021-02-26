@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Card, CardBody } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { BoardContext } from "../../providers/BoardProvider";
 
-const Board = ({ board }) => {
+const Board = ({ props }) => {
+    const { getBoardById, board } = useContext(BoardContext)
+    const { id } = useParams();
+
+
+
+    useEffect(() => {
+        getBoardById(id)
+    }, [])
 
     return (
         <Card>
             <CardBody>
-
-                <Link to={`/board/${board.id}`}>
-                    <strong>{board.name}</strong>
-                </Link>
+                <h3 className="BoardName">{board.name} Board</h3>
 
             </CardBody>
         </Card>
