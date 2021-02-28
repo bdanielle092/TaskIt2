@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 const BoardList = ({ boards }) => {
@@ -16,4 +16,4 @@ const BoardList = ({ boards }) => {
         </div>
     )
 }
-export default BoardList 
+export default BoardList

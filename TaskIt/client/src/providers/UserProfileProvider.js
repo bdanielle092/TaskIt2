@@ -103,7 +103,8 @@ export function UserProfileProvider(props) {
                 register,
                 getToken,
                 isAdmin,
-                getCurrentUser
+                getCurrentUser,
+                userProfile
             }}
         >
             {isFirebaseReady ? (

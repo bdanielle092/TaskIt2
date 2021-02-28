@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { BoardContext } from '../providers/BoardProvider';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import BoardList from "./Board/BoardList";
 import { Col } from "reactstrap"
@@ -8,29 +9,16 @@ import "./Home.css";
 
 const Home = () => {
     const user = JSON.parse(localStorage.getItem("userProfile"));
-    const { getToken } = useContext(UserProfileContext);
-    const [boards, setBoards] = useState([])
+    const { getAllBoards, boards } = useContext(BoardContext);
 
 
-    //getting the all the boards for this user
+    //useEffect is automatically invoked and since the dependency array is empty, it only runs the first time the component renders.You can include dependencies in the array to cause the useEffect to run additional times.
     useEffect(() => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/board`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-            )
-            .then((res) => res.json())
-            .then((boards) =>
 
-                setBoards(boards));
+        getAllBoards();
 
-    }, []);
-
-
+    }, [])
+  
     return (
 
         <div>
