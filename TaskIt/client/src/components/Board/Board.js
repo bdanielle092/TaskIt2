@@ -17,9 +17,10 @@ const Board = ({ props }) => {
         <Card>
             <CardBody>
                 <h3 className="BoardName">{board.name} Board</h3>
-
-            </CardBody>
+            </CardBody> 
         </Card>
+      
+
     )
 }
 export default Board

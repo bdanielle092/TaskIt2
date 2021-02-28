@@ -1,0 +1,5 @@
+.BoardName {
+    display: flex;
+    justify-content: center;
+    color: #F4A261;
+}

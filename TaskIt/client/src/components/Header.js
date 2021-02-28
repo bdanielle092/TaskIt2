@@ -1,50 +1,53 @@
-import React, { useState, useContext } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import React, { useContext } from 'react';
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    NavbarText,
-    DropdownToggle,
-    ButtonDropdown,
-    DropdownMenu,
-    DropdownItem,
     Button
 } from 'reactstrap';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import logo from "../images/logo2.png";
 import "./Header.css"
-// import BoardForm from "./Board/BoardForm";
+
+
 
 const Header = () => {
-    const { logout, isAdmin } = useContext(UserProfileContext);
+    const { logout } = useContext(UserProfileContext);
     const user = JSON.parse(localStorage.getItem("userProfile"));
     const history = useHistory();
-    const [isOpen, setIsOpen] = useState(false);
-
-    const toggle = () => setIsOpen(!isOpen);
 
 
+
+
+    //allow the user to logout
     const logoutAndReturn = () => {
         return logout().then(() => {
             toast.dark("You are now logged out");
             history.push("/login");
         });
     };
+
+    //taking the user to the board form 
+    const goToBoardForm = () => {
+        history.push("/BoardForm");
+    }
+
+
+
+
     return (
         <div>
             <Navbar color="dark" dark expand="md">
-                <img
+                <a href="/"><img
                     src={logo}
                     alt="logo"
                     width="30"
                     height="30"
-                    className="mr-1" />
+                    className="mr-1"
+                />
+                </a>
 
 
 
@@ -52,10 +55,10 @@ const Header = () => {
                     {user ? (
                         <>
 
-                            {/* 
+
                             <NavItem >
-                                <Button color="warning" onClick={BoardForm} >New Board</Button>{' '}
-                            </NavItem> */}
+                                <Button color="warning" onClick={goToBoardForm} >New Board</Button>{' '}
+                            </NavItem>
 
                             <NavItem className="logoutButton">
                                 <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}

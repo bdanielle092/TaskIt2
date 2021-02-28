@@ -6,7 +6,7 @@ import "firebase/auth";
 export const UserProfileContext = createContext();
 
 export function UserProfileProvider(props) {
-    const apiUrl = "/api/userprofile";
+    const apiUrl = "/api/userProfile";
 
     const userProfile = localStorage.getItem("userProfile");
     const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);

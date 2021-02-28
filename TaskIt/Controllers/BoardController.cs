@@ -29,6 +29,7 @@ namespace TaskIt.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+           
             var currentUser = GetCurrentUserProfile();
             var currentUserBoards = _boardRepo.GetByUserProfileId(currentUser.Id);
             return Ok(currentUserBoards);
@@ -36,12 +37,18 @@ namespace TaskIt.Controllers
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
-        {
-            var board  = _boardRepo.GetById(id);
+        { 
+           
+            //if ()
+            //{
+            //    return Unauthorized();
+            //}
+            var board = _boardRepo.GetById(id);
             if (board == null)
             {
                 return NotFound();
             }
+          
             return Ok(board);
         }
 

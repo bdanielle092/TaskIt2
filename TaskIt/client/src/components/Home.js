@@ -5,9 +5,10 @@ import BoardList from "./Board/BoardList";
 import { Col } from "reactstrap"
 import "./Home.css";
 
+
+
 const Home = () => {
     const user = JSON.parse(localStorage.getItem("userProfile"));
-    // const { userProfile } = useContext(UserProfileContext);
     const { getAllBoards, boards } = useContext(BoardContext);
 
 
@@ -17,9 +18,7 @@ const Home = () => {
         getAllBoards();
 
     }, [])
-
-
-
+  
     return (
 
         <div>
