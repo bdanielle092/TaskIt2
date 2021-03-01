@@ -1,5 +1,4 @@
-
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import {
     Form,
@@ -11,35 +10,47 @@ import {
     Button,
 } from "reactstrap";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { BoardContext } from "../../providers/BoardProvider";
 
 
 const BoardForm = () => {
-    const [board, setBoard] = useState({ name: "" })
+
     const { getToken } = useContext(UserProfileContext);
+    const { addBoard, getAllBoards } = useContext(BoardContext);
     const history = useHistory();
+    const [board, setBoard] = useState({ name: "" });
+    const [isLoading, setIsLoading] = useState(false);
 
     //this is updating the board and setting it as the new board 
     const handleSubmit = (evt) => {
+        /* When changing a state object or array,
+   always create a copy, make changes, and then set state.*/
         const newBoard = { ...board };
-        newBoard[evt.target.name] = evt.target.value;
+        /* Board is an object with properties.
+     Set the property to the new value
+     using object bracket notation. */
+        newBoard[evt.target.id] = evt.target.value;
+        //update state
         setBoard(newBoard);
     };
 
+
+
     //this is creating the new board in the database then taking us back to home 
-    const createNewBoard = (newBoard) => {
-        getToken()
-            .then((token) =>
-                fetch("/api/board", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/JSON",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(newBoard),
-                })
-            )
-            .then(() => history.push(`/`));
-    };
+    const createNewBoard = (evt) => {
+        evt.preventDefault();
+        //if else statement to make sure they enter a name
+        if (board.name === "") {
+            alert("Please enter a Board Name")
+        } else {
+            setIsLoading(true)
+        }
+        //invoke addBoard passing board as an argument.
+        //once complete, go back to the home page
+        addBoard(board)
+        history.push("/");
+    }
+
 
     return (
         <div>
@@ -60,10 +71,11 @@ const BoardForm = () => {
                     <Button
 
                         color="warning "
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            createNewBoard(board);
-                        }}
+                        className="postSubmitBnt"
+                        type="submit"
+                        disabled={isLoading}
+                        onClick={createNewBoard}
+
                     >
                         SUBMIT
                     </Button>
@@ -72,4 +84,4 @@ const BoardForm = () => {
         </div>
     );
 };
-export default BoardForm 
+export default BoardForm

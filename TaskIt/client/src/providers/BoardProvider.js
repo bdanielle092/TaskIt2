@@ -57,7 +57,7 @@ export const BoardProvider = (props) => {
                 },
                 // js object is being turned to into a string. The board is the js object 
                 body: JSON.stringify(board)
-            })).then(getAllBoards)
+            })).then(getAllBoards())
     };
 
     const updateBoard = (id, board) => {
