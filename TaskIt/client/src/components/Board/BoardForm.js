@@ -46,7 +46,7 @@ const BoardForm = () => {
             setIsLoading(true)
         }
         //invoke addBoard passing board as an argument.
-        //once complete, got back to the home page
+        //once complete, go back to the home page
         addBoard(board)
         history.push("/");
     }
