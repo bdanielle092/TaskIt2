@@ -10,64 +10,46 @@ import {
     Input,
     Button,
 } from "reactstrap";
+import { BoardContext } from "../../providers/BoardProvider";
 
 
 
 const BoardEditForm = () => {
-    const { getToken } = useContext(UserProfileContext)
+    // const { getToken } = useContext(UserProfileContext)
+    const { getBoardById, updateBoard, board } = useContext(BoardContext)
+    //for edit, hold on to state of board in this view
+    const [editBoard, setEditBoard] = useState({});
+    //UseParams pulls in the id information from applications view 
     const { id } = useParams();
     const history = useHistory();
-    //this is a empty string but when the page initially gets loaded then the string will be updated with the current name of the board
-    const [boardToEdit, setBoardToEdit] = useState("")
-    //this the existing board object that is gets loads ar initial load too.
-    const [existingBoard, setExistingBoard] = useState({})
 
-    //this is getting the current state of the board base off the id passed in the uri and setting existingBoard and boardToEdit
+
     useEffect(() => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/board/${id}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-            )
-            .then((res) => res.json())
-            .then((board) => {
-                setExistingBoard(board)
-                setBoardToEdit(board["name"])
-            });
+        getBoardById(id)
+    }, [])
 
-    }, []);
+    // useEffect(() => {
+    //     setEditBoard(board)
+    // }, [board]);
+
 
     //updating boardToEdit value. Updates boardToEdit value on every key stroke for the input field
     const handleSubmit = (evt) => {
-        const newBoard = evt.target.value;
-        setBoardToEdit(newBoard);
+        const newBoard = { ...editBoard };
+        newBoard[evt.target.id] = evt.target.value;
+        setEditBoard(newBoard);
     };
 
     // update function to update the database with the new state of the board name
-    const updateBoard = (board) => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/board/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({
-                        //keeping all the existing keys the same except name
-                        "active": existingBoard["active"],
-                        "id": existingBoard["id"],
-                        "name": boardToEdit,
-                        "userProfile": existingBoard["userProfile"],
-                        "userProfileId": existingBoard["userProfileId"]
-                    }),
-                })
-            )
-            .then((evt) => history.push("/"));
+    const editABoard = (event) => {
+        updateBoard({
+            id: editBoard.id,
+            name: editBoard.name,
+            userProfileId: editBoard.userProfileId,
+            active: editBoard.active
+
+        })
+        history.push("/");
     };
 
     return (
@@ -76,25 +58,50 @@ const BoardEditForm = () => {
                 <CardBody>
                     <Form>
                         <FormGroup>
+                            <Input
+                                id={editBoard.id}
+                                onChange={handleSubmit}
+                                type="hidden"
+                                value={board.id}
+                            />
+                        </FormGroup>
+                        <FormGroup>
                             <Label for="name">Board Name</Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                value={boardToEdit}
+                                value={board.name}
                                 onChange={(evt) => {
                                     evt.preventDefault()
                                     handleSubmit(evt)
                                 }}
                             />
                         </FormGroup>
+                        <Input
+                            id={editBoard.userProfileId}
+                            onChange={handleSubmit}
+                            type="hidden"
+                            value={board.userProfileId}
+                        />
+                        <Input
+                            id={editBoard.active}
+                            onChange={handleSubmit}
+                            type="hidden"
+                            value={board.active}
+                        />
+                        <FormGroup>
+
+                        </FormGroup>
+
+
                     </Form>
                     <Button
 
                         color="warning "
                         onClick={(evt) => {
                             evt.preventDefault();
-                            updateBoard(boardToEdit);
+                            updateBoard(editABoard);
                         }}
                     >
                         SUBMIT

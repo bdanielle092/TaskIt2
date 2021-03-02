@@ -29,10 +29,6 @@ const Header = () => {
         });
     };
 
-    //taking the user to the board form 
-    const goToBoardForm = () => {
-        history.push("/BoardForm");
-    }
 
 
 
@@ -54,11 +50,6 @@ const Header = () => {
                 <Nav className="mr-auto logout" navbar>
                     {user ? (
                         <>
-
-
-                            <NavItem >
-                                <Button color="warning" onClick={goToBoardForm} >New Board</Button>{' '}
-                            </NavItem>
 
                             <NavItem className="logoutButton">
                                 <Button color="warning" onClick={logoutAndReturn}>Logout</Button>{' '}

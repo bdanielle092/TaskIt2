@@ -3,6 +3,7 @@ import { Card, CardBody } from "reactstrap";
 import { Link, useParams } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 
+
 const Board = ({ props }) => {
     const { getBoardById, board } = useContext(BoardContext)
     const { id } = useParams();
@@ -13,13 +14,16 @@ const Board = ({ props }) => {
         getBoardById(id)
     }, [])
 
+
+
     return (
         <Card>
             <CardBody>
                 <h3 className="BoardName">{board.name} Board</h3>
-            </CardBody> 
+
+            </CardBody>
         </Card>
-      
+
 
     )
 }

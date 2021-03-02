@@ -8,6 +8,7 @@ import BoardList from "./Board/BoardList";
 import BoardForm from "./Board/BoardForm";
 import Board from "./Board/Board";
 import BoardEditForm from "./Board/BoardEditForm";
+import DeleteBoard from "./Board/DeleteBoard";
 
 
 
@@ -29,17 +30,20 @@ const ApplicationViews = () => {
             <Route path="/board" exact>
                 {isLoggedIn ? <BoardList /> : <Redirect to="/login" />}
             </Route>
-          
+
+            <Route path="/BoardForm" exact>
+
+                {isLoggedIn ? <BoardForm /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/BoardEditForm/:id" exact>
+                {isLoggedIn ? <BoardEditForm /> : <Redirect to="/login" />}
+            </Route>
 
 
-//             <Route path="/BoardForm" exact>
-
-//                 {isLoggedIn ? <BoardForm /> : <Redirect to="/login" />}
-//             </Route>
-
-//             <Route path="/BoardEditForm/:id" exact>
-//                 {isLoggedIn ? <BoardEditForm /> : <Redirect to="/login" />}
-//             </Route>
+            <Route path="/DeleteBoard/:id">
+                {isLoggedIn ? <DeleteBoard /> : <Redirect to="/login" />}
+            </Route>
 
 
 
