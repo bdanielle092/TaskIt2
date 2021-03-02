@@ -11,14 +11,22 @@ using TaskIt.Data;
 
 namespace TaskIt.Controllers
 {
+    //everytime we have the have a endpoint its say api/controller then what the method is passing
     [Route("api/[controller]")]
     [ApiController]
+    //giving permission to do these actions
     [Authorize]
+
+    // ControllerBase is inheriting (inheritance)
     public class BoardController : ControllerBase
     {
+        //these are fields we know that because they are private and have no  get set
+        //this is call dependency injection
         private readonly IBoardRepository _boardRepo;
         private readonly IUserProfileRepository _userProfileRepo;
         private readonly ITaskRepository _taskRepo;
+
+        //this is a constructor which we know because its has the same name of the class and has no type
         public BoardController( IBoardRepository boardRepo, IUserProfileRepository userProfileRepo, ITaskRepository taskRepo)
         {
             _boardRepo = boardRepo;
@@ -26,20 +34,26 @@ namespace TaskIt.Controllers
             _taskRepo = taskRepo;
         }
 
+        //adaptation 
         [HttpGet]
+        //Type is IAcationResult and its a interface, method is get
         public IActionResult Get()
         {
            
             var currentUser = GetCurrentUserProfile();
             var currentUserBoards = _boardRepo.GetByUserProfileId(currentUser.Id);
+            //OK is a method from type IActionResult
             return Ok(currentUserBoards);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
-        { 
-           
-            //if ()
+        {
+
+            //var currentUser = GetCurrentUserProfile();
+            //var currentBoardUser = _boardRepo.GetByUserProfileId(currentUser.Id);
+
+            //if (currentUser != currentBoardUser)
             //{
             //    return Unauthorized();
             //}

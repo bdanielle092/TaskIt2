@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { Card, CardBody } from "reactstrap";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 
 
@@ -12,6 +12,7 @@ const Board = ({ props }) => {
 
     useEffect(() => {
         getBoardById(id)
+
     }, [])
 
 

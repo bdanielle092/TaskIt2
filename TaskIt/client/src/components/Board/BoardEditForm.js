@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { useHistory, useParams, Link } from "react-router-dom";
 import {
     Form,
     FormGroup,
@@ -15,22 +14,32 @@ import { BoardContext } from "../../providers/BoardProvider";
 
 
 const BoardEditForm = () => {
-    // const { getToken } = useContext(UserProfileContext)
     const { getBoardById, updateBoard, board } = useContext(BoardContext)
+
     //for edit, hold on to state of board in this view
-    const [editBoard, setEditBoard] = useState({});
+    const [editBoard, setEditBoard] = useState({
+        id: board.id,
+        name: "",
+        userProfileId: board.userProfileId,
+        active: board.active
+
+    });
     //UseParams pulls in the id information from applications view 
     const { id } = useParams();
     const history = useHistory();
-
-
+    // console.log(parseInt(id).toString())
+    console.log(board)
     useEffect(() => {
         getBoardById(id)
+        console.log(id)
+
+
     }, [])
 
-    // useEffect(() => {
-    //     setEditBoard(board)
-    // }, [board]);
+    //sets the board at the start
+    useEffect(() => {
+        setEditBoard(board)
+    }, [board]);
 
 
     //updating boardToEdit value. Updates boardToEdit value on every key stroke for the input field
@@ -106,6 +115,7 @@ const BoardEditForm = () => {
                     >
                         SUBMIT
                     </Button>
+                    <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
                 </CardBody>
             </Card>
         </div>

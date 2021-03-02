@@ -6,8 +6,10 @@ using System.Linq;
 
 namespace TaskIt.Data
 {
+    //DbContext is a baseController and its inheriting
     public class ApplicationDbContext : DbContext
     {
+        //this is a constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Board> Board { get; set; }

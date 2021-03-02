@@ -43,6 +43,7 @@ export const BoardProvider = (props) => {
                 }
             })).then((resp) => resp.json())
             .then((board) => { setBoard(board) });
+
     };
 
 

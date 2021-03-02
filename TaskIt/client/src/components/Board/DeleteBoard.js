@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { BoardContext } from "../../providers/BoardProvider";
 import { useHistory, useParams, Link } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 export default function DeleteBoard() {
     const { board, deleteBoard, getBoardById } = useContext(BoardContext);

@@ -1,6 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../providers/BoardProvider';
-import { UserProfileContext } from "../providers/UserProfileProvider";
 import BoardList from "./Board/BoardList";
 import { Col } from "reactstrap"
 import "./Home.css";
