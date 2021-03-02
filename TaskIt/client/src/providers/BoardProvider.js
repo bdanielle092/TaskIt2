@@ -61,9 +61,9 @@ export const BoardProvider = (props) => {
             })).then(getAllBoards)
     };
 
-    const updateBoard = (id, board) => {
+    const updateBoard = (board) => {
         getToken().then((token) =>
-            fetch(`/api/board/${id}`, {
+            fetch(`/api/board/${board.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,

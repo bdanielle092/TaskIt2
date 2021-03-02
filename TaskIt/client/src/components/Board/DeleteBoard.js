@@ -5,15 +5,15 @@ import { useHistory, useParams, Link } from "react-router-dom";
 
 export default function DeleteBoard() {
     const { board, deleteBoard, getBoardById } = useContext(BoardContext);
-    const { id } = useParams();
+    const { boardId } = useParams();
     const history = useHistory();
 
     useEffect(() => {
-        getBoardById((id))
+        getBoardById((boardId))
     }, [])
 
     const deleteThisBoard = () => {
-        deleteBoard(id)
+        deleteBoard(boardId)
         history.push("/")
     }
 
@@ -21,7 +21,7 @@ export default function DeleteBoard() {
     return (
         <>
             <div className="delete-confirm-container">
-                <h3> Delete {board.name} Board ?</h3>
+                <h3> Are you sure you want to delete {board.name} board ?</h3>
                 <section className="delete-board">
                     <h1 className="delete-board-h1">{board.name}</h1>
                     <hr />

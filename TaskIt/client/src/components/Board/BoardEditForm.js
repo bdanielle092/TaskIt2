@@ -25,13 +25,13 @@ const BoardEditForm = () => {
 
     });
     //UseParams pulls in the id information from applications view 
-    const { id } = useParams();
+    const { boardId } = useParams();
     const history = useHistory();
     // console.log(parseInt(id).toString())
-    console.log(board)
+
     useEffect(() => {
-        getBoardById(id)
-        console.log(id)
+        getBoardById(boardId)
+
 
 
     }, [])
@@ -43,7 +43,7 @@ const BoardEditForm = () => {
 
 
     //updating boardToEdit value. Updates boardToEdit value on every key stroke for the input field
-    const handleSubmit = (evt) => {
+    const handleFieldChange = (evt) => {
         const newBoard = { ...editBoard };
         newBoard[evt.target.id] = evt.target.value;
         setEditBoard(newBoard);
@@ -51,6 +51,7 @@ const BoardEditForm = () => {
 
     // update function to update the database with the new state of the board name
     const editABoard = (event) => {
+        event.preventDefault()
         updateBoard({
             id: editBoard.id,
             name: editBoard.name,
@@ -69,7 +70,7 @@ const BoardEditForm = () => {
                         <FormGroup>
                             <Input
                                 id={editBoard.id}
-                                onChange={handleSubmit}
+                                onChange={handleFieldChange}
                                 type="hidden"
                                 value={board.id}
                             />
@@ -80,22 +81,23 @@ const BoardEditForm = () => {
                                 id="name"
                                 type="text"
                                 name="name"
-                                value={board.name}
+                                defaultValue={board.name}
+
                                 onChange={(evt) => {
                                     evt.preventDefault()
-                                    handleSubmit(evt)
+                                    handleFieldChange(evt)
                                 }}
                             />
                         </FormGroup>
                         <Input
                             id={editBoard.userProfileId}
-                            onChange={handleSubmit}
+                            onChange={handleFieldChange}
                             type="hidden"
                             value={board.userProfileId}
                         />
                         <Input
                             id={editBoard.active}
-                            onChange={handleSubmit}
+                            onChange={handleFieldChange}
                             type="hidden"
                             value={board.active}
                         />
@@ -108,10 +110,8 @@ const BoardEditForm = () => {
                     <Button
 
                         color="warning "
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            updateBoard(editABoard);
-                        }}
+                        onClick={editABoard}
+
                     >
                         SUBMIT
                     </Button>

@@ -7,10 +7,8 @@ const BoardList = ({ boards }) => {
 
     const history = useHistory();
 
-    //taking user to the edit form   
-    const goToBoardEditForm = (boardId) => {
-        history.push(`/BoardEditForm/${boardId}`);
-    }
+
+
 
     //taking user to the delete form   
     const goToBoardDeleteForm = (id) => {
@@ -26,18 +24,21 @@ const BoardList = ({ boards }) => {
                         <strong>{board.name}</strong>
                     </Link>
                     <div className='icons'>
-                        <FiEdit
-                            size="2em"
-                            color="#2A9d8F"
-                            onClick={goToBoardEditForm}
-                            className='plus-icon' />
+                        <Link to={`/BoardEditForm/${board.id}`}>
+                            <FiEdit
+                                size="2em"
+                                color="#2A9d8F"
+                                boardId={board}
+                                className='plus-icon' />
+                        </Link>
                     </div>
                     <div className='icons'>
-                        <RiDeleteBin5Line
-                            size="2em"
-                            color="#2A9d8F"
-                            onClick={goToBoardDeleteForm}
-                            className='delete-icon' />
+                        <Link to={`/DeleteBoard/${board.id}`}>
+                            <RiDeleteBin5Line
+                                size="2em"
+                                color="#2A9d8F"
+                                className='delete-icon' />
+                        </Link>
                     </div>
                 </div>
             ))}

@@ -6,12 +6,12 @@ import { BoardContext } from "../../providers/BoardProvider";
 
 const Board = ({ props }) => {
     const { getBoardById, board } = useContext(BoardContext)
-    const { id } = useParams();
+    const { boardId } = useParams();
 
 
 
     useEffect(() => {
-        getBoardById(id)
+        getBoardById(boardId)
 
     }, [])
 

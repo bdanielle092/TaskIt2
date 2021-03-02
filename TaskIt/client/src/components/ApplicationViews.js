@@ -23,7 +23,7 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <Home /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/board/:id" exact>
+            <Route path="/board/:boardId" exact>
                 {isLoggedIn ? <Board /> : <Redirect to="/login" />}
             </Route>
 
@@ -36,12 +36,12 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <BoardForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/BoardEditForm/:id" >
+            <Route path="/BoardEditForm/:boardId" >
                 {isLoggedIn ? <BoardEditForm /> : <Redirect to="/login" />}
             </Route>
 
 
-            <Route path="/DeleteBoard/:id">
+            <Route path="/DeleteBoard/:boardId">
                 {isLoggedIn ? <DeleteBoard /> : <Redirect to="/login" />}
             </Route>
 
