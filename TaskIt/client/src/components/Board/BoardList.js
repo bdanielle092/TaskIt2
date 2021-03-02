@@ -1,19 +1,10 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 const BoardList = ({ boards }) => {
 
-    const history = useHistory();
-
-
-
-
-    //taking user to the delete form   
-    const goToBoardDeleteForm = (id) => {
-        history.push(`/DeleteBoard/${id}`);
-    }
 
     //mapping through the list of boards
     return (
