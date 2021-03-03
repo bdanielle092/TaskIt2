@@ -4,12 +4,13 @@ import { useParams, Link } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TiArrowBack } from "react-icons/ti";
 import TaskList from "../Task/TaskList";
+import { TaskContext } from "../../providers/TaskProvider";
 
 
 const Board = ({ props }) => {
     const { getBoardById, board } = useContext(BoardContext)
     const { boardId } = useParams();
-    const { getAllTask, tasks } = useContext(BoardContext);
+    const { getTasks, tasks } = useContext(TaskContext);
 
 
 
@@ -20,7 +21,7 @@ const Board = ({ props }) => {
 
     useEffect(() => {
 
-        getAllTask(boardId);
+        getTasks(boardId);
 
     }, [])
 
@@ -40,10 +41,13 @@ const Board = ({ props }) => {
                             className='back-icon' />
                     </Link>
                 </div>
+
                 <h3 className="BoardName">{board.name} Board</h3>
+
                 <Col className="listOfTasks">
                     <TaskList tasks={tasks} />
                 </Col>
+
             </CardBody>
         </Card>
 

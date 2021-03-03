@@ -32,8 +32,6 @@ const BoardEditForm = () => {
     useEffect(() => {
         getBoardById(boardId)
 
-
-
     }, [])
 
     //sets the board at the start
@@ -72,7 +70,7 @@ const BoardEditForm = () => {
                                 id={editBoard.id}
                                 onChange={handleFieldChange}
                                 type="hidden"
-                                value={board.id}
+                                value={editBoard.id}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -81,7 +79,7 @@ const BoardEditForm = () => {
                                 id="name"
                                 type="text"
                                 name="name"
-                                defaultValue={board.name}
+                                value={editBoard.name}
 
                                 onChange={(evt) => {
                                     evt.preventDefault()
@@ -93,13 +91,13 @@ const BoardEditForm = () => {
                             id={editBoard.userProfileId}
                             onChange={handleFieldChange}
                             type="hidden"
-                            value={board.userProfileId}
+                            value={editBoard.userProfileId}
                         />
                         <Input
                             id={editBoard.active}
                             onChange={handleFieldChange}
                             type="hidden"
-                            value={board.active}
+                            value={editBoard.active}
                         />
                         <FormGroup>
 

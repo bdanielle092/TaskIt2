@@ -19,9 +19,9 @@ export const TaskProvider = (props) => {
 
 
     //fetch calls
-    const getAllTasks = (boardId) => {
+    const getTasks = (boardId) => {
         getToken().then((token) =>
-            fetch('/api/board/${boardId}/task', {
+            fetch(`/api/board/${boardId}/task`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -58,7 +58,7 @@ export const TaskProvider = (props) => {
                 },
                 // js object is being turned to into a string. The board is the js object 
                 body: JSON.stringify(task)
-            })).then(getAllTasks)
+            })).then(getTasks)
     };
 
     const updateTask = (task) => {
@@ -70,7 +70,7 @@ export const TaskProvider = (props) => {
                     "content-Type": "application/json"
                 },
                 body: JSON.stringify(task)
-            })).then(getAllTasks)
+            })).then(getTasks)
     };
 
     const deleteTask = (id) => {
@@ -81,7 +81,7 @@ export const TaskProvider = (props) => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-            })).then(getAllTasks)
+            })).then(getTasks)
     };
 
     const TaskToggle = (boardId, taskId, IsComplete) => {
@@ -104,7 +104,7 @@ export const TaskProvider = (props) => {
     //in the return these lines define what component will be expose to other components. These are the variables in the value attribute
     //You can access the array of objects being stored in the boards variable and invoke the functions
     return (
-        <TaskContext.Provider value={{ task, tasks, getAllTasks, getTaskById, addTask, updateTask, deleteTask, TaskToggle }}>
+        <TaskContext.Provider value={{ task, tasks, getTasks, getTaskById, addTask, updateTask, deleteTask, TaskToggle }}>
             {props.children}
         </TaskContext.Provider>
     );

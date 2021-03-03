@@ -20,7 +20,7 @@ namespace TaskIt.Repositories
         {
           
             return _context.Task
-                .Include(t => t.BoardId)
+                
                 .Where(b => b.Active)
                 .ToList();
         }
