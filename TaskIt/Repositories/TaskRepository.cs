@@ -15,8 +15,15 @@ namespace TaskIt.Repositories
             _context = context;
         }
 
-       
 
+        public List<Task> GetAll()
+        {
+          
+            return _context.Task
+                .Include(t => t.BoardId)
+                .Where(b => b.Active)
+                .ToList();
+        }
         public Task GetById(int id)
         {
             return _context.Task
@@ -61,6 +68,14 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
-        
+        public void Toggle(int id, bool IsComplete)
+        {
+            var task = GetById(id);
+            task.IsComplete = IsComplete;
+            _context.Entry(task).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+
     }
 }

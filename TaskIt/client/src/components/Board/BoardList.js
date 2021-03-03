@@ -14,6 +14,7 @@ const BoardList = ({ boards }) => {
                     <Link to={`/board/${board.id}`}>
                         <strong>{board.name}</strong>
                     </Link>
+
                     <div className='icons'>
                         <Link to={`/BoardEditForm/${board.id}`}>
                             <FiEdit
@@ -23,6 +24,7 @@ const BoardList = ({ boards }) => {
                                 className='edit-icon' />
                         </Link>
                     </div>
+
                     <div className='icons'>
                         <Link to={`/DeleteBoard/${board.id}`}>
                             <RiDeleteBin5Line
