@@ -29,6 +29,11 @@
     justify-content: center;
 }
 
+.plus-icon {
+    position: absolute;
+    right: 23px;
+}
+
 @media only screen and (max-width: 600px) {
     .home {
         display: flex;

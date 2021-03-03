@@ -20,7 +20,7 @@ const BoardList = ({ boards }) => {
                                 size="2em"
                                 color="#2A9d8F"
                                 boardId={board}
-                                className='plus-icon' />
+                                className='edit-icon' />
                         </Link>
                     </div>
                     <div className='icons'>
