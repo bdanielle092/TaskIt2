@@ -1,25 +1,56 @@
 import React, { useEffect, useContext } from "react";
-import { Card, CardBody } from "reactstrap";
-import { Link, useParams } from "react-router-dom";
+import { Card, CardBody, Col } from "reactstrap";
+import { useParams, Link } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
+import { TiArrowBack } from "react-icons/ti";
+import TaskList from "../Task/TaskList";
+import { TaskContext } from "../../providers/TaskProvider";
+
 
 const Board = ({ props }) => {
     const { getBoardById, board } = useContext(BoardContext)
-    const { id } = useParams();
+    const { boardId } = useParams();
+    const { getTasks, tasks } = useContext(TaskContext);
 
 
 
     useEffect(() => {
-        getBoardById(id)
+        getBoardById(boardId)
+
     }, [])
+
+    useEffect(() => {
+
+        getTasks(boardId);
+
+    }, [])
+
+
+
+
 
     return (
         <Card>
             <CardBody>
+                <div className='icons'>
+                    <Link to={"/"}>
+                        <TiArrowBack
+                            size="2em"
+                            color="#2A9d8F"
+                            boardId={board}
+                            className='back-icon' />
+                    </Link>
+                </div>
+
                 <h3 className="BoardName">{board.name} Board</h3>
-            </CardBody> 
+
+                <Col className="listOfTasks">
+                    <TaskList tasks={tasks} />
+                </Col>
+
+            </CardBody>
         </Card>
-      
+
 
     )
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { useHistory, useParams, Link } from "react-router-dom";
 import {
     Form,
     FormGroup,
@@ -10,64 +9,55 @@ import {
     Input,
     Button,
 } from "reactstrap";
+import { BoardContext } from "../../providers/BoardProvider";
 
 
 
 const BoardEditForm = () => {
-    const { getToken } = useContext(UserProfileContext)
-    const { id } = useParams();
+    const { getBoardById, updateBoard, board } = useContext(BoardContext)
+
+    //for edit, hold on to state of board in this view
+    const [editBoard, setEditBoard] = useState({
+        id: board.id,
+        name: "",
+        userProfileId: board.userProfileId,
+        active: board.active
+
+    });
+    //UseParams pulls in the id information from applications view 
+    const { boardId } = useParams();
     const history = useHistory();
-    //this is a empty string but when the page initially gets loaded then the string will be updated with the current name of the board
-    const [boardToEdit, setBoardToEdit] = useState("")
-    //this the existing board object that is gets loads ar initial load too.
-    const [existingBoard, setExistingBoard] = useState({})
+    // console.log(parseInt(id).toString())
 
-    //this is getting the current state of the board base off the id passed in the uri and setting existingBoard and boardToEdit
     useEffect(() => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/board/${id}`, {
-                    method: "GET",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                })
-            )
-            .then((res) => res.json())
-            .then((board) => {
-                setExistingBoard(board)
-                setBoardToEdit(board["name"])
-            });
+        getBoardById(boardId)
 
-    }, []);
+    }, [])
+
+    //sets the board at the start
+    useEffect(() => {
+        setEditBoard(board)
+    }, [board]);
+
 
     //updating boardToEdit value. Updates boardToEdit value on every key stroke for the input field
-    const handleSubmit = (evt) => {
-        const newBoard = evt.target.value;
-        setBoardToEdit(newBoard);
+    const handleFieldChange = (evt) => {
+        const newBoard = { ...editBoard };
+        newBoard[evt.target.id] = evt.target.value;
+        setEditBoard(newBoard);
     };
 
     // update function to update the database with the new state of the board name
-    const updateBoard = (board) => {
-        getToken()
-            .then((token) =>
-                fetch(`/api/board/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({
-                        //keeping all the existing keys the same except name
-                        "active": existingBoard["active"],
-                        "id": existingBoard["id"],
-                        "name": boardToEdit,
-                        "userProfile": existingBoard["userProfile"],
-                        "userProfileId": existingBoard["userProfileId"]
-                    }),
-                })
-            )
-            .then((evt) => history.push("/"));
+    const editABoard = (event) => {
+        event.preventDefault()
+        updateBoard({
+            id: editBoard.id,
+            name: editBoard.name,
+            userProfileId: editBoard.userProfileId,
+            active: editBoard.active
+
+        })
+        history.push("/");
     };
 
     return (
@@ -76,29 +66,54 @@ const BoardEditForm = () => {
                 <CardBody>
                     <Form>
                         <FormGroup>
+                            <Input
+                                id={editBoard.id}
+                                onChange={handleFieldChange}
+                                type="hidden"
+                                value={editBoard.id}
+                            />
+                        </FormGroup>
+                        <FormGroup>
                             <Label for="name">Board Name</Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                value={boardToEdit}
+                                value={editBoard.name}
+
                                 onChange={(evt) => {
                                     evt.preventDefault()
-                                    handleSubmit(evt)
+                                    handleFieldChange(evt)
                                 }}
                             />
                         </FormGroup>
+                        <Input
+                            id={editBoard.userProfileId}
+                            onChange={handleFieldChange}
+                            type="hidden"
+                            value={editBoard.userProfileId}
+                        />
+                        <Input
+                            id={editBoard.active}
+                            onChange={handleFieldChange}
+                            type="hidden"
+                            value={editBoard.active}
+                        />
+                        <FormGroup>
+
+                        </FormGroup>
+
+
                     </Form>
                     <Button
 
                         color="warning "
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            updateBoard(boardToEdit);
-                        }}
+                        onClick={editABoard}
+
                     >
                         SUBMIT
                     </Button>
+                    <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
                 </CardBody>
             </Card>
         </div>

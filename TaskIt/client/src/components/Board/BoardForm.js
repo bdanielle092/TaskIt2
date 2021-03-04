@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+
+import React, { useState, useContext } from "react";
+import { useHistory, Link } from "react-router-dom";
 import {
     Form,
     FormGroup,
@@ -9,17 +10,17 @@ import {
     Input,
     Button,
 } from "reactstrap";
-import { UserProfileContext } from "../../providers/UserProfileProvider";
 import { BoardContext } from "../../providers/BoardProvider";
 
 
 const BoardForm = () => {
-
-    const { getToken } = useContext(UserProfileContext);
-    const { addBoard, getAllBoards } = useContext(BoardContext);
+    const { addBoard } = useContext(BoardContext);
     const history = useHistory();
     const [board, setBoard] = useState({ name: "" });
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading] = useState(false);
+
+
+  
 
     //this is updating the board and setting it as the new board 
     const handleSubmit = (evt) => {
@@ -43,13 +44,12 @@ const BoardForm = () => {
         if (board.name === "") {
             alert("Please enter a Board Name")
         } else {
-            setIsLoading(true)
+            //invoke addBoard passing board as an argument.
+            //once complete, go back to the home page
+            addBoard(board)
+            history.push("/");
         }
-        //invoke addBoard passing board as an argument.
-        //once complete, go back to the home page
-        addBoard(board)
-        history.push("/");
-    }
+
 
 
     return (
@@ -79,6 +79,7 @@ const BoardForm = () => {
                     >
                         SUBMIT
                     </Button>
+                    <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
                 </CardBody>
             </Card>
         </div>
