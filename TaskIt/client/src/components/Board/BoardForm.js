@@ -20,7 +20,7 @@ const BoardForm = () => {
     const [isLoading] = useState(false);
 
 
-  
+
 
     //this is updating the board and setting it as the new board 
     const handleSubmit = (evt) => {
@@ -49,6 +49,7 @@ const BoardForm = () => {
             addBoard(board)
             history.push("/");
         }
+    };
 
 
 

@@ -16,11 +16,7 @@ namespace TaskIt.Controllers
             _taskRepo = taskRepo;
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_taskRepo.GetAll());
-        }
+    
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)

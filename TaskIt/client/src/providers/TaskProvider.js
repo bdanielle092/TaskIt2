@@ -47,9 +47,9 @@ export const TaskProvider = (props) => {
     };
 
 
-    const addTask = (task) => {
+    const addTask = (boardId, task) => {
         getToken().then((token) =>
-            fetch("/api/task", {
+            fetch(`/api/board/${boardId}/task`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
