@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import {
@@ -17,6 +18,9 @@ const BoardForm = () => {
     const history = useHistory();
     const [board, setBoard] = useState({ name: "" });
     const [isLoading] = useState(false);
+
+
+  
 
     //this is updating the board and setting it as the new board 
     const handleSubmit = (evt) => {
@@ -46,7 +50,6 @@ const BoardForm = () => {
             history.push("/");
         }
 
-    }
 
 
     return (
