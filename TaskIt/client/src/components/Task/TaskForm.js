@@ -16,7 +16,7 @@ import { TaskContext } from "../../providers/TaskProvider";
 const TaskForm = () => {
     const { addTask } = useContext(TaskContext)
     const { board } = useContext(BoardContext)
-    const [task, setTask] = useState({ name: "", note: "", priority: 1, isComplete: false, dateTime: "" })
+    const [task, setTask] = useState({ name: "", note: "", priorityId: 1, isComplete: false, dateTime: "" })
     const { boardId } = useParams();
     const history = useHistory();
 
@@ -34,19 +34,16 @@ const TaskForm = () => {
     }, [])
 
 
-    //this is updating the task and setting it as the new task
-    //if its a priorityId change to a number otherwise return as a string 
+    //this is updating the task and setting it as the new task and parsing the priority
+    //The parseInt function converts its first argument to a string, parses that string, then returns an integer or NaN
     const handleSubmit = (evt) => {
+        evt.preventDefault()
         const newTask = { ...task };
-        if (evt.target.name === "priorityId") {
-            newTask[evt.target.name] = Number(evt.target.value);
-        } else {
-            newTask[evt.target.name] = evt.target.value;
-        }
-
+        newTask[evt.target.id] = evt.target.value;
+        newTask.priorityId = parseInt(newTask.priorityId)
         setTask(newTask);
-    };
 
+    }
     //this is creating the new task in the database then taking us back to the board we are currently on 
     const createNewTask = (evt) => {
         if (task.name === "") {
@@ -63,7 +60,6 @@ const TaskForm = () => {
         updateTaskDate["dateTime"] = Date.now()
         setTask(updateTaskDate)
     }
-
 
 
     return (
@@ -93,7 +89,7 @@ const TaskForm = () => {
                                 required
                                 className="form-control"
                                 id="priorityId"
-                                value={task.priority}
+                                value={task.priorityId}
                                 onChange={(evt) => handleSubmit(evt)}>
                                 <option value="1">None</option>
                                 <option value="2">Low</option>

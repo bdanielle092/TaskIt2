@@ -33,8 +33,6 @@ const Board = ({ props }) => {
         history.push(`/Board/${boardId}/TaskForm`);
     }
 
-
-
     return (
         <div>
             <div className='icons'>
@@ -42,7 +40,7 @@ const Board = ({ props }) => {
                     <TiArrowBack
                         size="2em"
                         color="#2A9d8F"
-                        boardId={board}
+                        board={board}
                         className='back-icon' />
                 </Link>
             </div>

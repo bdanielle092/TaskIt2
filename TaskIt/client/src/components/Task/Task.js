@@ -19,7 +19,6 @@ const Task = ({ props }) => {
     }, [])
 
 
-
     return (
         <div>
 
