@@ -10,13 +10,13 @@ import {
     Button,
 } from "reactstrap";
 import { BoardContext } from "../../providers/BoardProvider";
-import { TaskProvider } from "../../providers/TaskProvider";
+import { TaskContext } from "../../providers/TaskProvider";
 
 
 const TaskForm = () => {
-    const { addTask } = useContext(TaskProvider)
+    const { addTask } = useContext(TaskContext)
     const { board } = useContext(BoardContext)
-    const [task, setTask] = useState({ name: "", note: "", isComplete: false, dateTime: "" })
+    const [task, setTask] = useState({ name: "", note: "", priority: 1, isComplete: false, dateTime: "" })
     const { boardId } = useParams();
     const history = useHistory();
 
@@ -49,8 +49,7 @@ const TaskForm = () => {
 
     //this is creating the new task in the database then taking us back to the board we are currently on 
     const createNewTask = (evt) => {
-        evt.preventDefault();
-        if (board.name === "") {
+        if (task.name === "") {
             alert("Please enter a Task Name")
         } else {
             addTask(boardId, task)
@@ -58,7 +57,7 @@ const TaskForm = () => {
         }
     };
 
-    //updateTask = task, then setting the date to current day and time, then updating set task to the updated day and time in the database
+    //updateTaskDate = task, then setting the date to current day and time, then updating set task to the updated day and time in the database
     const createDate = () => {
         const updateTaskDate = task
         updateTaskDate["dateTime"] = Date.now()
@@ -90,11 +89,17 @@ const TaskForm = () => {
                                 onChange={(evt) => handleSubmit(evt)}
                             />
                             <Label for="priority">Choose a Priority</Label>
-                            <select onChange={(evt) => handleSubmit(evt)} id="priority" name="priorityId" form="priority">
+                            <select
+                                required
+                                className="form-control"
+                                id="priorityId"
+                                value={task.priority}
+                                onChange={(evt) => handleSubmit(evt)}>
                                 <option value="1">None</option>
                                 <option value="2">Low</option>
                                 <option value="3">Medium</option>
                                 <option value="4">High</option>
+
                             </select>
 
                         </FormGroup>
