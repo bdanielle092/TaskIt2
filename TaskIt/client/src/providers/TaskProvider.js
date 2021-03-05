@@ -24,8 +24,9 @@ export const TaskProvider = (props) => {
             fetch(`/api/board/${boardId}/task`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
                 //have a response and translate to json
             }).then(res => res.json())
 
@@ -47,9 +48,9 @@ export const TaskProvider = (props) => {
     };
 
 
-    const addTask = (task) => {
+    const addTask = (boardId, task) => {
         getToken().then((token) =>
-            fetch("/api/task", {
+            fetch(`/api/board/${boardId}/task`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -58,7 +59,7 @@ export const TaskProvider = (props) => {
                 },
                 // js object is being turned to into a string. The board is the js object 
                 body: JSON.stringify(task)
-            })).then(getTasks)
+            }))
     };
 
     const updateTask = (task) => {

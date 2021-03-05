@@ -4,13 +4,14 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "./Home";
+import Board from "./Board/Board";
 import BoardList from "./Board/BoardList";
 import BoardForm from "./Board/BoardForm";
-import Board from "./Board/Board";
 import BoardEditForm from "./Board/BoardEditForm";
 import DeleteBoard from "./Board/DeleteBoard";
 import Task from "./Task/Task";
 import TaskList from "./Task/TaskList";
+import TaskForm from "./Task/TaskForm";
 
 
 
@@ -55,6 +56,12 @@ const ApplicationViews = () => {
 
             <Route path="/Board/:boardId/task" exact>
                 {isLoggedIn ? <TaskList /> : <Redirect to="/login" />}
+            </Route>
+
+
+            <Route path="/Board/:boardId/TaskForm" exact>
+
+                {isLoggedIn ? <TaskForm /> : <Redirect to="/login" />}
             </Route>
 
 
