@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import { FiEdit } from "react-icons/fi";
-// import { RiDeleteBin5Line } from "react-icons/ri";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 const TaskList = ({ tasks }) => {
 
@@ -13,6 +13,15 @@ const TaskList = ({ tasks }) => {
                     <Link to={`/board/${task.boardId}/task/${task.id}`}>
                         <strong>{task.name}</strong>
                     </Link>
+
+                    <div className='icons'>
+                        <Link to={`/DeleteTask/${task.id}`}>
+                            <RiDeleteBin5Line
+                                size="2em"
+                                color="#2A9d8F"
+                                className='delete-icon' />
+                        </Link>
+                    </div>
 
                 </div>
             ))}

@@ -82,7 +82,7 @@ export const TaskProvider = (props) => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
-            })).then(getTasks)
+            }))
     };
 
     const TaskToggle = (boardId, taskId, IsComplete) => {

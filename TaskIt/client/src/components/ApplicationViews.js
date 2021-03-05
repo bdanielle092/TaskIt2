@@ -12,6 +12,7 @@ import DeleteBoard from "./Board/DeleteBoard";
 import Task from "./Task/Task";
 import TaskList from "./Task/TaskList";
 import TaskForm from "./Task/TaskForm";
+import DeleteTask from "./Task/DeleteTask";
 
 
 
@@ -62,6 +63,12 @@ const ApplicationViews = () => {
             <Route path="/Board/:boardId/TaskForm" exact>
 
                 {isLoggedIn ? <TaskForm /> : <Redirect to="/login" />}
+            </Route>
+
+
+            <Route path="/DeleteTask/:taskId" exact>
+
+                {isLoggedIn ? <DeleteTask /> : <Redirect to="/login" />}
             </Route>
 
 
