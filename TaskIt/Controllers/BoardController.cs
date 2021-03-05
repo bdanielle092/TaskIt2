@@ -105,7 +105,7 @@ namespace TaskIt.Controllers
             return _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
         }
 
-
+        //gets the tasks by the boardId
         [HttpGet("{boardId}/task")]
         public IActionResult GetTasksForBoard(int boardId)
         {
@@ -117,7 +117,7 @@ namespace TaskIt.Controllers
             return Ok(task);
         }
 
-
+        //adds a task on a board
         [HttpPost("{boardId}/task")]
         public IActionResult Post(int boardId, Task task)
         {
@@ -131,7 +131,7 @@ namespace TaskIt.Controllers
         }
 
 
-
+        //edits a task on a board
         [HttpPut("{boardId}/task/{id}")]
         public IActionResult Put(int boardId, Task task, int id)
         {
@@ -149,7 +149,7 @@ namespace TaskIt.Controllers
         }
 
 
-
+        //deletes a task on a board
         [HttpDelete("{boardId}/task/{id}")]
         public IActionResult Delete(int boardId, Task task, int id)
         {

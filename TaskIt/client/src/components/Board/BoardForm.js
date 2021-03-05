@@ -49,7 +49,8 @@ const BoardForm = () => {
             addBoard(board)
             history.push("/");
         }
-    }
+    };
+
 
 
     return (
