@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
+
 //context stores data to use in the application therefore you need to create a context
 //the context is empty and waiting to be filled
 export const TaskContext = createContext();
@@ -14,6 +15,8 @@ export const TaskProvider = (props) => {
     //setBoard and setBoards define the function to be use to modify/update that state
     const [task, setTask] = useState({});
     const [tasks, setTasks] = useState([]);
+
+
 
 
 
@@ -62,16 +65,16 @@ export const TaskProvider = (props) => {
             }))
     };
 
-    const updateTask = (task) => {
+    const updateTask = (boardId, task, taskId) => {
         getToken().then((token) =>
-            fetch(`/api/task/${task.id}`, {
+            fetch(`/api/board/${boardId}/task/${task.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "content-Type": "application/json"
                 },
                 body: JSON.stringify(task)
-            })).then(getTasks)
+            }))
     };
 
     const deleteTask = (id) => {

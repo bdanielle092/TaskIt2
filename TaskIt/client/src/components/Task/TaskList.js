@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { FiEdit } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { useParams } from "react-router-dom";
+import { BoardContext } from "../../providers/BoardProvider";
+import { TaskContext } from "../../providers/TaskProvider";
 
 const TaskList = ({ tasks }) => {
+    const { getBoardById } = useContext(BoardContext);
+    const { getTaskById } = useContext(TaskContext);
+    const { boardId, taskId } = useParams();
+
+
+    useEffect(() => {
+        getBoardById(boardId)
+
+    }, [])
+
+    useEffect(() => {
+        getTaskById(taskId)
+
+    }, [])
 
     //mapping through the list of tasks
     return (
@@ -13,6 +30,16 @@ const TaskList = ({ tasks }) => {
                     <Link to={`/board/${task.boardId}/task/${task.id}`}>
                         <strong>{task.name}</strong>
                     </Link>
+
+                    <div className='icons'>
+                        <Link to={`/board/${boardId}/TaskEditForm/${taskId}`}>
+                            <FiEdit
+                                size="2em"
+                                color="#2A9d8F"
+                                taskId={task}
+                                className='edit-icon' />
+                        </Link>
+                    </div>
 
                     <div className='icons'>
                         <Link to={`/DeleteTask/${task.id}`}>

@@ -34,6 +34,7 @@ namespace TaskIt.Repositories
                 .FirstOrDefault(task => task.Id == id);
         }
 
+
         public List<Task> GetByBoardId(int id)
         {
             return _context.Task
