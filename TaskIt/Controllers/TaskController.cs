@@ -39,6 +39,18 @@ namespace TaskIt.Controllers
             return NoContent();
         }
 
+        [HttpPut("task/{id}")]
+        public IActionResult Put(Task task, int id)
+        {
+            if (id != task.Id)
+            {
+                return BadRequest();
+            }
+
+            _taskRepo.Update(task);
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

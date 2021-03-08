@@ -32,6 +32,20 @@ namespace TaskIt.Controllers
             return Ok(subTasks);
         }
 
+        //https:localhost:5001/api/subTask/subTaskId (make sure to add the // after https://)
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+
+            var subTask = _subTaskRepo.GetById(id);
+            if (subTask == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(subTask);
+        }
+
         //https:localhost:5001/api/subTask (make sure to add the // after https://)
         [HttpPost]
         public IActionResult Post(SubTask subTask)

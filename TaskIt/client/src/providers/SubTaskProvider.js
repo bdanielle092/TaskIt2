@@ -1,59 +1,56 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
-
 //context stores data to use in the application therefore you need to create a context
 //the context is empty and waiting to be filled
-export const TaskContext = createContext();
+export const SubTaskContext = createContext();
 
 //defining the data provider components which will allow other components to use the data in context
-export const TaskProvider = (props) => {
+export const SubTaskProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
 
-    //holds the state of the component board, and a function that updates it
-    //board and boards define the variable which will hold the data
-    //setBoard and setBoards define the function to be use to modify/update that state
-    const [task, setTask] = useState({});
-    const [tasks, setTasks] = useState([]);
-
-
+    //holds the state of the component subTask, and a function that updates it
+    //subTask and subTasks define the variable which will hold the data
+    //setSubTask and setSubTasks define the function to be use to modify/update that state
+    const [subTask, setSubTask] = useState({});
+    const [subTasks, setSubTasks] = useState([]);
 
 
 
 
     //fetch calls
-    const getTasks = (boardId) => {
+    const getSubTasks = (taskId) => {
         getToken().then((token) =>
-            fetch(`/api/board/${boardId}/task`, {
+            fetch(`/api/subTask/task/${taskId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
                 },
-                //have a response and translate to json
-            }).then(res => res.json())
-
-                .then(setTasks));
-
+            })
+                .then((res) => res.json())
+                .then((subTasks) => {
+                    setSubTasks(subTasks);
+                })
+        );
     };
 
 
-    const getTaskById = (taskId) => {
+    const getSubTaskById = (id) => {
         getToken().then((token) =>
-            fetch(`/api/task/${taskId}`, {
+            fetch(`/api/subTask/${id}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })).then((resp) => resp.json())
-            .then((task) => { setTask(task) });
+            .then((subTask) => { setSubTask(subTask) });
 
     };
 
 
-    const addTask = (boardId, task) => {
+    const addSubTask = (subTask) => {
         getToken().then((token) =>
-            fetch(`/api/board/${boardId}/task`, {
+            fetch("/api/subTask", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -61,25 +58,25 @@ export const TaskProvider = (props) => {
                     "Content-Type": "application/json"
                 },
                 // js object is being turned to into a string. The board is the js object 
-                body: JSON.stringify(task)
+                body: JSON.stringify(subTask)
             }))
     };
 
-    const updateTask = (boardId, task, taskId) => {
+    const updateSubTask = (subTask) => {
         getToken().then((token) =>
-            fetch(`/api/board/${boardId}/task/${task.id}`, {
+            fetch(`/api/subTask/${subTask.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "content-Type": "application/json"
                 },
-                body: JSON.stringify(task)
+                body: JSON.stringify(subTask)
             }))
     };
 
-    const deleteTask = (id) => {
+    const deleteSubTask = (id) => {
         getToken().then((token) =>
-            fetch(`/api/task/${id}`, {
+            fetch(`/api/subTask/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -88,9 +85,9 @@ export const TaskProvider = (props) => {
             }))
     };
 
-    const taskToggle = (boardId, taskId, IsComplete) => {
+    const subTaskToggle = (taskId, subTaskId, IsComplete) => {
         return getToken().then((token) =>
-            fetch(`/api/task/toggle/${taskId}?IsComplete=${IsComplete}`, {
+            fetch(`/api/task/toggle/${subTaskId}?IsComplete=${IsComplete}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -99,17 +96,17 @@ export const TaskProvider = (props) => {
                 },
 
             }))
-            .then(getTasks(boardId))
+            .then(getSubTasks(taskId))
 
     }
 
 
 
     //in the return these lines define what component will be expose to other components. These are the variables in the value attribute
-    //You can access the array of objects being stored in the boards variable and invoke the functions
+    //You can access the array of objects being stored in the subTasks variable and invoke the functions
     return (
-        <TaskContext.Provider value={{ task, tasks, getTasks, getTaskById, addTask, updateTask, deleteTask, taskToggle }}>
+        <SubTaskContext.Provider value={{ subTask, subTasks, getSubTasks, getSubTaskById, addSubTask, updateSubTask, deleteSubTask, subTaskToggle }}>
             {props.children}
-        </TaskContext.Provider>
+        </SubTaskContext.Provider>
     );
 }

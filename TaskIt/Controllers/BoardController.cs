@@ -27,7 +27,7 @@ namespace TaskIt.Controllers
         private readonly ITaskRepository _taskRepo;
 
         //this is a constructor which we know because its has the same name of the class and has no type
-        public BoardController( IBoardRepository boardRepo, IUserProfileRepository userProfileRepo, ITaskRepository taskRepo)
+        public BoardController(IBoardRepository boardRepo, IUserProfileRepository userProfileRepo, ITaskRepository taskRepo)
         {
             _boardRepo = boardRepo;
             _userProfileRepo = userProfileRepo;
@@ -39,7 +39,7 @@ namespace TaskIt.Controllers
         //Type is IAcationResult and its a interface, method is get
         public IActionResult Get()
         {
-           
+
             var currentUser = GetCurrentUserProfile();
             var currentUserBoards = _boardRepo.GetByUserProfileId(currentUser.Id);
             //OK is a method from type IActionResult
@@ -62,11 +62,11 @@ namespace TaskIt.Controllers
             {
                 return NotFound();
             }
-          
+
             return Ok(board);
         }
 
-   
+
 
         [HttpPost]
         public IActionResult Post(Board board)
@@ -79,14 +79,14 @@ namespace TaskIt.Controllers
 
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Board board  )
+        public IActionResult Put(int id, Board board)
         {
-            
+
             if (id != board.Id)
             {
                 return BadRequest();
             }
-    
+
             _boardRepo.Update(board);
             return NoContent();
         }
@@ -116,10 +116,7 @@ namespace TaskIt.Controllers
             }
             return Ok(task);
         }
-
-
-        
-      
+       
 
         //adds a task on a board
         [HttpPost("{boardId}/task")]
