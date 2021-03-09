@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
+//defining the method BoardList and passing in the board object
 const BoardList = ({ boards }) => {
 
 
-    //mapping through the list of boards
+    // in the return 1.mapping through the list of boards.
+    //2. we made a link so the user can click a board and see the board card. we user board.name to display the name of the board
+    //3.we have the edit icon that take the user to the edit form. I used a Link to redirect to the edit page
+    //4. we have the delete icon that take teh user to the delete from. I used a Link to redirect to the delete page
+    //then we export the BoardList so it can be used in other components
     return (
         <div>
             {boards.map((board) => (

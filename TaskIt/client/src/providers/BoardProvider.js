@@ -7,11 +7,13 @@ export const BoardContext = createContext();
 
 //defining the data provider components which will allow other components to use the data in context
 export const BoardProvider = (props) => {
+    //bringing in the method getToken from the userProfileProvider with useContext
     const { getToken } = useContext(UserProfileContext);
 
     //holds the state of the component board, and a function that updates it
     //board and boards define the variable which will hold the data
     //setBoard and setBoards define the function to be use to modify/update that state
+    //{} is an object and [] is an array 
     const [board, setBoard] = useState({});
     const [boards, setBoards] = useState([]);
 
@@ -19,6 +21,8 @@ export const BoardProvider = (props) => {
 
 
     //fetch calls
+
+    //this gets all the board for the user sign in 
     const getAllBoards = () => {
         getToken().then((token) =>
             fetch("/api/board", {
@@ -33,7 +37,7 @@ export const BoardProvider = (props) => {
 
     };
 
-
+    //this gets the boards by id
     const getBoardById = (id) => {
         getToken().then((token) =>
             fetch(`/api/board/${id}`, {
@@ -46,7 +50,7 @@ export const BoardProvider = (props) => {
 
     };
 
-
+    //adds a board
     const addBoard = (board) => {
         getToken().then((token) =>
             fetch("/api/board", {
@@ -61,6 +65,7 @@ export const BoardProvider = (props) => {
             })).then(getAllBoards())
     };
 
+    //updates a board
     const updateBoard = (board) => {
         getToken().then((token) =>
             fetch(`/api/board/${board.id}`, {
@@ -73,6 +78,7 @@ export const BoardProvider = (props) => {
             })).then(getAllBoards)
     };
 
+    //deletes a board
     const deleteBoard = (id) => {
         getToken().then((token) =>
             fetch(`/api/board/${id}`, {
