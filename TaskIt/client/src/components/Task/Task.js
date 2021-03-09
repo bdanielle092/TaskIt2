@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { TiArrowBack } from "react-icons/ti";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
 import { Col } from "reactstrap";
@@ -14,8 +14,10 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 const Task = ({ props }) => {
     const { getTaskById, task, getTasks, tasks } = useContext(TaskContext)
     const { board } = useContext(BoardContext)
-    const { subTask, subTasks } = useContext(SubTaskContext)
+    const { subTasks } = useContext(SubTaskContext)
     const { taskId, boardId } = useParams();
+    const history = useHistory();
+
 
 
 
@@ -27,7 +29,10 @@ const Task = ({ props }) => {
     useEffect(() => {
         getTasks(boardId)
 
+
     }, [])
+
+
 
     //taking the user to the board form 
     const goToSubTaskForm = () => {
@@ -42,7 +47,7 @@ const Task = ({ props }) => {
                     <TiArrowBack
                         size="2em"
                         color="#2A9d8F"
-                        taskId={task}
+                        task={task}
                         className='back-icon' />
                 </Link>
             </div>
@@ -58,7 +63,8 @@ const Task = ({ props }) => {
                     className='plus-icon' />
             </div>
             <Col className="listOfTasks">
-                <SubTaskList subTasks={subTasks} />
+
+                <SubTaskList subTasks={subTasks} boardId={task.boardId} />
             </Col>
             <h3>Priority</h3>
             <p>{task.priorityId}</p>

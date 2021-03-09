@@ -50,9 +50,9 @@ export const SubTaskProvider = (props) => {
     };
 
 
-    const addSubTask = (subTask) => {
+    const addSubTask = (taskId, subTask) => {
         getToken().then((token) =>
-            fetch(`/api/subTask`, {
+            fetch(`/api/subTask/task/${taskId}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

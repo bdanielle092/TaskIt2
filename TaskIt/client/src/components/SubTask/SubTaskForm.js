@@ -20,7 +20,6 @@ const SubTaskForm = () => {
     const { task } = useContext(TaskContext);
     const { board } = useContext(BoardContext);
     const [subTask, setSubTask] = useState({ name: "", isComplete: false });
-    const { addSubTask } = useContext(SubTaskContext);
     const { taskId, boardId } = useParams();
     const history = useHistory();
 

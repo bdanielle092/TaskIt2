@@ -5,26 +5,11 @@ import { TaskContext } from "../../providers/TaskProvider";
 import { SubTaskContext } from "../../providers/SubTaskProvider";
 
 const SubTaskList = ({ subTasks }) => {
-    const { getBoardById } = useContext(BoardContext);
-    const { getTaskById } = useContext(TaskContext);
-    const { getSubTaskById } = useContext(SubTaskContext);
-    const { boardId, taskId, subTaskId } = useParams();
+
+    const { boardId, taskId } = useParams();
 
 
-    useEffect(() => {
-        getBoardById(boardId)
 
-    }, [])
-
-    useEffect(() => {
-        getTaskById(taskId)
-
-    }, [])
-
-    useEffect(() => {
-        getSubTaskById(subTaskId)
-
-    }, [])
 
 
     return (
