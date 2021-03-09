@@ -3,3 +3,18 @@
     justify-content: center;
     color: #F4A261;
 }
+
+.BoardContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.board-plus-icon,
+.AddTaskName {
+    display: flex;
+}
+
+.listOfTasks {
+    display: flex;
+    justify-content: center;
+}

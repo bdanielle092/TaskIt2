@@ -3,22 +3,34 @@ import { TiArrowBack } from "react-icons/ti";
 import { useParams, Link } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
-// import { TiArrowBack } from "react-icons/ti"
 
 
+//defining Task function passing the properties of task object
 const Task = ({ props }) => {
+    //bringing the methods from TaskContext by  using useContext
     const { getTaskById, task } = useContext(TaskContext)
+    //bring in the board object from BoardContext using useContext
     const { board } = useContext(BoardContext)
+    //using useParams to get the taskId from application views
     const { taskId } = useParams();
 
 
-
+    //useEffects render then come back to get the taskId
     useEffect(() => {
         getTaskById(taskId)
 
     }, [])
 
-
+    //return 1.back arrow icon to take the user back to the board they were on. I used the Link to go back to the board page
+    //2. Name Of task header
+    //3.Notes header
+    //4. paragraph tag to display the notes
+    //5.Name of subTask header
+    //6. list of subTask
+    //7. Priority header
+    //8. number of the priority the user pick
+    //9. date created header and dated created info 
+    //export the Task so it can be used in other component
     return (
         <div>
 
@@ -27,7 +39,7 @@ const Task = ({ props }) => {
                     <TiArrowBack
                         size="2em"
                         color="#2A9d8F"
-                        taskId={task}
+                        task={task}
                         className='back-icon' />
                 </Link>
             </div>

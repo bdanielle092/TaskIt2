@@ -6,12 +6,13 @@ import { TiArrowBack } from "react-icons/ti";
 import TaskList from "../Task/TaskList";
 import { TaskContext } from "../../providers/TaskProvider";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import "./Board.css"
 
 //this whole thing is a method and we are passing the properties. Then we are exporting it at the end so we can use in in other components 
 const Board = ({ props }) => {
     //bringing in the methods from BoardProvider with useContext
-    //we bringing in board to get the properties of a board 
-    const { getBoardById, board } = useContext(BoardContext)
+    //we bringing in board object to get the properties of a board 
+    const { getBoardById, board } = useContext(BoardContext);
     //useParams allow us to get the boardId from application view
     const { boardId } = useParams();
     //bringing in methods from TaskProvider using TaskContext 
@@ -42,8 +43,8 @@ const Board = ({ props }) => {
         history.push(`/Board/${boardId}/TaskForm`);
     }
     //In this return 1. we have a back arrow icon which takes the use back to the previous page
-    //2. we have an add icon which take the user to the add task form 
-    //3. We display the name of the board we are on 
+    //2. We display the name of the board we are on 
+    //3. we have an add icon which take the user to the add task form 
     //4. We display the list of tasks on this board
     //last we export the board so we can import it in other components
     return (
@@ -57,14 +58,17 @@ const Board = ({ props }) => {
                         className='back-icon' />
                 </Link>
             </div>
-            <div className='icons'>
+
+            <h3 className="BoardName">{board.name} Board</h3>
+            <div className='BoardContainer'>
+                <p className="AddTaskName">Add Task</p>
                 <AiOutlinePlusCircle
                     size="2em"
                     color="#2A9d8F"
                     onClick={goToTaskForm}
-                    className='plus-icon' />
+                    className='board-plus-icon' />
             </div>
-            <h3 className="BoardName">{board.name} Board</h3>
+
 
             <Col className="listOfTasks">
                 <TaskList tasks={tasks} />
