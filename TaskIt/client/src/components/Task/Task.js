@@ -4,8 +4,9 @@ import { useParams, Link } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
 import { Col } from "reactstrap";
-import SubTaskList from "../SubTask.js/SubTaskList"
+import SubTaskList from "../SubTask/SubTaskList"
 import { SubTaskContext } from "../../providers/SubTaskProvider";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 
@@ -28,6 +29,10 @@ const Task = ({ props }) => {
 
     }, [])
 
+    //taking the user to the board form 
+    const goToSubTaskForm = () => {
+        history.push(`/Board/${boardId}/task/${taskId}/SubTaskForm`);
+    }
 
     return (
         <div>
@@ -45,6 +50,13 @@ const Task = ({ props }) => {
             <h3>Notes</h3>
             <p>{task.notes}</p>
             <h3>SubTask</h3>
+            <div className='icons'>
+                <AiOutlinePlusCircle
+                    size="2em"
+                    color="#2A9d8F"
+                    onClick={goToSubTaskForm}
+                    className='plus-icon' />
+            </div>
             <Col className="listOfTasks">
                 <SubTaskList subTasks={subTasks} />
             </Col>
