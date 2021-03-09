@@ -1,5 +1,6 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
+
 
 //context stores data to use in the application therefore you need to create a context
 //the context is empty and waiting to be filled
@@ -8,6 +9,7 @@ export const SubTaskContext = createContext();
 //defining the data provider components which will allow other components to use the data in context
 export const SubTaskProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
+
 
     //holds the state of the component subTask, and a function that updates it
     //subTask and subTasks define the variable which will hold the data
@@ -50,7 +52,7 @@ export const SubTaskProvider = (props) => {
 
     const addSubTask = (subTask) => {
         getToken().then((token) =>
-            fetch(`/api/subTask/task/${taskId}`, {
+            fetch(`/api/subTask`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -3,18 +3,28 @@ import { TiArrowBack } from "react-icons/ti";
 import { useParams, Link } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
+import { Col } from "reactstrap";
+import SubTaskList from "../SubTask.js/SubTaskList"
+import { SubTaskContext } from "../../providers/SubTaskProvider";
+
 
 
 
 const Task = ({ props }) => {
-    const { getTaskById, task } = useContext(TaskContext)
+    const { getTaskById, task, getTasks, tasks } = useContext(TaskContext)
     const { board } = useContext(BoardContext)
-    const { taskId } = useParams();
+    const { subTask, subTasks } = useContext(SubTaskContext)
+    const { taskId, boardId } = useParams();
 
 
 
     useEffect(() => {
         getTaskById(taskId)
+
+    }, [])
+
+    useEffect(() => {
+        getTasks(boardId)
 
     }, [])
 
@@ -35,9 +45,9 @@ const Task = ({ props }) => {
             <h3>Notes</h3>
             <p>{task.notes}</p>
             <h3>SubTask</h3>
-            {/* <Col className="listOfSubTasks">
-                <SubTaskList subTasks={subTasks} boardId={task.boardId} />
-            </Col> */}
+            <Col className="listOfTasks">
+                <SubTaskList subTasks={subTasks} />
+            </Col>
             <h3>Priority</h3>
             <p>{task.priorityId}</p>
 
