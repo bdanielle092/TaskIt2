@@ -80,9 +80,9 @@ export const TaskProvider = (props) => {
     };
 
     //updates a task
-    const updateTask = (boardId, task, taskId) => {
+    const updateTask = (task) => {
         getToken().then((token) =>
-            fetch(`/api/board/${boardId}/task/${task.id}`, {
+            fetch(`/api/task/${task.id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,

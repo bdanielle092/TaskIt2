@@ -27,7 +27,7 @@ const TaskEditForm = () => {
         id: task.id,
         name: "",
         notes: "",
-        priorityId: "",
+        priorityId: task.priorityId,
         isComplete: task.isComplete,
         dateCreated: task.dateCreated,
         boardId: task.boardId,
@@ -111,6 +111,7 @@ const TaskEditForm = () => {
                                     handleFieldChange(evt)
                                 }}
                             />
+                            <Label for="name">Board Notes</Label>
                             <Input
                                 id="notes"
                                 type="text"
@@ -123,6 +124,7 @@ const TaskEditForm = () => {
                                 }}
                             />
                             <Label for="priority">Priority</Label>
+
                             <select
 
                                 id="priorityId"
@@ -134,6 +136,7 @@ const TaskEditForm = () => {
                                 <option value="4">High</option>
 
                             </select>
+
 
                         </FormGroup>
                         <Input

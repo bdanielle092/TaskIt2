@@ -36,7 +36,7 @@ const TaskList = ({ tasks }) => {
                         <Col xs="auto"></Col>
                         <Col xs="auto"></Col>
                         <Col xs="2" className='icons'>
-                            <Link to={`/board/${boardId}/TaskEditForm/${taskId}`}>
+                            <Link to={`/board/${boardId}/TaskEditForm/${task.id}`}>
                                 <FiEdit
                                     size="2em"
                                     color="#2A9d8F"
