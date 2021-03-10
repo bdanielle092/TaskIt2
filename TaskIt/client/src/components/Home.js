@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../providers/BoardProvider';
 import BoardList from "./Board/BoardList";
-import { Col } from "reactstrap"
+import { Col, Row, Container } from "reactstrap"
 import "./Home.css";
 import { useHistory } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -30,23 +30,22 @@ const Home = () => {
     return (
 
         <div>
-            <div>
-                <div className='icons'>
-                    <AiOutlinePlusCircle
-                        size="2em"
-                        color="#2A9d8F"
-                        onClick={goToBoardForm}
-                        className='plus-icon' />
-                </div>
-
-                <h1 className="home">Welcome {user.name.split(" ")[0]}!</h1>
-                <p className="home2">Click on a  <strong className="tag">Board</strong> to view tasks</p>
-                <Col className="listOfBoards">
-                    <BoardList boards={boards} />
-                </Col>
 
 
+            <h1 className="home">Welcome {user.name.split(" ")[0]}!</h1>
+            <p className="home2">Click on a Board to view tasks</p>
+            <div className='homeIconContainer'>
+                <p className="AddBoardName">Add Board</p>
+                <AiOutlinePlusCircle
+                    size="2em"
+                    color="#2A9d8F"
+                    onClick={goToBoardForm}
+                    className='home-plus-icon' />
             </div>
+            <Col className="listOfBoards">
+
+                <BoardList boards={boards} />
+            </Col>
         </div>
 
     );

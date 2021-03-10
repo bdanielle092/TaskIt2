@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
+
 //context stores data to use in the application therefore you need to create a context
 //the context is empty and waiting to be filled
 export const TaskContext = createContext();
@@ -9,16 +10,20 @@ export const TaskContext = createContext();
 export const TaskProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
 
-    //holds the state of the component board, and a function that updates it
-    //board and boards define the variable which will hold the data
-    //setBoard and setBoards define the function to be use to modify/update that state
+    //holds the state of the component task, and a function that updates it
+    //task and tasks define the variable which will hold the data
+    //setTask and setTasks define the function to be use to modify/update that state
     const [task, setTask] = useState({});
     const [tasks, setTasks] = useState([]);
 
 
 
 
+
+
     //fetch calls
+
+    //gets the tasks on a board
     const getTasks = (boardId) => {
         getToken().then((token) =>
             fetch(`/api/board/${boardId}/task`, {
@@ -34,7 +39,7 @@ export const TaskProvider = (props) => {
 
     };
 
-
+    //get the task by Id
     const getTaskById = (taskId) => {
         getToken().then((token) =>
             fetch(`/api/task/${taskId}`, {
@@ -47,7 +52,19 @@ export const TaskProvider = (props) => {
 
     };
 
+    // const getTaskByBoardId = (boardId) => {
+    //     getToken().then((token) =>
+    //         fetch(`/api/board/${boardId}/task`, {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`
+    //             }
+    //         })).then((resp) => resp.json())
+    //         .then((task) => { setTask(task) });
 
+    // };
+
+    //add a task
     const addTask = (boardId, task) => {
         getToken().then((token) =>
             fetch(`/api/board/${boardId}/task`, {
@@ -62,6 +79,7 @@ export const TaskProvider = (props) => {
             }))
     };
 
+    //updates a task
     const updateTask = (task) => {
         getToken().then((token) =>
             fetch(`/api/task/${task.id}`, {
@@ -71,9 +89,10 @@ export const TaskProvider = (props) => {
                     "content-Type": "application/json"
                 },
                 body: JSON.stringify(task)
-            })).then(getTasks)
+            }))
     };
 
+    //delete a task
     const deleteTask = (id) => {
         getToken().then((token) =>
             fetch(`/api/task/${id}`, {
@@ -85,6 +104,7 @@ export const TaskProvider = (props) => {
             }))
     };
 
+    //checkbox for task
     const TaskToggle = (boardId, taskId, IsComplete) => {
         return getToken().then((token) =>
             fetch(`/api/task/toggle/${taskId}?IsComplete=${IsComplete}`, {
@@ -103,7 +123,7 @@ export const TaskProvider = (props) => {
 
 
     //in the return these lines define what component will be expose to other components. These are the variables in the value attribute
-    //You can access the array of objects being stored in the boards variable and invoke the functions
+    //You can access the array of objects being stored in the tasks variable and invoke the functions
     return (
         <TaskContext.Provider value={{ task, tasks, getTasks, getTaskById, addTask, updateTask, deleteTask, TaskToggle }}>
             {props.children}

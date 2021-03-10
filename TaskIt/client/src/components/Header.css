@@ -4,11 +4,11 @@
 }
 
 .logoutButton {
-    margin-left: 82em;
+    margin-left: 119em;
 }
 
 @media only screen and (max-width: 600px) {
     .logoutButton {
-        margin-left: 7em;
+        margin-left: 13em;
     }
 }
