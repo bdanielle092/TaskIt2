@@ -32,7 +32,7 @@ const BoardList = ({ boards }) => {
                                 <FiEdit
                                     size="2em"
                                     color="#2A9d8F"
-                                    boardId={board}
+                                    board={board}
                                     className='edit-icon' />
                             </Link>
                         </Col>

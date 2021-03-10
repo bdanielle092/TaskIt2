@@ -9,7 +9,7 @@ import { TaskContext } from "../../providers/TaskProvider";
 
 const TaskList = ({ tasks }) => {
     const { getBoardById } = useContext(BoardContext);
-    const { getTaskById } = useContext(TaskContext);
+
     const { boardId, taskId } = useParams();
 
 
@@ -18,10 +18,7 @@ const TaskList = ({ tasks }) => {
 
     }, [])
 
-    useEffect(() => {
-        getTaskById(taskId)
 
-    }, [])
 
     //mapping through the list of tasks
     //xs is at the smallest size it will take up the amount of space we give it. If you wanted to take the whole space you would be 12 auto what is left out of that pie graph 
@@ -29,7 +26,7 @@ const TaskList = ({ tasks }) => {
     return (
         <div>
             {tasks.map((task) => (
-                <div key={task.id} >
+                <div key={task.name} >
                     <Row>
                         <Col xs="3">
                             <Link to={`/board/${task.boardId}/task/${task.id}`}>
@@ -43,7 +40,7 @@ const TaskList = ({ tasks }) => {
                                 <FiEdit
                                     size="2em"
                                     color="#2A9d8F"
-                                    taskId={task}
+                                    task={task}
                                     className='edit-icon' />
                             </Link>
                         </Col>
