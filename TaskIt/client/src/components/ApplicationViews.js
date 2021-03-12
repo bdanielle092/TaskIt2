@@ -78,7 +78,7 @@ const ApplicationViews = () => {
 
 
 
-            <Route path="/Board/:boardId/task/:taskId/subTask/:subTaskId" exact>
+            <Route path="/board/:boardId/task/:taskId/SubTask/:subTaskId" exact>
                 {isLoggedIn ? <SubTask /> : <Redirect to="/login" />}
             </Route>
 

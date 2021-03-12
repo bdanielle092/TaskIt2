@@ -5,12 +5,11 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
-import { TaskContext } from "../../providers/TaskProvider";
+
 
 const TaskList = ({ tasks }) => {
     const { getBoardById } = useContext(BoardContext);
-
-    const { boardId, taskId } = useParams();
+    const { boardId } = useParams();
 
 
     useEffect(() => {

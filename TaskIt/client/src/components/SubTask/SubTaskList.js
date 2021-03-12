@@ -1,11 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Row, Col } from "reactstrap";
 import { SubTaskContext } from "../../providers/SubTaskProvider";
+import { TaskContext } from "../../providers/TaskProvider";
 
 const SubTaskList = ({ subTasks }) => {
     const { subTask } = useContext(SubTaskContext)
+    const { getTaskById } = useContext(TaskContext);
     const { boardId, taskId } = useParams();
+
+    useEffect(() => {
+        getTaskById(taskId)
+
+    }, [])
+
+
+
+
+
     return (
         <div>
             {subTasks.map((subTask)(

@@ -52,7 +52,9 @@ const Task = ({ props }) => {
             <h3>Notes</h3>
             <p>{task.notes}</p>
             <h3>SubTask</h3>
-
+            {/* <Col className="listOfTasks">
+                <SubTaskList subTasks={subTasks} boardId={task.boardId} />
+            </Col> */}
             <h3>Priority</h3>
             <p>{task.priorityId}</p>
 
