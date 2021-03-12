@@ -3,6 +3,10 @@ import { TiArrowBack } from "react-icons/ti";
 import { useParams, Link } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
+import SubTaskList from "../SubTask/SubTaskList";
+import { Col } from "reactstrap";
+import { SubTaskContext } from "../../providers/SubTaskProvider";
+
 
 
 //defining Task function passing the properties of task object
@@ -13,6 +17,7 @@ const Task = ({ props }) => {
     const { board } = useContext(BoardContext)
     //using useParams to get the taskId from application views
     const { taskId } = useParams();
+    const { subTasks } = useContext(SubTaskContext)
 
 
     //useEffects render then come back to get the taskId
@@ -47,6 +52,7 @@ const Task = ({ props }) => {
             <h3>Notes</h3>
             <p>{task.notes}</p>
             <h3>SubTask</h3>
+
             <h3>Priority</h3>
             <p>{task.priorityId}</p>
 

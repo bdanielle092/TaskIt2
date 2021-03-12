@@ -26,7 +26,7 @@ const TaskList = ({ tasks }) => {
     return (
         <div>
             {tasks.map((task) => (
-                <div key={task.name} >
+                <div key={task.id} >
                     <Row>
                         <Col xs="3">
                             <Link to={`/board/${task.boardId}/task/${task.id}`}>

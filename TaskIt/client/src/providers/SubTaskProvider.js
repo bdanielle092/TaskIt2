@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 import { UserProfileContext } from "./UserProfileProvider";
 
+
 //context stores data to use in the application therefore you need to create a context
 //the context is empty and waiting to be filled
 export const SubTaskContext = createContext();
@@ -15,16 +16,18 @@ export const SubTaskProvider = (props) => {
     const { subTask, setSubTask } = useState({});
     const { subTasks, setSubTasks } = useState([]);
 
+
     //fetch calls
 
     //gets the subTasks on a Task 
-    const getSubTask = (taskId) => {
+    const getSubTasks = (taskId) => {
         getToken().then((token) =>
             fetch(`/api/subTask/task/${taskId}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application.json"
+                },
                 //have a response and translate to json
             }).then(res => res.json())
 
@@ -32,9 +35,9 @@ export const SubTaskProvider = (props) => {
     };
 
     //gets the subTask by Id
-    const getSubTaskById = (id) => {
+    const getSubTaskById = (subTaskId) => {
         getToken().then((token) =>
-            fetch(`/api/subTask/${id}`, {
+            fetch(`/api/subTask/${subTaskId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -45,9 +48,9 @@ export const SubTaskProvider = (props) => {
     };
 
     //adds a SubTask
-    const addSubTask = (subTask) => {
+    const addSubTask = (subTask, taskId) => {
         getToken().then((token) =>
-            fetch(`/api/subTask/task/${TaskId}`, {
+            fetch(`/api/subTask/task/${taskId}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -85,7 +88,7 @@ export const SubTaskProvider = (props) => {
     };
 
     return (
-        <SubTaskContext.Provider value={{ subTask, subTasks, getSubTask, getSubTaskById, addSubTask, updateSubTask, deleteSubTask }}>
+        <SubTaskContext.Provider value={{ subTask, subTasks, getSubTasks, getSubTaskById, addSubTask, updateSubTask, deleteSubTask }}>
             {props.children}
         </SubTaskContext.Provider>
     );
