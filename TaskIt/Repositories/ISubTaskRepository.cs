@@ -7,11 +7,11 @@ namespace TaskIt.Repositories
     {
 
       
-        public List<SubTask> GetByTaskId(int taskId);
-
+        public List<SubTask> GetSubTaskByTaskId(int taskId);
         SubTask GetById(int id);
         void Add(SubTask subTask);
         void Update(SubTask subTask);
         public void Delete(int id);
+        void Toggle(int id, bool IsComplete);
     }
 }
