@@ -21,7 +21,7 @@ namespace TaskIt.Controllers
     public class BoardController : ControllerBase
     {
         //these are fields we know that because they are private and have no  get set
-        //this is call dependency injection
+        //this is call dependency injection is a technique in which an object receives other objects that it depends on. 
         private readonly IBoardRepository _boardRepo;
         private readonly IUserProfileRepository _userProfileRepo;
         private readonly ITaskRepository _taskRepo;

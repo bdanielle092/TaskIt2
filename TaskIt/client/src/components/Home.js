@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { BoardContext } from '../providers/BoardProvider';
 import BoardList from "./Board/BoardList";
-import { Col, Row, Container } from "reactstrap"
+import { Col } from "reactstrap"
 import "./Home.css";
 import { useHistory } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";

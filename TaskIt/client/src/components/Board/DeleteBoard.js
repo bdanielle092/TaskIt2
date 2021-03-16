@@ -17,7 +17,7 @@ export default function DeleteBoard() {
     //useEffect will render then come back and get the boardId
     useEffect(() => {
         getBoardById((boardId))
-    }, [])
+    }, [boardId, getBoardById])
 
     //deleteThisBoard function. We delete the board and push it back home.
     const deleteThisBoard = () => {

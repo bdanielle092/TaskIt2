@@ -29,15 +29,17 @@ const TaskForm = () => {
 
 
     //getting the boardId 
-    const createBoardId = () => {
-        const newTask = task
-        newTask["boardId"] = boardId
-        //updating the newTask
-        setTask(newTask);
-    }
+
 
     //useEffect for createBoardId function 
     useEffect(() => {
+
+        const createBoardId = () => {
+            const newTask = task
+            newTask["boardId"] = boardId
+            //updating the newTask
+            setTask(newTask);
+        }
         createBoardId();
     }, [])
 

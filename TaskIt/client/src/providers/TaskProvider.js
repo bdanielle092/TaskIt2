@@ -48,21 +48,12 @@ export const TaskProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             })).then((resp) => resp.json())
-            .then((task) => { setTask(task) });
+            .then(setTask)
+        //  => { setTask(task) });
 
     };
 
-    // const getTaskByBoardId = (boardId) => {
-    //     getToken().then((token) =>
-    //         fetch(`/api/board/${boardId}/task`, {
-    //             method: "GET",
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         })).then((resp) => resp.json())
-    //         .then((task) => { setTask(task) });
 
-    // };
 
     //add a task
     const addTask = (boardId, task) => {
