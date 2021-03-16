@@ -28,6 +28,7 @@ const TaskList = ({ tasks }) => {
                 <div key={task.id} >
                     <Row>
                         <Col xs="3">
+
                             <Link to={`/board/${task.boardId}/task/${task.id}`}>
                                 <strong>{task.name}</strong>
                             </Link>

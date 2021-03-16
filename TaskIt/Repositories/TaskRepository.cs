@@ -29,7 +29,7 @@ namespace TaskIt.Repositories
             return _context.Task
                   .Include(t => t.Board)
                   .Include(t => t.Priority)
-                  .Include(t => t.SubTask)
+                  .Include(t => t.SubTasks)
                   .Where(t => t.Active)
                 .FirstOrDefault(task => task.Id == id);
         }
@@ -40,7 +40,7 @@ namespace TaskIt.Repositories
             return _context.Task
                             .Include(t => t.Board)
                             .Include(t => t.Priority)
-                            .Include(t => t.SubTask)
+                            .Include(t => t.SubTasks)
                             .Where(t => t.BoardId == id)
                             .Where(t => t.Active)
                             .ToList();

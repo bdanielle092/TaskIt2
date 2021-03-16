@@ -13,8 +13,8 @@ export const SubTaskProvider = (props) => {
     //holds the state of the component subtask and the function that updates it
     //subTask and subtasks define the variable which will hold the data
     //setSubTask and setSubTasks define the function to be use to modify/update that state
-    const { subTask, setSubTask } = useState({});
-    const { subTasks, setSubTasks } = useState([]);
+    const [subTask, setSubTask] = useState({});
+    const [subTasks, setSubTasks] = useState([]);
 
 
     //fetch calls
@@ -31,7 +31,8 @@ export const SubTaskProvider = (props) => {
                 //have a response and translate to json
             }).then(res => res.json())
 
-                .then(setSubTasks));
+                .then(setSubTasks))
+
     };
 
     //gets the subTask by Id

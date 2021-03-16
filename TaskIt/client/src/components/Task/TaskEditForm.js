@@ -49,7 +49,7 @@ const TaskEditForm = () => {
     //sets the task at the start
     useEffect(() => {
         setEditTask(task)
-    }, [task]);
+    }, []);
 
 
     //updating editTask value. Updates editTask value on every key stroke for the input field

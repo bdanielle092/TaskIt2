@@ -38,9 +38,9 @@ export const BoardProvider = (props) => {
     };
 
     //this gets the boards by id
-    const getBoardById = (id) => {
+    const getBoardById = (boardId) => {
         getToken().then((token) =>
-            fetch(`/api/board/${id}`, {
+            fetch(`/api/board/${boardId}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`

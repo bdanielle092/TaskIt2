@@ -17,14 +17,20 @@ const Task = ({ props }) => {
     const { board } = useContext(BoardContext)
     //using useParams to get the taskId from application views
     const { taskId } = useParams();
-    const { subTasks } = useContext(SubTaskContext)
+    const { getSubTasks, subTasks } = useContext(SubTaskContext)
 
 
-    //useEffects render then come back to get the taskId
+
+    //useEffects render then come back to get the taskId 
+    //getTaskById is getting the task info for a single task 
     useEffect(() => {
         getTaskById(taskId)
+        getSubTasks(taskId)
 
     }, [])
+
+
+
 
     //return 1.back arrow icon to take the user back to the board they were on. I used the Link to go back to the board page
     //2. Name Of task header
@@ -52,9 +58,9 @@ const Task = ({ props }) => {
             <h3>Notes</h3>
             <p>{task.notes}</p>
             <h3>SubTask</h3>
-            {/* <Col className="listOfTasks">
-                <SubTaskList subTasks={subTasks} boardId={task.boardId} />
-            </Col> */}
+            <Col className="listOfSubTasks">
+                <SubTaskList subTasks={subTasks} />
+            </Col>
             <h3>Priority</h3>
             <p>{task.priorityId}</p>
 
