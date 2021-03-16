@@ -5,12 +5,11 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
-import { TaskContext } from "../../providers/TaskProvider";
+
 
 const TaskList = ({ tasks }) => {
     const { getBoardById } = useContext(BoardContext);
-
-    const { boardId, taskId } = useParams();
+    const { boardId } = useParams();
 
 
     useEffect(() => {
@@ -26,9 +25,10 @@ const TaskList = ({ tasks }) => {
     return (
         <div>
             {tasks.map((task) => (
-                <div key={task.name} >
+                <div key={task.id} >
                     <Row>
                         <Col xs="3">
+
                             <Link to={`/board/${task.boardId}/task/${task.id}`}>
                                 <strong>{task.name}</strong>
                             </Link>

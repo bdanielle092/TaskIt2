@@ -31,7 +31,7 @@ const BoardEditForm = () => {
     const history = useHistory();
 
     //useEffects will come back to these methods after render
-    //so after the render it will come back and get the boardId and setEditBoard
+
     useEffect(() => {
         getBoardById(boardId)
 
@@ -40,7 +40,7 @@ const BoardEditForm = () => {
     //sets the board at the start
     useEffect(() => {
         setEditBoard(board)
-    }, [board]);
+    }, []);
 
 
     //updating board value. Updates board value on every key stroke for the input field

@@ -20,11 +20,11 @@ namespace TaskIt.Controllers
         }
 
 
-        //https:localhost:5001/api/subTask/taskId = api/subTask/1
-        [HttpGet("{taskId}")]
-        public IActionResult GetById(int taskId)
+        //https:localhost:5001/api/subTask/task/taskId 
+        [HttpGet("task/{taskId}")]
+        public IActionResult GetSubTaskForTask(int taskId)
         {
-            var subTasks = _subTaskRepo.GetById(taskId);
+            var subTasks = _subTaskRepo.GetSubTaskByTaskId(taskId);
             if (subTasks == null)
             {
                 return NotFound();
@@ -32,15 +32,31 @@ namespace TaskIt.Controllers
             return Ok(subTasks);
         }
 
-        //https:localhost:5001/api/subTask (make sure to add the // after https://)
-        [HttpPost]
+
+        //https:localhost:5001/api/subTask/id
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+
+            var subTask = _subTaskRepo.GetById(id);
+            if (subTask == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(subTask);
+        }
+
+        //https:localhost:5001/api/subTask/task/${taskId} (make sure to add the // after https://)
+        [HttpPost("task/{taskId}")]
         public IActionResult Post(SubTask subTask)
         {
             _subTaskRepo.Add(subTask);
             return CreatedAtAction("Get", new { id = subTask.Id }, subTask);
         }
 
-        // https:localhost:5001/api/subTask/id  = api/subTask/5
+
+        // https:localhost:5001/api/subTask/id 
         [HttpPut("{id}")]
         public IActionResult Put(int id, SubTask subTask)
         {
@@ -54,11 +70,19 @@ namespace TaskIt.Controllers
         }
 
 
-        //https:localhost:5001/api/subTask/id = api/subTask/5
+        //https:localhost:5001/api/subTask/id 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _subTaskRepo.Delete(id);
+            return NoContent();
+        }
+
+        [HttpPut("toggle/{id}")]
+        public IActionResult Toggle(int id, bool IsComplete)
+        {
+
+            _subTaskRepo.Toggle(id, IsComplete);
             return NoContent();
         }
     }

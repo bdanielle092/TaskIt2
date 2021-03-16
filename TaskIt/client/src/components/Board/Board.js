@@ -12,7 +12,7 @@ import "./Board.css"
 const Board = ({ props }) => {
     //bringing in the methods from BoardProvider with useContext
     //we bringing in board object to get the properties of a board 
-    const { getBoardById, board } = useContext(BoardContext);
+    const { board } = useContext(BoardContext);
     //useParams allow us to get the boardId from application view
     const { boardId } = useParams();
     //bringing in methods from TaskProvider using TaskContext 
@@ -25,10 +25,10 @@ const Board = ({ props }) => {
 
     //useEffect - you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
     //example is in the component it will come back an get the boardById and get the Task
-    useEffect(() => {
-        getBoardById(boardId)
+    // useEffect(() => {
+    //     getBoardById(boardId)
 
-    }, [])
+    // }, [])
 
     useEffect(() => {
 

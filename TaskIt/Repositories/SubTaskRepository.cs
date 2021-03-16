@@ -19,7 +19,7 @@ namespace TaskIt.Repositories
         }
 
 
-        public List<SubTask> GetByTaskId(int taskId)
+        public List<SubTask> GetSubTaskByTaskId(int taskId)
         {
             return _context.SubTask
                       
@@ -54,6 +54,15 @@ namespace TaskIt.Repositories
         {
             var subTask = GetById(id);
             subTask.Active = false;
+            _context.Entry(subTask).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+
+        public void Toggle(int id, bool IsComplete)
+        {
+            var subTask = GetById(id);
+            subTask.IsComplete = IsComplete;
             _context.Entry(subTask).State = EntityState.Modified;
             _context.SaveChanges();
         }
