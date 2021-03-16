@@ -28,10 +28,11 @@ const TaskForm = () => {
     const history = useHistory();
 
 
-    //getting the boardId 
+
 
 
     //useEffect for createBoardId function 
+    //this allow the user to add a task to a board with the boardId
     useEffect(() => {
 
         const createBoardId = () => {

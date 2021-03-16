@@ -66,7 +66,7 @@ const Board = ({ props }) => {
                     size="2em"
                     color="#2A9d8F"
                     onClick={goToTaskForm}
-                    className='board-plus-icon' />
+                    className='task-plus-icon' />
             </div>
 
 

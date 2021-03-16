@@ -1,11 +1,12 @@
 import React, { useEffect, useContext } from "react";
 import { TiArrowBack } from "react-icons/ti";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
 import SubTaskList from "../SubTask/SubTaskList";
 import { Col } from "reactstrap";
 import { SubTaskContext } from "../../providers/SubTaskProvider";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 
@@ -16,8 +17,9 @@ const Task = ({ props }) => {
     //bring in the board object from BoardContext using useContext
     const { board } = useContext(BoardContext)
     //using useParams to get the taskId from application views
-    const { taskId } = useParams();
+    const { taskId, boardId } = useParams();
     const { getSubTasks, subTasks } = useContext(SubTaskContext)
+    const history = useHistory();
 
 
 
@@ -30,6 +32,11 @@ const Task = ({ props }) => {
     }, [])
 
 
+    //taking the user to the board form 
+    // we use history.push to take the user to the add task form 
+    const goToSubTaskForm = () => {
+        history.push(`/Board/${boardId}/task/${taskId}/SubTaskForm`);
+    }
 
 
     //return 1.back arrow icon to take the user back to the board they were on. I used the Link to go back to the board page
@@ -58,6 +65,14 @@ const Task = ({ props }) => {
             <h3>Notes</h3>
             <p>{task.notes}</p>
             <h3>SubTask</h3>
+            <div className='BoardContainer'>
+                <p className="AddSubTaskName">Add SubTask</p>
+                <AiOutlinePlusCircle
+                    size="2em"
+                    color="#2A9d8F"
+                    onClick={goToSubTaskForm}
+                    className='subTask-plus-icon' />
+            </div>
             <Col className="listOfSubTasks">
                 <SubTaskList subTasks={subTasks} />
             </Col>
