@@ -88,8 +88,23 @@ export const SubTaskProvider = (props) => {
             }))
     };
 
+    const SubTaskToggle = (taskId, subTaskId, IsComplete) => {
+        return getToken().then((token) =>
+            fetch(`/api/task/toggle/${subTaskId}?IsComplete=${IsComplete}`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "Application/json"
+
+                },
+
+            }))
+            .then(getSubTasks(taskId))
+
+    }
+
     return (
-        <SubTaskContext.Provider value={{ subTask, subTasks, getSubTasks, getSubTaskById, addSubTask, updateSubTask, deleteSubTask }}>
+        <SubTaskContext.Provider value={{ subTask, subTasks, getSubTasks, getSubTaskById, addSubTask, updateSubTask, deleteSubTask, SubTaskToggle }}>
             {props.children}
         </SubTaskContext.Provider>
     );

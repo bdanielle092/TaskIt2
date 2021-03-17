@@ -14,6 +14,7 @@ export const BoardProvider = (props) => {
     //board and boards define the variable which will hold the data
     //setBoard and setBoards define the function to be use to modify/update that state
     //{} is an object and [] is an array 
+    //setting the state of the single object and setting the state of the array of board object
     const [board, setBoard] = useState({});
     const [boards, setBoards] = useState([]);
 
@@ -31,8 +32,11 @@ export const BoardProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
                 //have a response and translate to json
+                //.then take that response and turn it into a json response 
+                // I am taking the response and formatting it so json can read it
             }).then(res => res.json())
-
+                //.then setting to state to show what the data base shows. This shows what boards I have 
+                //if you add or delete it will reset the boards so you see what is on the home page
                 .then(setBoards));
 
     };
@@ -46,7 +50,10 @@ export const BoardProvider = (props) => {
                     Authorization: `Bearer ${token}`
                 }
             })).then((resp) => resp.json())
-            .then((board) => { setBoard(board) });
+
+            //first board is a taco and its a param of the function 
+            //setting the state for a single board
+            .then(board => setBoard(board));
 
     };
 
@@ -55,13 +62,16 @@ export const BoardProvider = (props) => {
         getToken().then((token) =>
             fetch("/api/board", {
                 method: "POST",
+                //headers is telling me about method and what is returned 
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    //what we are going to return 
+                    //what we are returning the data to the json database
                     "Content-Type": "application/json"
                 },
-                // js object is being turned to into a string. The board is the js object 
+                // javascript object is being turned to into a string. The board is the javascript object
+                //this allows json database to read the data 
                 body: JSON.stringify(board)
+                //I am getting all the boards
             })).then(getAllBoards())
     };
 
