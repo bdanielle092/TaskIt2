@@ -17,6 +17,7 @@ import DeleteTask from "./Task/DeleteTask";
 import SubTask from "./SubTask/SubTask";
 import SubTaskList from "./SubTask/SubTaskList";
 import SubTaskForm from "./SubTask/SubTaskForm";
+import DeleteSubTask from "./SubTask/DeleteSubTask";
 
 
 
@@ -90,6 +91,11 @@ const ApplicationViews = () => {
             <Route path="/Board/:boardId/task/:taskId/SubTaskForm" exact>
 
                 {isLoggedIn ? <SubTaskForm /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/DeleteSubTask/:subTaskId" exact>
+
+                {isLoggedIn ? <DeleteSubTask /> : <Redirect to="/login" />}
             </Route>
 
 
