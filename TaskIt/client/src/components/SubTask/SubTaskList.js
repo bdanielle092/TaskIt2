@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Col, Row } from "reactstrap";
 import { TaskContext } from "../../providers/TaskProvider";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
-
+import { SubTaskContext } from "../../providers/SubTaskProvider";
 
 
 
@@ -13,8 +13,10 @@ const SubTaskList = ({ subTasks }) => {
 
     //bringing in the function getTaskById with useContext
     const { getTaskById, } = useContext(TaskContext)
+    const { subTask, SubTaskToggle } = useContext(SubTaskContext)
     //getting the task and board id from application  view
     const { taskId, boardId } = useParams();
+    const [check, setCheck] = useState(subTask.isComplete);
 
     //useEffect to get the TaskById to get the subtask 
     useEffect(() => {
@@ -22,7 +24,11 @@ const SubTaskList = ({ subTasks }) => {
 
     }, []);
 
-
+    //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
+    const Checked = (evt) => {
+        SubTaskToggle(taskId, evt.target.id, !check)
+        setCheck(!check)
+    }
     //return 1. mapping through the subtask 
     //2. Link to subtask.js
     return (
@@ -33,6 +39,12 @@ const SubTaskList = ({ subTasks }) => {
                     <Row>
 
                         <Col xs="3">
+                            <input
+                                type="checkbox"
+                                id={subTask.id}
+                                name="IsComplete"
+                                checked={check}
+                                onChange={Checked} />
                             {subTask.name}
                             {/* <Link to={`/board/${boardId}/task/${subTask.taskId}/subTask/${subTask.id}`}>
                                 <strong>{subTask.name}</strong>
