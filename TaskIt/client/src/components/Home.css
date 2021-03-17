@@ -10,10 +10,12 @@
     justify-content: center;
 }
 
+
+/* 
 .tag {
     display: flex;
     color: #E76f51;
-}
+} */
 
 .listOfBoards {
     display: flex;
@@ -44,5 +46,13 @@
     .listOfBoards {
         display: flex;
         justify-content: center;
+    }
+    .homeIconContainer {
+        display: flex;
+        justify-content: center;
+    }
+    .AddBoardName,
+    .home-plus-icon {
+        display: flex;
     }
 }

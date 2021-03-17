@@ -34,7 +34,7 @@ const Header = () => {
 
 
     return (
-        <div>
+        <div >
             <Navbar color="dark" dark expand="md">
                 <a href="/"><img
                     src={logo}

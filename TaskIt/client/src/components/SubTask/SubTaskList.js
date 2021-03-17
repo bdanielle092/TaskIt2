@@ -8,6 +8,7 @@ import { FiEdit } from "react-icons/fi";
 
 
 
+
 const SubTaskList = ({ subTasks }) => {
 
     //bringing in the function getTaskById with useContext
@@ -32,9 +33,10 @@ const SubTaskList = ({ subTasks }) => {
                     <Row>
 
                         <Col xs="3">
-                            <Link to={`/board/${boardId}/task/${subTask.taskId}/subTask/${subTask.id}`}>
+                            {subTask.name}
+                            {/* <Link to={`/board/${boardId}/task/${subTask.taskId}/subTask/${subTask.id}`}>
                                 <strong>{subTask.name}</strong>
-                            </Link>
+                            </Link> */}
                         </Col>
                         <Col xs="auto"></Col>
                         <Col xs="auto"></Col>
@@ -43,7 +45,7 @@ const SubTaskList = ({ subTasks }) => {
                                 <FiEdit
                                     size="2em"
                                     color="#2A9d8F"
-                                    subTask={subTask}
+                                    subtask={subTask}
                                     className='edit-icon' />
                             </Link>
                         </Col>

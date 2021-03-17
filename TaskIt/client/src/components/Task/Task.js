@@ -53,7 +53,7 @@ const Task = ({ props }) => {
         <div>
 
             <div className='icons'>
-                <Link to={`/board/${board.id}`}>
+                <Link to={`/board/${boardId}`}>
                     <TiArrowBack
                         size="2em"
                         color="#2A9d8F"

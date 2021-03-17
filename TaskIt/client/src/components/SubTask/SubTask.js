@@ -27,7 +27,7 @@ const SubTask = ({ props }) => {
                     <TiArrowBack
                         size="2em"
                         color="#2A9d8F"
-                        subTask={subTask}
+                        subtask={subTask}
                         className='back-icon' />
                 </Link>
             </div>
