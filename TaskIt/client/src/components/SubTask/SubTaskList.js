@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Col, Row } from "reactstrap";
 import { TaskContext } from "../../providers/TaskProvider";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
 
 
 
@@ -37,6 +38,15 @@ const SubTaskList = ({ subTasks }) => {
                         </Col>
                         <Col xs="auto"></Col>
                         <Col xs="auto"></Col>
+                        <Col xs="2" className='icons'>
+                            <Link to={`/board/${boardId}/task/${taskId}/SubTaskEditForm/${subTask.id}`}>
+                                <FiEdit
+                                    size="2em"
+                                    color="#2A9d8F"
+                                    subTask={subTask}
+                                    className='edit-icon' />
+                            </Link>
+                        </Col>
                         <Col xs="2" className='icons'>
                             <Link to={`/DeleteSubTask/${subTask.id}`}>
                                 <RiDeleteBin5Line
