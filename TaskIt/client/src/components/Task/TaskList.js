@@ -10,9 +10,9 @@ import { TaskContext } from "../../providers/TaskProvider";
 
 const TaskList = ({ tasks }) => {
     const { getBoardById } = useContext(BoardContext);
-    const { task, TaskToggle } = useContext(TaskContext)
+    const { TaskToggle } = useContext(TaskContext)
     const { boardId } = useParams();
-    const [check, setCheck] = useState(task.isComplete);
+
 
     useEffect(() => {
         getBoardById(boardId)

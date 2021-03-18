@@ -13,10 +13,10 @@ const SubTaskList = ({ subTasks }) => {
 
     //bringing in the function getTaskById with useContext
     const { getTaskById, } = useContext(TaskContext)
-    const { subTask, SubTaskToggle } = useContext(SubTaskContext)
+    const { SubTaskToggle } = useContext(SubTaskContext)
     //getting the task and board id from application  view
     const { taskId, boardId } = useParams();
-    const [check, setCheck] = useState(subTask.isComplete);
+
 
     //useEffect to get the TaskById to get the subtask 
     useEffect(() => {
@@ -25,9 +25,14 @@ const SubTaskList = ({ subTasks }) => {
     }, []);
 
     //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
-    const Checked = (evt) => {
-        SubTaskToggle(taskId, evt.target.id, !check)
-        setCheck(!check)
+    const Checked = (subTaskId, isComplete) => {
+
+        if (isComplete === true) {
+            return SubTaskToggle(taskId, subTaskId, false)
+        }
+        else {
+            return SubTaskToggle(taskId, subTaskId, true)
+        }
     }
     //return 1. mapping through the subtask 
     //2. Link to subtask.js
@@ -43,8 +48,8 @@ const SubTaskList = ({ subTasks }) => {
                                 type="checkbox"
                                 id={subTask.id}
                                 name="IsComplete"
-                                checked={check}
-                                onChange={Checked} />
+                                checked={subTask.isComplete}
+                                onChange={() => (Checked(subTask.id, subTask.isComplete))} />
                             {subTask.name}
                             {/* <Link to={`/board/${boardId}/task/${subTask.taskId}/subTask/${subTask.id}`}>
                                 <strong>{subTask.name}</strong>
