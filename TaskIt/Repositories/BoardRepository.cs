@@ -7,17 +7,21 @@ using TaskIt.Models;
 namespace TaskIt.Repositories
 {
     //classes are blueprints with all the methods and objects
-    //IBoardRepository is an Interface
+    //IBoardRepository is an Interface which is a type definition similar to a class, except that it purely represents a contract between an object and its user.
     public class BoardRepository : IBoardRepository
     {
         //this is a field which we know beacuse it private and no get set
+        //A field is a variable of any type that is declared directly in a class or struct
         private readonly ApplicationDbContext _context;
         //this is a constructor which we know because it has the same name as the class and no return type
+        //A constructor is a special method that is used to initialize objects
         public BoardRepository(ApplicationDbContext context)
         {
             _context = context;
         }
         //List is the type and its a list of Boards. GetAll is our method
+        //ToList. This extension method converts collections (IEnumerables) to List instances
+        //IEnumerable in C# is an interface that defines one method
         public List<Board> GetAll()
         {
             //context is type ApplicationDbContext and Board is the property 
@@ -76,8 +80,11 @@ namespace TaskIt.Repositories
             _context.SaveChanges();
         }
 
+        
+        
       public void AddIntialBoards(int userProfileId)
         {
+            //adding a new board object to store the board info
             Board board = new Board() {
                 Name = "Personal",
                 UserProfileId = userProfileId,
@@ -89,7 +96,7 @@ namespace TaskIt.Repositories
                 UserProfileId = userProfileId,
                 Active = true
             };
-
+            //adding the boards and saving the changes
             _context.Add(board);
             _context.Add(boardTwo);
             _context.SaveChanges();

@@ -20,9 +20,15 @@ const TaskList = ({ tasks }) => {
     }, [])
 
     //function to check if the task is done true or false not done. bringing in the toggle function. the !check means it will do the opposite of what is 
-    const Checked = (evt) => {
-        TaskToggle(boardId, evt.target.id, !check)
-        setCheck(!check)
+    const Checked = (taskId, isComplete) => {
+
+        if (isComplete === true) {
+            return TaskToggle(boardId, taskId, false)
+        }
+        else {
+            return TaskToggle(boardId, taskId, true)
+        }
+
     }
 
 
@@ -39,8 +45,8 @@ const TaskList = ({ tasks }) => {
                                 type="checkbox"
                                 id={task.id}
                                 name="IsComplete"
-                                checked={check}
-                                onChange={Checked} />
+                                checked={task.isComplete}
+                                onChange={() => (Checked(task.id, task.isComplete))} />
 
                             <Link to={`/board/${task.boardId}/task/${task.id}`}>
                                 <strong>{task.name}</strong>

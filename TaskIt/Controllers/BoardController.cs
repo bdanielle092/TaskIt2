@@ -37,9 +37,11 @@ namespace TaskIt.Controllers
         //adaptation 
         [HttpGet]
         //Type is IAcationResult and its a interface, method is get
+        //method is a block of code which only runs when it is called
         public IActionResult Get()
         {
-           
+           //we are declaring a variable. the varabiable is currentUser and the vaule is GetCurrentUserProfile which is a method
+           //methods are used to perform certain actions aslo know as functions
             var currentUser = GetCurrentUserProfile();
             var currentUserBoards = _boardRepo.GetByUserProfileId(currentUser.Id);
             //OK is a method from type IActionResult
