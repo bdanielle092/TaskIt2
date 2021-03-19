@@ -21,6 +21,12 @@ namespace TaskIt.Controllers
        
         }
 
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_priorityRepo.GetAll());
+        }
+
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)

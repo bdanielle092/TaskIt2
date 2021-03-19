@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
+import { PriorityContext } from "../../providers/PriorityProvider";
 
 
 //defining  the TaskEditForm and not passing anything
@@ -20,11 +21,13 @@ const TaskEditForm = () => {
     const { getTaskById, updateTask, task } = useContext(TaskContext)
     //board object bring the properties for board from BoardContext using useContext
     const { board } = useContext(BoardContext)
+    const { priority, setPriority } = useContext(PriorityContext)
+
 
     //for edit, hold on to state of task in this view
     //setEditTask allow us to update state
     const [editTask, setEditTask] = useState({
-        id: task.id,
+        // id: task.id,
         name: "",
         notes: "",
         priorityId: task.priorityId,
@@ -35,21 +38,27 @@ const TaskEditForm = () => {
 
     });
     //UseParams pulls in the id information from applications view 
-    const { taskId } = useParams();
+    const { taskId, boardId } = useParams();
     //useHistory allows us to undo/redo and change or navigate to different pages
     //ex history.push takes the user back to the board page there were on after editing the task 
     const history = useHistory();
 
+    const handleChange = (evt) => {
+        setPriority(evt.target.value)
+    }
+
     //useEffects renders the page then come back and gets the taskId
+    //allow us to edit the task 
     useEffect(() => {
         getTaskById(taskId)
 
     }, [])
 
     //sets the task at the start
+    //this is what is in there before we change it
     useEffect(() => {
         setEditTask(task)
-    }, []);
+    }, [task]);
 
 
     //updating editTask value. Updates editTask value on every key stroke for the input field
@@ -68,19 +77,33 @@ const TaskEditForm = () => {
         event.preventDefault()
         //updateTask method
         updateTask({
-            id: editTask.id,
+            id: taskId,
             name: editTask.name,
             notes: editTask.notes,
-            priorityId: editTask.priorityId,
+            // priorityId: editTask.priorityId,
             isComplete: editTask.isComplete,
             dateCreated: editTask.dateCreated,
             boardId: editTask.boardId,
             active: editTask.active
 
         })
-        //taking the user back to the board they were on 
-        history.push(`/board/${board.id}`);
+        const parsePriority = parseInt(priority);
+        editTask.priority = parsePriority
+        if (!editTask.priority) {
+            editTask.priority = task.priorityId
+        }
+
+        updateTask(editTask.id, editTask)
+            .then(() => {
+                //taking the user back to the board they were on 
+                history.push(`/board/${board.id}`);
+
+            })
     };
+
+    if (!editTask) {
+        return null
+    }
     //return 1. input fields for each task property. The name, notes, and priority are the only ones you can change the others are hidden
     //2.submit button with an onClick that calls the editATask function
     //3. cancel button that takes the user back to the board they were on. I used the Link to take then back to the board page.
@@ -92,31 +115,31 @@ const TaskEditForm = () => {
                     <Form>
                         <FormGroup>
                             <Input
-                                id={editTask.id}
+                                id={taskId}
                                 onChange={handleFieldChange}
                                 type="hidden"
-                                value={editTask.id}
+                                value={taskId}
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="name">Board Name</Label>
+                            <Label for="name">Task Name</Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                value={editTask.name}
+                                defaultValue={editTask.name}
 
                                 onChange={(evt) => {
                                     evt.preventDefault()
                                     handleFieldChange(evt)
                                 }}
                             />
-                            <Label for="name">Board Notes</Label>
+                            <Label for="name">Task Notes</Label>
                             <Input
                                 id="notes"
                                 type="text"
                                 name="notes"
-                                value={editTask.notes}
+                                defaultValue={editTask.notes}
 
                                 onChange={(evt) => {
                                     evt.preventDefault()
@@ -128,8 +151,8 @@ const TaskEditForm = () => {
                             <select
 
                                 id="priorityId"
-                                value={editTask.priorityId}
-                                onChange={(evt) => handleFieldChange(evt)}>
+                                defaultValue={editTask.priorityId}
+                                onChange={handleChange}>
                                 <option value="1">None</option>
                                 <option value="2">Low</option>
                                 <option value="3">Medium</option>
@@ -177,7 +200,7 @@ const TaskEditForm = () => {
                     >
                         SUBMIT
                     </Button>
-                    <Link to={`/board/${board.id}`}><Button type="button" color="warning">Cancel</Button></Link>
+                    <Link to={`/board/${boardId}`}><Button type="button" color="warning">Cancel</Button></Link>
                 </CardBody>
             </Card>
         </div>

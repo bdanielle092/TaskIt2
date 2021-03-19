@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import { BoardProvider } from './providers/BoardProvider';
 import { TaskProvider } from './providers/TaskProvider';
 import { SubTaskProvider } from './providers/SubTaskProvider';
+import { PriorityProvider } from './providers/PriorityProvider';
 
 
 function App() {
@@ -15,11 +16,13 @@ function App() {
         <BoardProvider>
           <TaskProvider>
             <SubTaskProvider>
-              <Router>
-                <Header />
-                <ApplicationViews />
+              <PriorityProvider>
+                <Router>
+                  <Header />
+                  <ApplicationViews />
 
-              </Router>
+                </Router>
+              </PriorityProvider>
             </SubTaskProvider>
           </TaskProvider>
         </BoardProvider>

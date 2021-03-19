@@ -18,6 +18,11 @@ namespace TaskIt.Repositories
         }
 
 
+        public List<Priority> GetAll()
+        {
+            return _context.Priority.ToList();
+        }
+
         public Priority GetById(int id)
         {
             return _context.Priority
