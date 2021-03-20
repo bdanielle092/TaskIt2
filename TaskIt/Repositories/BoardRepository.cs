@@ -46,6 +46,8 @@ namespace TaskIt.Repositories
                             .Where(b => b.Active)
                             .ToList();
         }
+
+
         //Add is a method and we are passing one parameter board with the type Board. We are not returning anything
         public void Add(Board board)
         {

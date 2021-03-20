@@ -7,6 +7,7 @@ import SubTaskList from "../SubTask/SubTaskList";
 import { Col } from "reactstrap";
 import { SubTaskContext } from "../../providers/SubTaskProvider";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { PriorityContext } from "../../providers/PriorityProvider";
 
 
 
@@ -19,6 +20,7 @@ const Task = ({ props }) => {
     //using useParams to get the taskId from application views
     const { taskId, boardId } = useParams();
     const { getSubTasks, subTasks } = useContext(SubTaskContext)
+    const { priority } = useContext(PriorityContext)
     const history = useHistory();
 
 
@@ -77,7 +79,7 @@ const Task = ({ props }) => {
                 <SubTaskList subTasks={subTasks} />
             </Col>
             <h3>Priority</h3>
-            <p>{task.priorityId}</p>
+            <p>{task.priority.name}</p>
 
 
 
