@@ -37,6 +37,7 @@ const Board = ({ props }) => {
     }, [])
 
 
+
     //taking the user to the board form 
     // we use history.push to take the user to the add task form 
     const goToTaskForm = () => {
@@ -60,6 +61,7 @@ const Board = ({ props }) => {
             </div>
 
             <h3 className="BoardName">{board.name} Board</h3>
+
             <div className='BoardContainer'>
                 <p className="AddTaskName">Add Task</p>
                 <AiOutlinePlusCircle

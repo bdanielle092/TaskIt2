@@ -37,14 +37,14 @@ const TaskEditForm = () => {
     //UseParams pulls in the id information from applications view 
     const { taskId } = useParams();
     //useHistory allows us to undo/redo and change or navigate to different pages
-    //ex history.push takes the user back to the board page there were on after editing the task 
+    //ex history.push takes the user back to the board page after the edit
     const history = useHistory();
 
-    //useEffects renders the page then come back and gets the taskId
-    useEffect(() => {
-        getTaskById(taskId)
+    // //useEffects renders the page then come back 
+    // useEffect(() => {
+    //     getTaskById(taskId)
 
-    }, [])
+    // }, [])
 
     //sets the task at the start
     useEffect(() => {
@@ -54,10 +54,15 @@ const TaskEditForm = () => {
 
     //updating editTask value. Updates editTask value on every key stroke for the input field
     const handleFieldChange = (evt) => {
+        //When changing a state object or array,
+        //always create a copy make changes, and then set state.
         //making a copy of editTask called newTask
         const newTask = { ...editTask };
-        //saying newTask id equals the value
+        //task is an object with properties.
+        //set the property to the new value
+        //key = value
         newTask[evt.target.id] = evt.target.value;
+        //updating the state
         //updating the newTask
         setEditTask(newTask);
     };

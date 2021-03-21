@@ -52,14 +52,13 @@ namespace TaskIt.Controllers
         public IActionResult Get(int id)
         {
 
-            var user = GetCurrentUserProfile();
-            var existingBoard = _boardRepo.GetById(id);
+            var currentUser = GetCurrentUserProfile();
+            var board = _boardRepo.GetById(id);
 
-            if (existingBoard.UserProfileId != user.Id) 
+            if (currentUser.Id != board.UserProfileId)
             {
                 return Unauthorized();
             }
-            var board = _boardRepo.GetById(id);
             if (board == null)
             {
                 return NotFound();

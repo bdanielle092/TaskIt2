@@ -18,3 +18,23 @@
     display: flex;
     justify-content: center;
 }
+
+@media only screen and (max-width: 640px) {
+    .BoardName {
+        display: flex;
+        justify-content: center;
+        color: #F4A261;
+    }
+    .BoardContainer {
+        display: flex;
+        justify-content: center;
+    }
+    .board-plus-icon,
+    .AddTaskName {
+        display: flex;
+    }
+    .listOfTasks {
+        display: flex;
+        justify-content: center;
+    }
+}

@@ -42,6 +42,7 @@ const TaskList = ({ tasks }) => {
                     <Row>
                         <Col xs="3">
                             <input
+                                className="taskChecked"
                                 type="checkbox"
                                 id={task.id}
                                 name="IsComplete"

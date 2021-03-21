@@ -1,26 +1,24 @@
 import React, { useEffect, useContext } from "react";
 import { TiArrowBack } from "react-icons/ti";
 import { useParams, Link, useHistory } from "react-router-dom";
-import { BoardContext } from "../../providers/BoardProvider";
 import { TaskContext } from "../../providers/TaskProvider";
 import SubTaskList from "../SubTask/SubTaskList";
 import { Col } from "reactstrap";
 import { SubTaskContext } from "../../providers/SubTaskProvider";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { PriorityContext } from "../../providers/PriorityProvider";
+
+
 
 
 
 //defining Task function passing the properties of task object
 const Task = ({ props }) => {
-    //bringing the methods from TaskContext by  using useContext
+    //bringing the method and task object from TaskContext by  using useContext
     const { getTaskById, task } = useContext(TaskContext)
-    //bring in the board object from BoardContext using useContext
-    const { board } = useContext(BoardContext)
     //using useParams to get the taskId from application views
     const { taskId, boardId } = useParams();
+    //bringing the methods from SubTaskContext by using useContext
     const { getSubTasks, subTasks } = useContext(SubTaskContext)
-    const { priority } = useContext(PriorityContext)
     const history = useHistory();
 
 
@@ -30,6 +28,8 @@ const Task = ({ props }) => {
     useEffect(() => {
         getTaskById(taskId)
         getSubTasks(taskId)
+
+
 
     }, [])
 
@@ -79,7 +79,8 @@ const Task = ({ props }) => {
                 <SubTaskList subTasks={subTasks} />
             </Col>
             <h3>Priority</h3>
-            <p>{task.priority.name}</p>
+            <p>{task.priorityId}</p>
+
 
 
 
