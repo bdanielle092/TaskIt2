@@ -23,8 +23,10 @@ const Task = ({ props }) => {
 
 
 
-    //useEffects render then come back to get the taskId 
+
+    //useEffect - you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
     //getTaskById is getting the task info for a single task 
+    //getSubTasks get the subtask on a task
     useEffect(() => {
         getTaskById(taskId)
         getSubTasks(taskId)
@@ -79,7 +81,7 @@ const Task = ({ props }) => {
                 <SubTaskList subTasks={subTasks} />
             </Col>
             <h3>Priority</h3>
-            <p>{task.priorityId}</p>
+            <p>{task.priority.name}</p>
 
 
 

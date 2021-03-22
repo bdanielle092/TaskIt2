@@ -5,20 +5,21 @@ import { TaskContext } from "../../providers/TaskProvider";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FiEdit } from "react-icons/fi";
 import { SubTaskContext } from "../../providers/SubTaskProvider";
+import "./subTask.css"
 
 
-
-
+//defining the SubTaskList and passing the subTask object
 const SubTaskList = ({ subTasks }) => {
 
     //bringing in the function getTaskById with useContext
     const { getTaskById, } = useContext(TaskContext)
+    //bring in the methods from SubTaskContext with useContext 
     const { SubTaskToggle } = useContext(SubTaskContext)
     //getting the task and board id from application  view
     const { taskId, boardId } = useParams();
 
 
-    //useEffect to get the TaskById to get the subtask 
+    //useEffect to get the TaskById to get the subtask on the task page
     useEffect(() => {
         getTaskById(taskId)
 
@@ -36,6 +37,10 @@ const SubTaskList = ({ subTasks }) => {
     }
     //return 1. mapping through the subtask 
     //2. Link to subtask.js
+    //3. checkbox to mark a task complete
+    //4. edit icon I use a link to take the user to the SubtaskEditForm
+    //5. delete icon I use a link to take the user to the delete form 
+    //exporting the subTaskList so it can be use in other components
     return (
         <div>
 
@@ -44,16 +49,18 @@ const SubTaskList = ({ subTasks }) => {
                     <Row>
 
                         <Col xs="3">
-                            <input
-                                type="checkbox"
-                                id={subTask.id}
-                                name="IsComplete"
-                                checked={subTask.isComplete}
-                                onChange={() => (Checked(subTask.id, subTask.isComplete))} />
-                            {subTask.name}
-                            {/* <Link to={`/board/${boardId}/task/${subTask.taskId}/subTask/${subTask.id}`}>
+                            <div className={subTask.isComplete ? "SubTask strike" : "SubTask"}>
+                                <input
+                                    type="checkbox"
+                                    id={subTask.id}
+                                    name="IsComplete"
+                                    checked={subTask.isComplete}
+                                    onChange={() => (Checked(subTask.id, subTask.isComplete))} />
+                                {subTask.name}
+                                {/* <Link to={`/board/${boardId}/task/${subTask.taskId}/subTask/${subTask.id}`}>
                                 <strong>{subTask.name}</strong>
                             </Link> */}
+                            </div>
                         </Col>
                         <Col xs="auto"></Col>
                         <Col xs="auto"></Col>

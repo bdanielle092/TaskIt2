@@ -14,14 +14,17 @@ import "./Header.css"
 
 
 const Header = () => {
+    //bringing in logout function from UserProfileContext using useContext
     const { logout } = useContext(UserProfileContext);
+    //getting the user
     const user = JSON.parse(localStorage.getItem("userProfile"));
+    //useHistory allows us to undo/redo and change or navigate to different pages
     const history = useHistory();
 
 
 
 
-    //allow the user to logout
+    //allow the user to logout and takes the user to the login page
     const logoutAndReturn = () => {
         return logout().then(() => {
             toast.dark("You are now logged out");
@@ -30,9 +33,9 @@ const Header = () => {
     };
 
 
-
-
-
+    //return 1.icon for the site
+    //2. logout button with onClick with the logout function 
+    //export the header page so it can be used on other components
     return (
         <div >
             <Navbar color="dark" dark expand="md">

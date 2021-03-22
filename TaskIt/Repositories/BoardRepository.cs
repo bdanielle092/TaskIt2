@@ -17,6 +17,7 @@ namespace TaskIt.Repositories
         //A constructor is a special method that is used to initialize objects
         public BoardRepository(ApplicationDbContext context)
         {
+            //_context - This private field is the instance of our DbContext that we use in our repository to interact with the database.
             _context = context;
         }
         //List is the type and its a list of Boards. GetAll is our method
@@ -39,6 +40,7 @@ namespace TaskIt.Repositories
                 .FirstOrDefault(b => b.Id == id);
         }
 
+        //List of Boards with UserProfile
         public List<Board> GetByUserProfileId(int id)
         {
             return _context.Board.Include(b => b.UserProfile)

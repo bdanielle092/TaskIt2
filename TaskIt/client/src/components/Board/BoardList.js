@@ -4,7 +4,7 @@ import { Col, Row } from "reactstrap";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
-//defining the method BoardList and passing in the board object
+//defining the method BoardList and passing in the board object  
 const BoardList = ({ boards }) => {
 
 

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-
+// models correspond to tables in the database
 namespace TaskIt.Models
 {
     public class SubTask
     {
+        //these are all properties of SubTask
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }

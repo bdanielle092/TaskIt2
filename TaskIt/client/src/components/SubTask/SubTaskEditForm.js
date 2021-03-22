@@ -15,9 +15,13 @@ import { SubTaskContext } from "../../providers/SubTaskProvider";
 
 
 const SubTaskEditForm = () => {
+    //bringing in methods and subtask object from subTaskContext using useContext
     const { getSubTaskById, updateSubTask, subTask } = useContext(SubTaskContext)
+    //bringing in task object from TaskContext using usContext 
     const { task } = useContext(TaskContext)
+    //bringing in board object from BoardContext using usContext 
     const { board } = useContext(BoardContext)
+    //setting and updating state
     const [editSubTask, setEditSubTask] = useState({
         id: subTask.id,
         name: "",
@@ -25,13 +29,18 @@ const SubTaskEditForm = () => {
         taskId: subTask.taskId,
         active: subTask.active
     })
-    const { subTaskId } = useParams();
+    //getting subTaskId from application views
+    // const { subTaskId } = useParams();
+    //useHistory allows us to undo/redo and change or navigate to different pages
+    //ex. history.push takes the user back to the task page
     const history = useHistory();
 
-    useEffect(() => {
-        getSubTaskById(subTaskId)
 
-    }, [])
+
+    // useEffect(() => {
+    //     getSubTaskById(subTaskId)
+
+    // }, [])
 
 
     //sets the subTask at the start
@@ -44,12 +53,15 @@ const SubTaskEditForm = () => {
     const handleFieldChange = (evt) => {
         //making a copy of editSubTask called newSubTask
         const newSubTask = { ...editSubTask };
+        //task is an object with properties.
+        //set the property to the new value using the  bracket notation
         //saying newSubTask id equals the value
         newSubTask[evt.target.id] = evt.target.value;
-        //updating the newSubTask
+        //updating state
         setEditSubTask(newSubTask);
     };
 
+    //function to update the SubTask to the database
     const editASubTask = (event) => {
         //stops the user from hitting the submit button multiply times
         event.preventDefault()
@@ -66,6 +78,10 @@ const SubTaskEditForm = () => {
         history.push(`/board/${board.id}/task/${task.id}`);
     };
 
+    //return 1. input fields for each subTask property. The name is the the only ones you can change the others are hidden
+    //2.submit button with an onClick that calls the editASubTask function
+    //3. cancel button that takes the user back to the task they were on. I used the Link to take then back to the task page.
+    //export the SubTaskEditForm to use in other components
     return (
         <div>
             <Card>

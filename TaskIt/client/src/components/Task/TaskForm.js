@@ -36,11 +36,14 @@ const TaskForm = () => {
     useEffect(() => {
 
         const createBoardId = () => {
+            //making a copy of task 
             const newTask = task
+            //then setting the boardId to current boardId
             newTask["boardId"] = boardId
-            //updating the newTask
+            //updating state
             setTask(newTask);
         }
+        //calling the function 
         createBoardId();
     }, [])
 
@@ -54,7 +57,7 @@ const TaskForm = () => {
         const newTask = { ...task };
         //newTask id equal value
         newTask[evt.target.id] = evt.target.value;
-        //paring the priorityId so I comes back as a number and not a string
+        //paring the priorityId so it comes back as a number and not a string
         newTask.priorityId = parseInt(newTask.priorityId)
         //updating the newTask
         setTask(newTask);
@@ -76,11 +79,12 @@ const TaskForm = () => {
 
     //function for createDate
     const createDate = () => {
+        //making a copy of task
         //updateTaskDate = task
         const updateTaskDate = task
         //then setting the date to current day and time
         updateTaskDate["dateTime"] = Date.now()
-        //then updating set task to the updated day and time in the database
+        //updating state
         setTask(updateTaskDate)
     }
 

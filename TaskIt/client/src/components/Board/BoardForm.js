@@ -19,14 +19,16 @@ const BoardForm = () => {
     //ex I am using history to go back to the home page after adding a board.
     const history = useHistory();
     //board is the state of the object and setBoard allow us to update the Board
-    //useState I am saying the state of the board is an empty string
+    //  Define the intial state of the form inputs with useState()
     const [board, setBoard] = useState({ name: "" });
     //isLoading is the object and we are setting the state to false
+    //wait for data before button is active
     const [isLoading] = useState(false);
 
 
 
-
+    //when a field changes, update state. The return will re-render and display based on the values in state
+    //Controlled component
     //this is updating the board and setting it as the new board 
     const handleSubmit = (evt) => {
         /* When changing a state object or array,

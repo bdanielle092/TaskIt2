@@ -9,8 +9,11 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 const Home = () => {
+    //getting the user
     const user = JSON.parse(localStorage.getItem("userProfile"));
+    //getting the method and board object from boardContext using useContext
     const { getAllBoards, boards } = useContext(BoardContext);
+    //useHistory allows us to undo/redo and change or navigate to different pages
     const history = useHistory();
 
 
@@ -27,6 +30,12 @@ const Home = () => {
         history.push("/BoardForm");
     }
 
+    // return 1. Welcome to the user
+    //2. tells the user to click on a board
+    //3. add a board
+    //4.back arrow
+    //5. list of Boards
+    //export the home page so it can be use on other components
     return (
 
         <div>

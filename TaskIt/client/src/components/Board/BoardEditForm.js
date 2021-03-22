@@ -17,7 +17,8 @@ const BoardEditForm = () => {
     //bringing in these methods from BoardContext by using useContext
     const { getBoardById, updateBoard, board } = useContext(BoardContext)
 
-    //editBoard hold on to state of board in this view. The only thing we are changing is the name which is why its an empty string
+    //editBoard hold on to state of board in this view. 
+    //  Define the intial state of the form inputs with useState()
     //setEditBoard will allow us to update the board
     const [editBoard, setEditBoard] = useState({
         id: "",

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-
+//models correspond to tables in the database
 namespace TaskIt.Models
 {
     public class Task
     {
+        //these are all properties of Task
         public int Id { get; set; }
+        //Annotations -are meant to augment or "decorate" the thing it goes on top of
+        // In our model class, we can use these to enforce some rules about our properties
+    
         [Required]
         public string Name { get; set; }
         public string Notes { get; set; }

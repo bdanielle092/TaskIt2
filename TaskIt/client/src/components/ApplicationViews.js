@@ -22,7 +22,9 @@ import DeleteSubTask from "./SubTask/DeleteSubTask";
 
 
 
-
+//bringing in the LogIn function from UserProfileContext
+//Routes for all the pages
+//logIn and logOut routes
 
 const ApplicationViews = () => {
     const { isLoggedIn } = useContext(UserProfileContext);

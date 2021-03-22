@@ -23,13 +23,16 @@ const Board = ({ props }) => {
     const history = useHistory();
 
 
-    //useEffect - you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
+
     //example is in the component it will come back an get the boardById and get the Task
     // useEffect(() => {
     //     getBoardById(boardId)
 
     // }, [])
 
+
+    //useEffect - you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
+    //getTasks get the task on a board
     useEffect(() => {
 
         getTasks(boardId);

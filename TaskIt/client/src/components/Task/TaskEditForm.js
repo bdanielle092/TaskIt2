@@ -59,7 +59,7 @@ const TaskEditForm = () => {
         //making a copy of editTask called newTask
         const newTask = { ...editTask };
         //task is an object with properties.
-        //set the property to the new value
+        //set the property to the new value using the  bracket notation
         //key = value
         newTask[evt.target.id] = evt.target.value;
         //updating the state

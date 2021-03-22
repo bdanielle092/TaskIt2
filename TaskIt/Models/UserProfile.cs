@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-
+//models correspond to tables in the database
 namespace TaskIt.Models
 {
     public class UserProfile
     {
-
+        //these are all properties of UserProfile
         public int Id { get; set; }
 
         [Required]
