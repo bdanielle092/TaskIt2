@@ -17,14 +17,13 @@ const BoardEditForm = () => {
     //bringing in these methods from BoardContext by using useContext
     const { getBoardById, updateBoard, board } = useContext(BoardContext)
 
-    //editBoard hold on to state of board in this view. 
-    //  Define the intial state of the form inputs with useState()
+    //editBoard hold on to state of board in this view. The only thing we are changing is the name which is why its an empty string
     //setEditBoard will allow us to update the board
     const [editBoard, setEditBoard] = useState({
-        id: "",
+        id: board.id,
         name: "",
-        userProfileId: "",
-        active: ""
+        userProfileId: board.userProfileId,
+        active: board.active
 
     });
     //UseParams pulls in the id information from applications view 
@@ -75,57 +74,62 @@ const BoardEditForm = () => {
     //3. cancel button that take the user back home. I use the Link to go back home
     //then we export the EditBoardForm so we can use it in other components
     return (
-        <>
-            <form>
-                <fieldset>
-                    <div>
-                        <input
-                            type="hidden"
-                            onChange={handleFieldChange}
-                            id={boardId}
-                            value={board.id}
-                        />
-                        <label htmlFor="name">Board Name</label>
+        <div>
+            <Card>
+                <CardBody>
+                    <Form>
+                        <FormGroup>
+                            <Input
+                                id={editBoard.id}
+                                onChange={handleFieldChange}
+                                type="hidden"
+                                value={editBoard.id}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="name">Board Name</Label>
+                            <Input
+                                id="name"
+                                type="text"
+                                name="name"
+                                value={editBoard.name}
+
+                                onChange={(evt) => {
+                                    evt.preventDefault()
+                                    handleFieldChange(evt)
+                                }}
+                            />
+                        </FormGroup>
                         <Input
-                            type="text"
-                            onChange={(evt) => {
-                                evt.preventDefault()
-                                handleFieldChange(evt)
-                            }}
-                            id="name"
-                            value={board.name}
-                        />
-
-
-                        <input
-                            type="hidden"
+                            id={editBoard.userProfileId}
                             onChange={handleFieldChange}
-                            id={board.userProfileId}
-                            value={board.userProfileId}
-                        />
-
-                        <input
                             type="hidden"
-                            onChange={handleFieldChange}
-                            id={board.active}
-                            value={board.active}
+                            value={editBoard.userProfileId}
                         />
-                        <div>
-                            <Button
+                        <Input
+                            id={editBoard.active}
+                            onChange={handleFieldChange}
+                            type="hidden"
+                            value={editBoard.active}
+                        />
+                        <FormGroup>
 
-                                color="warning "
-                                onClick={editABoard}
+                        </FormGroup>
 
-                            >
-                                SUBMIT
-                           </Button>
-                            <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
-                        </div>
 
-                    </div>
-                </fieldset>
-            </form>
-        </>
+                    </Form>
+                    <Button
+
+                        color="warning "
+                        onClick={editABoard}
+
+                    >
+                        SUBMIT
+                    </Button>
+                    <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
+                </CardBody>
+            </Card>
+        </div>
     );
 }
 export default BoardEditForm;

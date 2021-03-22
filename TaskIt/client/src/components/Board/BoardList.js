@@ -4,6 +4,7 @@ import { Col, Row } from "reactstrap";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
+
 //defining the method BoardList and passing in the board object  
 const BoardList = ({ boards }) => {
 
@@ -24,6 +25,7 @@ const BoardList = ({ boards }) => {
                             <Link to={`/board/${board.id}`}>
                                 <strong>{board.name}</strong>
                             </Link>
+
                         </Col>
                         <Col xs="auto"></Col>
                         <Col xs="auto"></Col>

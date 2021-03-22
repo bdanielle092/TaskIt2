@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Col } from "reactstrap";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { BoardContext } from "../../providers/BoardProvider";
@@ -12,7 +12,7 @@ import "./Board.css"
 const Board = ({ props }) => {
     //bringing in the methods from BoardProvider with useContext
     //we bringing in board object to get the properties of a board 
-    const { board } = useContext(BoardContext);
+    const { board, getBoardById } = useContext(BoardContext);
     //useParams allow us to get the boardId from application view
     const { boardId } = useParams();
     //bringing in methods from TaskProvider using TaskContext 
@@ -24,21 +24,16 @@ const Board = ({ props }) => {
 
 
 
-    //example is in the component it will come back an get the boardById and get the Task
-    // useEffect(() => {
-    //     getBoardById(boardId)
-
-    // }, [])
-
 
     //useEffect - you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
     //getTasks get the task on a board
+    //getBoardById is getting the board info for a single board
+    //this get the board name by getting board by Id
     useEffect(() => {
-
+        getBoardById(boardId)
         getTasks(boardId);
 
     }, [])
-
 
 
     //taking the user to the board form 
@@ -64,6 +59,7 @@ const Board = ({ props }) => {
             </div>
 
             <h3 className="BoardName">{board.name} Board</h3>
+            <p className="NumberOfTask">Total Tasks: {tasks.length}</p>
 
             <div className='BoardContainer'>
                 <p className="AddTaskName">Add Task</p>
@@ -75,7 +71,7 @@ const Board = ({ props }) => {
             </div>
 
 
-            <Col className="listOfTasks">
+            <Col className="listOfTasks" >
                 <TaskList tasks={tasks} />
             </Col>
 

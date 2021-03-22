@@ -81,7 +81,7 @@ const Task = ({ props }) => {
                 <SubTaskList subTasks={subTasks} />
             </Col>
             <h3>Priority</h3>
-            <p>{task.priority.name}</p>
+            <p>{task.priorityId}</p>
 
 
 

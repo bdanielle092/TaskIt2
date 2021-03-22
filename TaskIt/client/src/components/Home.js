@@ -8,6 +8,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 
+
 const Home = () => {
     //getting the user
     const user = JSON.parse(localStorage.getItem("userProfile"));
@@ -15,6 +16,7 @@ const Home = () => {
     const { getAllBoards, boards } = useContext(BoardContext);
     //useHistory allows us to undo/redo and change or navigate to different pages
     const history = useHistory();
+
 
 
     //useEffect is automatically invoked and since the dependency array is empty, it only runs the first time the component renders.You can include dependencies in the array to cause the useEffect to run additional times.
@@ -54,6 +56,7 @@ const Home = () => {
             <Col className="listOfBoards">
 
                 <BoardList boards={boards} />
+
             </Col>
         </div>
 
