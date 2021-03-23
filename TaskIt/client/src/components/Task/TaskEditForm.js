@@ -1,6 +1,6 @@
 
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import {
     Card,
@@ -75,10 +75,6 @@ const TaskEditForm = (props) => {
             .then((evt) => history.push(`/board/${boardId}`))
     }
 
-    //taking the user back to the board they are on 
-    const goBackToBoard = () => {
-        history.push(`/board/${boardId}`);
-    }
 
     return (
         <div>
@@ -130,9 +126,7 @@ const TaskEditForm = (props) => {
                                 updateTask(taskToEdit);
                             }}
                         > Submit</Button>
-                        <Button outline color="info" onClick={goBackToBoard}>
-                            Cancel
-                    </Button>
+                        <Link to={`/board/${boardId}`}><Button type="button" color="warning">Cancel</Button></Link>
                     </Form>
 
                 </CardBody>

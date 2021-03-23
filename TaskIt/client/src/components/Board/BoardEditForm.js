@@ -1,29 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams, Link } from "react-router-dom";
 import { UserProfileContext } from "../../providers/UserProfileProvider";
 import {
-    Form,
-    FormGroup,
     Card,
     CardBody,
+    Button,
+    Form,
+    FormGroup,
     Label,
     Input,
-    Button,
 } from "reactstrap";
 
-
-
-const BoardEditForm = () => {
+const BoardEditForm = (props) => {
     const { getToken } = useContext(UserProfileContext)
-    const { boardId } = useParams();
-    const history = useHistory();
-    //this is a empty string but when the page initially gets loaded then the string will be updated with the current name of the board
-    const [boardToEdit, setBoardToEdit] = useState("")
-    //this the existing board object that is gets loads at initial load too.
-    const [existingBoard, setExistingBoard] = useState({})
+    const { boardId } = useParams()
+    const history = useHistory()
+    const [boardToEdit, setBoardToEdit] = useState({
+        name: ""
+    })
 
-    // you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
-    //this is getting the current state of the board base off the id passed in the uri and setting existingBoard and boardToEdit
     useEffect(() => {
         getToken()
             .then((token) =>
@@ -31,24 +26,22 @@ const BoardEditForm = () => {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
+
                     },
                 })
             )
             .then((res) => res.json())
-            .then((board) => {
-                setExistingBoard(board)
-                setBoardToEdit(board["name"])
-            });
+            .then((board) => setBoardToEdit(board))
+    }, [])
 
-    }, []);
 
-    //updating boardToEdit value. Updates boardToEdit value on every key stroke for the input field
     const handleSubmit = (evt) => {
-        const newBoard = evt.target.value;
-        setBoardToEdit(newBoard);
-    };
+        const newBoard = { ...boardToEdit }
+        newBoard[evt.target.name] = evt.target.value
+        setBoardToEdit(newBoard)
+    }
 
-    // update function to update the database with the new state of the board name
+
     const updateBoard = (board) => {
         getToken()
             .then((token) =>
@@ -58,24 +51,11 @@ const BoardEditForm = () => {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify({
-                        //keeping all the existing keys the same except name
-                        "active": existingBoard["active"],
-                        "id": existingBoard["id"],
-                        "name": boardToEdit,
-                        "userProfile": existingBoard["userProfile"],
-                        "userProfileId": existingBoard["userProfileId"]
-                    }),
+                    body: JSON.stringify(board),
                 })
             )
             .then((evt) => history.push("/"));
     };
-
-
-    //taking the user back to the home page
-    const goBackHome = () => {
-        history.push(`/`);
-    }
 
     return (
         <div>
@@ -88,30 +68,22 @@ const BoardEditForm = () => {
                                 id="name"
                                 type="text"
                                 name="name"
-                                value={boardToEdit}
-                                onChange={(evt) => {
-                                    evt.preventDefault()
-                                    handleSubmit(evt)
-                                }}
-                            />
+                                value={boardToEdit.name}
+                                onChange={(evt) => handleSubmit(evt)} />
                         </FormGroup>
+                        <Button
+                            color="warning"
+                            onClick={(evt) => {
+                                evt.preventDefault()
+                                updateBoard(boardToEdit)
+                            }}>Submit</Button>
+                        <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
                     </Form>
-                    <Button
-
-                        color="warning "
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            updateBoard(boardToEdit);
-                        }}
-                    >
-                        SUBMIT
-                    </Button>
-                    <Button outline color="info" onClick={goBackHome}>
-                        Cancel
-              </Button>
                 </CardBody>
+
             </Card>
         </div>
-    );
+    )
+
 }
-export default BoardEditForm;
+export default BoardEditForm
