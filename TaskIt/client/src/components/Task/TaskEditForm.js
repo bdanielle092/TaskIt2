@@ -1,57 +1,49 @@
-import React, { useState, useEffect, useContext } from "react"
-import { useHistory, useParams } from "react-router-dom"
+
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 import {
-    Form,
-    FormGroup,
     Card,
     CardBody,
+    Button,
+    Form,
+    FormGroup,
     Label,
     Input,
-    Button,
 } from "reactstrap";
-import { UserProfileContext } from "../../providers/UserProfileProvider";
-// import { TaskContext } from "../../providers/TaskProvider";
 
-const TaskEditForm = () => {
+const TaskEditForm = (props) => {
     const { getToken } = useContext(UserProfileContext)
-    // const { task } = useContext(TaskContext)
     const { boardId, taskId } = useParams();
-    //this is a empty string but when the page initially gets loaded then the string will be updated with the current info of the task
-    const [taskToEdit, setTaskToEdit] = useState("")
-    // the existing task object that is gets loads ar initial load too.
-    const [existingTask, setExistingTask] = useState({})
-    const history = useHistory();
+    const history = useHistory()
+    const [taskToEdit, setTaskToEdit] = useState({
+        name: "",
+        notes: "",
+        priorityId: "",
 
-
-    // you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
-    //this is getting the current state of the task base off the id passed in the uri and setting existingTask and taskToEdit
+    })
+    console.log(taskToEdit, "test")
     useEffect(() => {
         getToken()
             .then((token) =>
-                fetch(`/api/board/${boardId}/task`, {
+                fetch(`/api/task/${taskId}`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
-                    },
+                    }
                 })
             )
             .then((res) => res.json())
-            .then((task) => {
-                setExistingTask(task)
-                setTaskToEdit(task["name"])
-                setTaskToEdit(task["notes"])
-                setTaskToEdit(task["priorityId"])
-            });
+            .then((task) => setTaskToEdit(task))
+    }, [])
 
-    }, []);
 
-    //updating taskToEdit value. Updates taskToEdit value on every key stroke for the input field
     const handleSubmit = (evt) => {
-        const newTask = evt.target.value;
-        setTaskToEdit(newTask);
-    };
+        const newTask = { ...taskToEdit }
+        newTask[evt.target.name] = evt.target.value;
+        setTaskToEdit(newTask)
+    }
 
-    // update function to update the database with the new state of the task info
     const updateTask = (task) => {
         getToken()
             .then((token) =>
@@ -61,28 +53,11 @@ const TaskEditForm = () => {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify({
-                        //keeping all the existing keys the same except name, notes, priorityId
-                        "active": existingTask["active"],
-                        "id": existingTask["id"],
-                        "name": taskToEdit,
-                        "notes": taskToEdit,
-                        "priorityId": taskToEdit,
-                        "boardId": existingTask["boardId"],
-                        "isComplete": existingTask["isComplete"]
-
-
-                    }),
+                    body: JSON.stringify(task)
                 })
             )
-            .then((evt) => history.push(`/board/${boardId}`));
-    };
-
-    //taking the user back to the board they are on 
-    const goBackToBoard = () => {
-        history.push(`/board/${boardId}`);
+            .then((evt) => history.push(`/board/${boardId}`))
     }
-
 
     return (
         <div>
@@ -95,27 +70,27 @@ const TaskEditForm = () => {
                                 id="name"
                                 type="text"
                                 name="name"
-                                defaultValue={taskToEdit}
-                                onChange={(evt) => {
-                                    evt.preventDefault()
-                                    handleSubmit(evt)
-                                }} />
+                                value={taskToEdit.name}
+                                onChange={(evt) => handleSubmit(evt)}
+                            />
+                        </FormGroup>
+                        <FormGroup>
                             <Label for="notes">Notes</Label>
                             <Input
                                 id="notes"
                                 type="text"
                                 name="notes"
-                                defaultValue={taskToEdit}
-                                onChange={(evt) => {
-                                    evt.preventDefault()
-                                    handleSubmit(evt)
-                                }} />
+                                value={taskToEdit.notes}
+                                onChange={(evt) => handleSubmit(evt)}
+                            />
+                        </FormGroup>
+                        <FormGroup>
                             <Label for="priority">Priority</Label>
 
                             <select
 
                                 id="priorityId"
-                                defaultValue={taskToEdit}
+                                value={taskToEdit.priorityId}
                                 onChange={(evt) => handleSubmit(evt)}>
                                 <option value="1">None</option>
                                 <option value="2">Low</option>
@@ -123,26 +98,21 @@ const TaskEditForm = () => {
                                 <option value="4">High</option>
 
                             </select>
-
                         </FormGroup>
+                        <Button
+                            color="warning"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                updateTask(taskToEdit);
+                            }}
+                        > Submit</Button>
                     </Form>
-                    <Button
 
-                        color="warning "
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            updateTask(taskToEdit);
-                        }}
-                    >
-                        SUBMIT
-                    </Button>
-                    <Button outline color="info" onClick={goBackToBoard}>
-                        Cancel
-                    </Button>
                 </CardBody>
+
             </Card>
         </div>
-
     )
 }
+
 export default TaskEditForm

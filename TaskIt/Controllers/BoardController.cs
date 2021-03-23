@@ -52,7 +52,6 @@ namespace TaskIt.Controllers
         public IActionResult Get(int id)
         {
 
-            
             var board = _boardRepo.GetById(id);
             if (board == null)
             {
