@@ -22,20 +22,36 @@ const TaskEditForm = (props) => {
         priorityId: "",
 
     })
-    console.log(taskToEdit, "test")
+    const [priorities, setPriorities] = useState([])
+
+
     useEffect(() => {
         getToken()
             .then((token) =>
-                fetch(`/api/task/${taskId}`, {
+                fetch(`/api/priority`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
-                    }
+                    },
                 })
             )
             .then((res) => res.json())
-            .then((task) => setTaskToEdit(task))
-    }, [])
+            .then((priority) => setPriorities(priority))
+            .then((_) => {
+                getToken()
+                    .then((token) =>
+                        fetch(`/api/task/${taskId}`, {
+                            method: "GET",
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        })
+                    )
+                    .then((res) => res.json())
+                    .then((task) => setTaskToEdit(task));
+            });
+    }, []);
+
 
 
     const handleSubmit = (evt) => {
@@ -57,6 +73,11 @@ const TaskEditForm = (props) => {
                 })
             )
             .then((evt) => history.push(`/board/${boardId}`))
+    }
+
+    //taking the user back to the board they are on 
+    const goBackToBoard = () => {
+        history.push(`/board/${boardId}`);
     }
 
     return (
@@ -85,20 +106,23 @@ const TaskEditForm = (props) => {
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="priority">Priority</Label>
-
-                            <select
-
-                                id="priorityId"
+                            <Label for="selectCategory">Priority</Label>
+                            <Input
+                                type="select"
+                                name="priorityId"
+                                id="priority"
                                 value={taskToEdit.priorityId}
-                                onChange={(evt) => handleSubmit(evt)}>
-                                <option value="1">None</option>
-                                <option value="2">Low</option>
-                                <option value="3">Medium</option>
-                                <option value="4">High</option>
-
-                            </select>
+                                onChange={(e) => handleSubmit(e)}
+                            >
+                                <option>Select Priority ...</option>
+                                {priorities.map((priority) => (
+                                    <option value={priority.id} key={priority.id}>
+                                        {priority.name}
+                                    </option>
+                                ))}
+                            </Input>
                         </FormGroup>
+
                         <Button
                             color="warning"
                             onClick={(e) => {
@@ -106,6 +130,9 @@ const TaskEditForm = (props) => {
                                 updateTask(taskToEdit);
                             }}
                         > Submit</Button>
+                        <Button outline color="info" onClick={goBackToBoard}>
+                            Cancel
+                    </Button>
                     </Form>
 
                 </CardBody>
