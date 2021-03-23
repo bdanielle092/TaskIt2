@@ -74,7 +74,7 @@ const SubTaskList = ({ subTasks }) => {
                             </Link>
                         </Col>
                         <Col xs="2" className='icons'>
-                            <Link to={`/DeleteSubTask/${subTask.id}`}>
+                            <Link to={`/board/${boardId}/task/${taskId}/DeleteSubTask/${subTask.id}`}>
                                 <RiDeleteBin5Line
                                     size="2em"
                                     color="#2A9d8F"

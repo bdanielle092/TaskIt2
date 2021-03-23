@@ -13,12 +13,15 @@ import {
 
 const SubTaskEditForm = (props) => {
     const { getToken } = useContext(UserProfileContext)
+    //useParams is the pathname that makes up the url of the browser
+    //returns an object of key/value pairs of URL parameters. Use it to access match. params of the current <Route>
     const { boardId, taskId, subTaskId } = useParams()
     const history = useHistory()
     const [subTaskToEdit, setSubTaskToEdit] = useState({
         name: ""
     })
 
+    //getting a single subTask
     useEffect(() => {
         getToken()
             .then((token) =>
@@ -30,7 +33,10 @@ const SubTaskEditForm = (props) => {
                     },
                 })
             )
+            //.then take that response and turn it into a json response 
             .then((res) => res.json())
+            //first subTask is a taco and its a param of the function 
+            //setting the state for a single subTask
             .then((subTask) => setSubTaskToEdit(subTask))
     }, [])
 
@@ -47,15 +53,21 @@ const SubTaskEditForm = (props) => {
                 fetch(`/api/subTask/${subTaskId}`, {
                     method: "PUT",
                     headers: {
+                        //what we are returning the data to the json database
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
+                    // javascript object is being turned to into a string. The SubTask is the javascript object
+                    //this allows json database to read the data 
                     body: JSON.stringify(subTask),
                 })
             )
             .then((evt) => history.push(`/board/${boardId}/task/${taskId}`));
     };
 
+    //return 1. inputs for name
+    //2. Submit Button 
+    //3. cancel Button warped in a Link to take the user back to the task
     return (
         <div>
             <Card>

@@ -51,7 +51,12 @@ namespace TaskIt.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-
+            //var user = _userProfileRepo.GetByUserProfileId(id);
+            //var boardUser = _boardRepo.GetByUserProfileId(id);
+            //if(user != boardUser)
+            //{
+            //    return Unauthorized();
+            //}
             var board = _boardRepo.GetById(id);
             if (board == null)
             {
@@ -61,13 +66,14 @@ namespace TaskIt.Controllers
             return Ok(board);
         }
 
-   
+    
 
         [HttpPost]
         public IActionResult Post(Board board)
         {
             var currentUser = GetCurrentUserProfile();
             board.UserProfileId = currentUser.Id;
+       
             _boardRepo.Add(board);
             return CreatedAtAction("Get", new { id = board.Id }, board);
         }
@@ -76,6 +82,7 @@ namespace TaskIt.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Board board  )
         {
+       
             
             if (id != board.Id)
             {

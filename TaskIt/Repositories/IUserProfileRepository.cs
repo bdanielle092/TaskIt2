@@ -7,5 +7,6 @@ namespace TaskIt.Repositories
     {
         void Add(UserProfile userProfile);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
+        UserProfile GetByUserProfileId(int id);
     }
 }

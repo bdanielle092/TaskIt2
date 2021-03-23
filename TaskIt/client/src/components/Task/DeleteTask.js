@@ -12,7 +12,7 @@ export default function DeleteTask() {
     //bringing in the board object 
     const { board } = useContext(BoardContext);
     //useParams allow us to get the boardId from ApplicationView
-    const { taskId } = useParams();
+    const { taskId, boardId } = useParams();
     //useHistory will allow us to undo/redo and change or navigate to other pages
     //ex. I use history to take the user back to the board page after deleting a task
     const history = useHistory();
@@ -45,7 +45,7 @@ export default function DeleteTask() {
                         onClick={deleteThisTask}>
                         Delete
                         </Button>
-                    <Link to={`/board/${board.id}`}><Button type="button" color="warning">Cancel</Button></Link>
+                    <Link to={`/board/${boardId}`}><Button type="button" color="warning">Cancel</Button></Link>
                 </div>
             </div>
 

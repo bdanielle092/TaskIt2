@@ -14,6 +14,8 @@ import {
 
 const TaskEditForm = (props) => {
     const { getToken } = useContext(UserProfileContext)
+    //useParams is the pathname that makes up the url of the browser
+    //returns an object of key/value pairs of URL parameters. Use it to access match. params of the current <Route>
     const { boardId, taskId } = useParams();
     const history = useHistory()
     const [taskToEdit, setTaskToEdit] = useState({
@@ -24,7 +26,7 @@ const TaskEditForm = (props) => {
     })
     const [priorities, setPriorities] = useState([])
 
-
+    //first I get the all the priorities then I get the a single task 
     useEffect(() => {
         getToken()
             .then((token) =>
@@ -35,9 +37,12 @@ const TaskEditForm = (props) => {
                     },
                 })
             )
+            //.then take that response and turn it into a json response 
             .then((res) => res.json())
+            //first priority is a taco and its a param of the function 
+            //setting the state for a single priority
             .then((priority) => setPriorities(priority))
-            .then((_) => {
+            .then(() => {
                 getToken()
                     .then((token) =>
                         fetch(`/api/task/${taskId}`, {
@@ -66,15 +71,20 @@ const TaskEditForm = (props) => {
                 fetch(`/api/task/${taskId}`, {
                     method: "PUT",
                     headers: {
+                        //what we are returning the data to the json database
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
+                    // javascript object is being turned to into a string. The task is the javascript object
+                    //this allows json database to read the data 
                     body: JSON.stringify(task)
                 })
             )
             .then((evt) => history.push(`/board/${boardId}`))
     }
-
+    //return 1. inputs for name, notes, and a select for priority
+    //2. Submit Button 
+    //3. cancel Button warped in a Link to take the user back to the board
 
     return (
         <div>

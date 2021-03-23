@@ -22,6 +22,14 @@ namespace TaskIt.Repositories
                 .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
         }
 
+        public UserProfile GetByUserProfileId(int id)
+        {
+            return _context.UserProfile
+                .FirstOrDefault(up => up.Id == id);
+        }
+
+
+
         public void Add(UserProfile userProfile)
         {
             _context.Add(userProfile);

@@ -13,7 +13,7 @@ export default function DeleteSubTask() {
     //bringing in the board object 
     const { board } = useContext(BoardContext)
     //useParams allow us to get the boardId from ApplicationView
-    const { subTaskId } = useParams();
+    const { subTaskId, boardId, taskId } = useParams();
     //useHistory will allow us to undo/redo and change or navigate to other pages
     //ex. I use history to take the user back to the task page after deleting a subTask
     const history = useHistory();
@@ -46,7 +46,7 @@ export default function DeleteSubTask() {
                         onClick={deleteThisSubTask}>
                         Delete
                     </Button>
-                    <Link to={`/board/${board.id}/task/${task.id}`}><Button type="button" color="warning">Cancel</Button></Link>
+                    <Link to={`/board/${boardId}/task/${taskId}`}><Button type="button" color="warning">Cancel</Button></Link>
                 </div>
             </div>
 

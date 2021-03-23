@@ -76,7 +76,7 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <TaskEditForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/DeleteTask/:taskId" exact>
+            <Route path="/board/:boardId/DeleteTask/:taskId" exact>
 
                 {isLoggedIn ? <DeleteTask /> : <Redirect to="/login" />}
             </Route>
@@ -100,7 +100,7 @@ const ApplicationViews = () => {
                 {isLoggedIn ? <SubTaskEditForm /> : <Redirect to="/login" />}
             </Route>
 
-            <Route path="/DeleteSubTask/:subTaskId" exact>
+            <Route path="/Board/:boardId/task/:taskId/DeleteSubTask/:subTaskId" exact>
 
                 {isLoggedIn ? <DeleteSubTask /> : <Redirect to="/login" />}
             </Route>

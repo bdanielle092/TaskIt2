@@ -29,6 +29,17 @@ namespace TaskIt.Controllers
             return Ok(_repo.GetByFirebaseUserId(firebaseUserId));
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var userProfile = _repo.GetByUserProfileId(id);
+                if(userProfile == null) 
+            {
+                return NotFound();
+            }
+            return Ok(userProfile);
+        }
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {

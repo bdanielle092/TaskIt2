@@ -13,12 +13,14 @@ import {
 
 const BoardEditForm = (props) => {
     const { getToken } = useContext(UserProfileContext)
+    //useParams is the pathname that makes up the url of the browser
+    //returns an object of key/value pairs of URL parameters. Use it to access match. params of the current <Route>
     const { boardId } = useParams()
     const history = useHistory()
     const [boardToEdit, setBoardToEdit] = useState({
         name: ""
     })
-
+    //getting a single board
     useEffect(() => {
         getToken()
             .then((token) =>
@@ -30,7 +32,10 @@ const BoardEditForm = (props) => {
                     },
                 })
             )
+            //.then take that response and turn it into a json response 
             .then((res) => res.json())
+            //first board is a taco and its a param of the function 
+            //setting the state for a single board
             .then((board) => setBoardToEdit(board))
     }, [])
 
@@ -48,15 +53,20 @@ const BoardEditForm = (props) => {
                 fetch(`/api/board/${boardId}`, {
                     method: "PUT",
                     headers: {
+                        //what we are returning the data to the json database
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
+                    // javascript object is being turned to into a string. The Board is the javascript object
+                    //this allows json database to read the data 
                     body: JSON.stringify(board),
                 })
             )
             .then((evt) => history.push("/"));
     };
-
+    //return 1. inputs for name
+    //2. Submit Button 
+    //3. cancel Button warped in a Link to take the user back to the home page
     return (
         <div>
             <Card>

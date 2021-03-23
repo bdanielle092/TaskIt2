@@ -82,7 +82,7 @@ const TaskList = ({ tasks }) => {
                         </Col>
 
                         <Col xs="2" className='icons'>
-                            <Link to={`/DeleteTask/${task.id}`}>
+                            <Link to={`/board/${boardId}/DeleteTask/${task.id}`}>
                                 <RiDeleteBin5Line
                                     size="2em"
                                     color="#2A9d8F"
