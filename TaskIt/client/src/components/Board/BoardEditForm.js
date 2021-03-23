@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory, useParams, Link } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { UserProfileContext } from "../../providers/UserProfileProvider";
 import {
     Form,
     FormGroup,
@@ -9,124 +10,105 @@ import {
     Input,
     Button,
 } from "reactstrap";
-import { BoardContext } from "../../providers/BoardProvider";
 
 
-//defining the BoardEditFrom method and not passing anything
+
 const BoardEditForm = () => {
-    //bringing in these methods from BoardContext by using useContext
-    const { getBoardById, updateBoard, board } = useContext(BoardContext)
-
-    //editBoard hold on to state of board in this view. The only thing we are changing is the name which is why its an empty string
-    //setEditBoard will allow us to update the board
-    const [editBoard, setEditBoard] = useState({
-        id: board.id,
-        name: "",
-        userProfileId: board.userProfileId,
-        active: board.active
-
-    });
-    //UseParams pulls in the id information from applications view 
+    const { getToken } = useContext(UserProfileContext)
     const { boardId } = useParams();
     const history = useHistory();
+    //this is a empty string but when the page initially gets loaded then the string will be updated with the current name of the board
+    const [boardToEdit, setBoardToEdit] = useState("")
+    //this the existing board object that is gets loads at initial load too.
+    const [existingBoard, setExistingBoard] = useState({})
 
-    //useEffects will come back to these methods after render
-
+    // you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing the DOM updates.
+    //this is getting the current state of the board base off the id passed in the uri and setting existingBoard and boardToEdit
     useEffect(() => {
-        getBoardById(boardId)
+        getToken()
+            .then((token) =>
+                fetch(`/api/board/${boardId}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+            )
+            .then((res) => res.json())
+            .then((board) => {
+                setExistingBoard(board)
+                setBoardToEdit(board["name"])
+            });
 
-    }, [])
-
-    //sets the board at the start
-    useEffect(() => {
-        setEditBoard(board)
     }, []);
 
-
-    //updating board value. Updates board value on every key stroke for the input field
-    const handleFieldChange = (evt) => {
-        //making a copy of editBoard and calling newBoard
-        const newBoard = { ...editBoard };
-        //the newBoard id equal the value
-        newBoard[evt.target.id] = evt.target.value;
-        //update the newBoard
-        setEditBoard(newBoard);
+    //updating boardToEdit value. Updates boardToEdit value on every key stroke for the input field
+    const handleSubmit = (evt) => {
+        const newBoard = evt.target.value;
+        setBoardToEdit(newBoard);
     };
 
     // update function to update the database with the new state of the board name
-    const editABoard = (event) => {
-        //this stops the user from pushing the button multiple times
-        event.preventDefault()
-        //update method key/value 
-        updateBoard({
-            id: editBoard.id,
-            name: editBoard.name,
-            userProfileId: editBoard.userProfileId,
-            active: editBoard.active
-
-        })
-        //history.push takes the user back to the home page
-        history.push("/");
+    const updateBoard = (board) => {
+        getToken()
+            .then((token) =>
+                fetch(`/api/board/${boardId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        //keeping all the existing keys the same except name
+                        "active": existingBoard["active"],
+                        "id": existingBoard["id"],
+                        "name": boardToEdit,
+                        "userProfile": existingBoard["userProfile"],
+                        "userProfileId": existingBoard["userProfileId"]
+                    }),
+                })
+            )
+            .then((evt) => history.push("/"));
     };
 
-    //return 1.I have input fields for each property for board but I am only updating the board name. The other inputs are hidden
-    //2. submit button with an onclick that passing the editABoard method then submit. 
-    //3. cancel button that take the user back home. I use the Link to go back home
-    //then we export the EditBoardForm so we can use it in other components
+
+    //taking the user back to the home page
+    const goBackHome = () => {
+        history.push(`/`);
+    }
+
     return (
         <div>
             <Card>
                 <CardBody>
                     <Form>
                         <FormGroup>
-                            <Input
-                                id={editBoard.id}
-                                onChange={handleFieldChange}
-                                type="hidden"
-                                value={editBoard.id}
-                            />
-                        </FormGroup>
-                        <FormGroup>
                             <Label for="name">Board Name</Label>
                             <Input
                                 id="name"
                                 type="text"
                                 name="name"
-                                value={editBoard.name}
-
+                                value={boardToEdit}
                                 onChange={(evt) => {
                                     evt.preventDefault()
-                                    handleFieldChange(evt)
+                                    handleSubmit(evt)
                                 }}
                             />
                         </FormGroup>
-                        <Input
-                            id={editBoard.userProfileId}
-                            onChange={handleFieldChange}
-                            type="hidden"
-                            value={editBoard.userProfileId}
-                        />
-                        <Input
-                            id={editBoard.active}
-                            onChange={handleFieldChange}
-                            type="hidden"
-                            value={editBoard.active}
-                        />
-                        <FormGroup>
-
-                        </FormGroup>
-
-
                     </Form>
                     <Button
 
                         color="warning "
-                        onClick={editABoard}
-
+                        onClick={(evt) => {
+                            evt.preventDefault();
+                            updateBoard(boardToEdit);
+                        }}
                     >
                         SUBMIT
                     </Button>
-                    <Link to={`/`}><Button type="button" color="warning">Cancel</Button></Link>
+                    <Button outline color="info" onClick={goBackHome}>
+                        Cancel
+              </Button>
                 </CardBody>
             </Card>
         </div>

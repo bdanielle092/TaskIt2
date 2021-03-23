@@ -6,6 +6,7 @@ import { UserProfileContext } from "./UserProfileProvider";
 //the context is empty and waiting to be filled
 export const TaskContext = createContext();
 
+
 //defining the data provider components which will allow other components to use the data in context
 export const TaskProvider = (props) => {
     const { getToken } = useContext(UserProfileContext);
@@ -21,6 +22,7 @@ export const TaskProvider = (props) => {
 
 
 
+
     //fetch calls
 
     //gets the tasks on a board
@@ -30,11 +32,13 @@ export const TaskProvider = (props) => {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
+                    //what we are returning the data to the json database
                     "Content-Type": "application/json"
                 },
                 //have a response and translate to json
             }).then(res => res.json())
-
+                //.then setting to state to show what the data base shows. This shows what tasks I have 
+                //if you add or delete it will reset the tasks so you see what is on the home page
                 .then(setTasks));
 
     };
@@ -47,9 +51,12 @@ export const TaskProvider = (props) => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
+                //have a response and translate to json
+                //.then take that response and turn it into a json response 
+                // I am taking the response and formatting it so json can read it
             })).then((resp) => resp.json())
             .then(setTask)
-        //  => { setTask(task) });
+
 
     };
 
@@ -62,10 +69,11 @@ export const TaskProvider = (props) => {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    //what we are going to return 
+                    //what we are returning the data to the json database
                     "Content-Type": "application/json"
                 },
-                // js object is being turned to into a string. The board is the js object 
+                // javascript object is being turned to into a string. The task is the javascript object
+                //this allows json database to read the data 
                 body: JSON.stringify(task)
             }))
     };
@@ -121,3 +129,4 @@ export const TaskProvider = (props) => {
         </TaskContext.Provider>
     );
 }
+

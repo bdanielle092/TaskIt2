@@ -55,7 +55,8 @@ const TaskForm = () => {
         evt.preventDefault()
         //making a copy of task called newTask
         const newTask = { ...task };
-        //newTask id equal value
+        //task is an object with properties.
+        //set the property to the new value using the  bracket notation
         newTask[evt.target.id] = evt.target.value;
         //paring the priorityId so it comes back as a number and not a string
         newTask.priorityId = parseInt(newTask.priorityId)
@@ -80,7 +81,6 @@ const TaskForm = () => {
     //function for createDate
     const createDate = () => {
         //making a copy of task
-        //updateTaskDate = task
         const updateTaskDate = task
         //then setting the date to current day and time
         updateTaskDate["dateTime"] = Date.now()

@@ -21,6 +21,7 @@ export default function DeleteBoard() {
 
     //deleteThisBoard function. We delete the board and push it back home.
     const deleteThisBoard = () => {
+        console.log(board)
         deleteBoard(boardId)
         history.push("/")
     }

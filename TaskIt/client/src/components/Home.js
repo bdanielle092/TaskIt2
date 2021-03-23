@@ -33,6 +33,8 @@ const Home = () => {
     }
 
     // return 1. Welcome to the user
+    //Split a string into an array of substrings and [0] will get the first item in the array
+    // I only wanted to show the users first name 
     //2. tells the user to click on a board
     //3. add a board
     //4.back arrow

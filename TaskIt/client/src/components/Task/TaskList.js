@@ -11,6 +11,7 @@ import "./task.css"
 
 //defining the method TaskList and passing in the tasks object
 const TaskList = ({ tasks }) => {
+
     //get the method from BoardContext using useContext
     // const { getBoardById } = useContext(BoardContext);
     //get the method from TaskContext using useContext
@@ -48,6 +49,7 @@ const TaskList = ({ tasks }) => {
     //4. edit icon with link to editForm
     //5. delete icon with link to deleteForm 
     //export the taskList so it can be use in other components
+
     return (
         <div>
             {tasks.map((task) => (

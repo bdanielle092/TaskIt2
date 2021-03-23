@@ -19,6 +19,7 @@ const Task = ({ props }) => {
     const { taskId, boardId } = useParams();
     //bringing the methods from SubTaskContext by using useContext
     const { getSubTasks, subTasks } = useContext(SubTaskContext)
+    //useHistory allows us to undo/redo and change or navigate to different pages
     const history = useHistory();
 
 

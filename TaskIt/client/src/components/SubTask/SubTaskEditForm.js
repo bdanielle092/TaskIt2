@@ -21,6 +21,7 @@ const SubTaskEditForm = () => {
     const { task } = useContext(TaskContext)
     //bringing in board object from BoardContext using usContext 
     const { board } = useContext(BoardContext)
+    const { subTaskId } = useParams()
     //setting and updating state
     const [editSubTask, setEditSubTask] = useState({
         id: subTask.id,
@@ -37,10 +38,10 @@ const SubTaskEditForm = () => {
 
 
 
-    // useEffect(() => {
-    //     getSubTaskById(subTaskId)
+    useEffect(() => {
+        getSubTaskById(subTaskId)
 
-    // }, [])
+    }, [])
 
 
     //sets the subTask at the start
